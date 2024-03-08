@@ -1,4 +1,4 @@
-{% extends 'rango/base.html' %}
+{% extends 'gregssnorkelscores/base.html' %}
 {% load staticfiles %}
 
 {% block title_block %}
@@ -6,13 +6,13 @@
 {% endblock %}
 
 {% block body_block %}
-<h1>Register for Rango</h1>
+<h1>Register for Gregs Snorkel Scores!</h1>
 {% if registered %}
-    Rango says: <strong>thank you for registering!</strong>
-    <a href="/rango/">Return to the homepage.</a>
+    <strong>Thank you for registering!</strong>
+    <!-- <a href="/rango/">Return to the homepage.</a> -->
 {% else %}
-    Rango says: <strong>register here!</strong><br />
-    <form id="user_form" method="post" action="{% url 'rango:register' %}" enctype="multipart/form-data">
+    <strong>Register here!</strong><br />
+    <form id="user_form" method="post" action="{% url 'gregssnorkelscores:register' %}" enctype="multipart/form-data">
 
         {% csrf_token %}
         {{ user_form.as_p }}
