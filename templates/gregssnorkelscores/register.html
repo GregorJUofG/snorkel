@@ -9,7 +9,7 @@
 <h1>Register for Gregs Snorkel Scores!</h1>
 {% if registered %}
     <strong>Thank you for registering!</strong>
-    <!-- <a href="/rango/">Return to the homepage.</a> -->
+    <a href="/gregssnorkelscores/">Return to the homepage.</a>
 {% else %}
     <strong>Register here!</strong><br />
     <form id="user_form" method="post" action="{% url 'gregssnorkelscores:register' %}" enctype="multipart/form-data">

@@ -7,4 +7,11 @@
 
 {% block body_block %}
     <p>Placeholder for when a user clicks somewhere on zeta's map they git a list of spots here!</p>
+    <a href="{% url 'gregssnorkelscores:add_spot' %}">Don't see your spot? add it here!</a>
+    <ul>
+        <li><a href="{% url 'gregssnorkelscores:spot.html}">Stonehaven</li>
+        <li><a href="{% url 'gregssnorkelscores:spot.html}"></a>Edinburgh</li>
+        <li><a href="{% url 'gregssnorkelscores:spot.html}"></a>Oban</li>
+        <li><a href="{% url 'gregssnorkelscores:spot.html}"></a>Aviemore</li>
+    </ul>
 {% endblock %}
