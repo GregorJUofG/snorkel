@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 class Location(models.Model):
     # we will want location names to be unique 
     name = models.CharField(max_length=128, unique=True)
@@ -13,10 +12,8 @@ class Location(models.Model):
     # snorkel spots = ???
     # author = ??
 
-
     def __str__(self):
         return self.name
-
 
 class Spots(models.Model):
     ## think this is right
@@ -32,3 +29,12 @@ class Spots(models.Model):
     reviewsAmount = models.IntegerField()
     # reviews = ??
     # author = ??
+
+class UserProfile(models.Model):
+    # This line is required. Links UserProfile to a User model instance. 
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # The additional attributes we wish to include.
+    website = models.URLField(blank=True)
+    picture = models.ImageField(upload_to='profile_images', blank=True)
+    def __str__(self):
+        return self.user.username
