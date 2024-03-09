@@ -1,30 +1,34 @@
 from django.db import models
 
-class Category(models.Model):
+class Location(models.Model):
+    # we will want location names to be unique 
     name = models.CharField(max_length=128, unique=True)
-    views = models.IntegerField(default = 0)
-    likes = models.IntegerField(default = 0)
-    slug = models.SlugField(unique=True)
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name) 
-        super(Category, self).save(*args, **kwargs)
-    class Meta:
-        verbose_name_plural = 'Categories'
+    # copied from user model
+    picture = models.ImageField(upload_to='location_images', blank=True)
+    about = models.CharField(max_length=500)
+    favourites = models.IntegerField()
+    reviewsAmount = models.IntegerField()
+    reviewsAverage = models.FloatField()
+    # snorkel spots = ???
+    # author = ??
 
     def __str__(self):
         return self.name
 
-class Page(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    title = models.CharField(max_length=128)
+class Spots(models.Model):
+    ## think this is right
+    ## cpoied how category and page are connected
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    # will also want names here to be unique
+    name = models.CharField(max_length=128, unique=True)
+    # copied from django
     url = models.URLField()
-    views = models.IntegerField(default=0)
-
-    class Meta:
-        verbose_name_plural = 'categories'
-
-    def __str__(self):
-        return self.title
+    # copied from user model
+    picture = models.ImageField(upload_to='spot_images', blank=True)
+    postcode = models.CharField(max_length=8)
+    reviewsAmount = models.IntegerField()
+    # reviews = ??
+    # author = ??
 
 class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance. 
