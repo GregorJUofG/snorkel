@@ -41,6 +41,18 @@ def add_location(request):
     response = render(request, 'gregssnorkelscores/add_location.html')
     return response
 
+def add_spot(request):
+    visitor_cookie_handler(request)
+
+    response = render(request, 'gregssnorkelscores/add_spot.html')
+    return response
+
+def spot(request):
+    visitor_cookie_handler(request)
+
+    response = render(request, 'gregssnorkelscores/spot.html')
+    return response
+
 
 def write_review(request):
     visitor_cookie_handler(request)
@@ -52,6 +64,12 @@ def profile(request):
     visitor_cookie_handler(request)
 
     response = render(request, 'gregssnorkelscores/profile.html')
+    return response
+
+def favourites(request):
+    visitor_cookie_handler(request)
+
+    response = render(request, 'gregssnorkelscores/favourites.html')
     return response
 
 def register(request):
