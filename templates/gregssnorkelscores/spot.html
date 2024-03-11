@@ -1,0 +1,12 @@
+{% extends 'gregssnorkelscores/base.html' %}
+
+{% block title_block %}
+    Spot name
+{% endblock %}
+
+{% block body_block %}
+    <h1>THIS IS WHERE A SNORKEL SPOT WILL GO!!!</h1>
+    <h2>Tashs Review</h2>
+    <p>ten out of ten, best place ever!!</p>
+    <a href="{% url 'gregssnorkelscores:write_review' %}">Write your own review!</a>
+{% endblock %}
