@@ -20,28 +20,42 @@ class Location(models.Model):
     favourites = models.IntegerField()
     reviewsAmount = models.IntegerField()
     reviewsAverage = models.FloatField()
-    # snorkel spots = ???
-    # author = ??
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE)
+    pub_date = models.DateTimeField(auto_now_add=True, verbose_name='Publication Date')
+    # doesnt hold snorkel spots here 
+    # just like rango catagory doesnt hold page
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Location, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = 'Locations'
 
     def __str__(self):
         return self.name
 
 
 class Spot(models.Model):
-    ## think this is right
-    ## cpoied how category and page are connected
+    ## cpoied how rango category and page are connected
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
-    # will also want names here to be unique
-    name = models.CharField(max_length=128, unique=True)
-    # copied from django
-    url = models.URLField()
+    name = models.CharField(max_length=128, unique=True) # want names here to be unique?
+    url = models.URLField() # copied from django
     # copied from user model
     picture = models.ImageField(upload_to='spot_images', blank=True)
     postcode = models.CharField(max_length=8)
     reviewsAmount = models.IntegerField()
-    # reviews = ??
-    # author = ??
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE)
+    pub_date = models.DateTimeField(auto_now_add=True, verbose_name='Publication Date')
+    # not going to hold reviews here just like how
+    # location doesnt hold spot only other way round
+
+    class Meta:
+        verbose_name_plural = 'Spots'
+        ordering = ['-pub_date']
+
+    def __str__(self):
+        return self.name
 
 
 class Review(models.Model):
@@ -55,23 +69,25 @@ class Review(models.Model):
         (1, '1'),
     )
 
+    # review has a title?
+    title = models.CharField(max_length=25)
     spot = models.ForeignKey(Spot, on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name='Publication Date')
     comment = models.TextField(max_length=500)
     value = models.IntegerField(choices=RATING_CHOICES, default=1)
 
     def __str__(self):
-        return '{0}/{1} - {2}'.format(self.book.title, self.user.username, self.value)
+        return self.title
     
     class Meta:
         verbose_name = "Spot Review"
-        verbose_name_plural = "Spot Reviews" #wont need?
+        verbose_name_plural = "Spot Reviews"
         ordering = ['-pub_date']
 
 
 
-# Create your models here.
+# copied rango for user
 class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -79,7 +95,10 @@ class UserProfile(models.Model):
     # The additional attributes we wish to include.
     website = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
-    
+    # need to add experience level
+    # need to add favourited places
+
+    ## will not add places created here the place will hold it instead
     
     def __str__(self):
         return self.user.username

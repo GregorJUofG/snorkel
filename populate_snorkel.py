@@ -4,14 +4,8 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
 
 import django
 django.setup()
-from gregssnorkelscores.models import UserProfile, Location, Spots
+from gregssnorkelscores.models import UserProfile, Location, Spot, Review
 import Experience
-
-
-#######################
-### WEBSITE FOR REVIEWS???
-### https://django-rated-reviews.readthedocs.io/en/latest/quickstart.html
-#######################
 
 def populate():
 
@@ -23,7 +17,6 @@ def populate():
          'experience': Experience.EXPERT,
          'logged in?': False,
          'link': 'blah.com',
-         'places created': ['here', 'there', 'everywhere'],
          'favourited places': ['here']
          },
         {'name': 'Tash',
@@ -38,7 +31,7 @@ def populate():
                             'about': 'lots of info here',
                             'total reviews': [5, 1.6], 
                             #num of reviews and average rating from them
-                            'snorkel spots': ['place', 'other place'],
+                            'pub_date': '12/06/22',
                             },
         'South Ayrshire':{'author': 'tashlikessnorkeling' 
                          },
@@ -50,8 +43,17 @@ def populate():
          'pictures': '',
          'postcode': 'AB39 2BD',
          'reviews num': 5,
-         'reviews':{'words':2, 'different words':1}
+         'pub_date': '12/06/22',
          # reviews can each be liked individually
+         }
+    ]
+
+    reviews = [
+        {'spot': 'stonehaven beach',
+         'author': 'greglikessnorkeling',
+         'pub_date': '12/06/22',
+         'comment': 'really nice place to snorkel :)',
+         'rating': '5',
          }
     ]
 
@@ -77,18 +79,23 @@ def add_location(name, author, picture, about):
     return l
 
 def add_spot(name, author, picture, postcode, location):
-    s = Spots.objects.get_or_create(name=name)[0]
+    s = Spot.objects.get_or_create(name=name)[0]
     s.author = author
     s.location = location
     s.picture = picture
     s.postcode = postcode
     s.reviewsAmount = 0
-    s.reviews = []
+    # pub date will set itself?
     return s
 
-def add_review(rating, author, dateTime, content):
-    ## later 
-    return
+def add_review(title, spot, author, comment, value):
+    r = Review.objects.get_or_create(title=title)[0]
+    r.author = author
+    r.spot = spot
+    r.comment = comment
+    r.value = value
+    r.spot.reviewsAmount += 1 #????? how???
+    return r
 
 if __name__ == '__main__':
     print('Starting Snorkel population script')
