@@ -14,7 +14,7 @@ class Location(models.Model):
     # we will want location names to be unique 
     name = models.CharField(max_length=128, unique=True)
     # copied from user model
-    picture = models.ImageField(upload_to='location_images', blank=True)
+    pictures = models.ImageField(upload_to='location_images', blank=True)
     about = models.CharField(max_length=500)
     favourites = models.IntegerField()
     reviewsAmount = models.IntegerField()
@@ -73,6 +73,7 @@ class Review(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name='Publication Date')
     comment = models.TextField(max_length=500)
     value = models.IntegerField(choices=RATING_CHOICES, default=1)
+    likes = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -94,16 +95,10 @@ class UserProfile(models.Model):
     picture = models.ImageField(upload_to='profile_images', blank=True)
     # need to add experience level
     # need to add favourited places
-    experience = Experience.BEGINNER.value
+    experience = models.CharField(max_length=12)
 
     ## will not add places created here the place will hold it instead
     
     def __str__(self):
         return self.user.username
     
-class Experience(Enum):
-    BEGINNER = 1
-    INTERMEDIATE = 2
-    EXPERT = 3
-
-Experience = Enum('Experience', ['BEGINNER', 'INTERMEDIATE', 'EXPERT'])

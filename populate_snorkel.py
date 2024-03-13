@@ -5,32 +5,31 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
 import django
 django.setup()
 from gregssnorkelscores.models import UserProfile, Location, Spot, Review
-import Experience
 
 def populate():
 
-    users = [ 
-        {'name': 'Greg',
-         'username': 'greglikessnorkeling',
-         'password': 'foobarbaz',
-         'profile pic': '',
-         'experience': Experience.EXPERT,
-         'logged in?': False,
-         'link': 'blah.com',
-         'favourited places': ['here']
-         },
-        {'name': 'Tash',
-         'username': 'tashlikessnorkeling',
-         'other info':'info'
-         }
-    ]
+    # users = [ 
+    #     {'name': 'Greg',
+    #      'username': 'greglikessnorkeling',
+    #      'password': 'foobarbaz',
+    #      'profile pic': '',
+    #      'experience': 'EXPERT',
+    #      'logged in?': False,
+    #      'link': 'blah.com',
+    #      'favourited spots': ['here']
+    #      },
+    #     {'name': 'Tash',
+    #      'username': 'tashlikessnorkeling',
+    #      'other info':'info'
+    #      }
+    # ]
 
     locations = {
         'City of Aberdeen':{'author': 'greglikessnorkeling',
                             'pictures': '','favourites': 9,
                             'about': 'lots of info here',
-                            'total reviews': [5, 1.6], 
-                            #num of reviews and average rating from them
+                            'reviewAmount':5,
+                            'reviewsAverage':4, 
                             'pub_date': '12/06/22',
                             },
         'South Ayrshire':{'author': 'tashlikessnorkeling' 
@@ -39,21 +38,24 @@ def populate():
 
     spots = [
         {'name': 'stonehaven beach',
+         'location':'City of Aberdeen',
          'author': 'greglikessnorkeling',
          'pictures': '',
          'postcode': 'AB39 2BD',
-         'reviews num': 5,
+         'reviewsAmount': 5,
          'pub_date': '12/06/22',
          # reviews can each be liked individually
          }
     ]
 
     reviews = [
-        {'spot': 'stonehaven beach',
+        {'title': 'Amazing beach!',
+         'spot': 'stonehaven beach',
          'author': 'greglikessnorkeling',
          'pub_date': '12/06/22',
          'comment': 'really nice place to snorkel :)',
-         'rating': '5',
+         'rating': 5,
+         'likes':7,
          }
     ]
 
@@ -62,7 +64,6 @@ def populate():
         l = add_location(loc)
         for sList in loc_data['snorkel spots']: # s is a list of snorkel spots
             for spot in sList: # each spot in the spot list
-                #### idk how to do this
                 add_spot(spot)
 
 
@@ -72,7 +73,7 @@ def add_location(name, author, picture, about):
     l = Location.objects.get_or_create(name=name)[0]
     l.author = author
     l.about = about
-    l.picture = picture
+    l.pictures = picture
     # when first create location there are no reviews
     l.reviewsAmount = 0 
     l.reviewsAverage = 0
@@ -94,7 +95,7 @@ def add_review(title, spot, author, comment, value):
     r.spot = spot
     r.comment = comment
     r.value = value
-    r.spot.reviewsAmount += 1 #????? how???
+    r.spot.reviewsAmount += 1
     r.spot.location.reviewsAmount += 1
     r.spot.location.reviewsAverage = ((r.spot.location.reviewsAverage*r.spot.location.reviewsAmount)+r.value)/r.spot.location.reviewsAmount
     return r
