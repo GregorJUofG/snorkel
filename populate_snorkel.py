@@ -26,18 +26,25 @@ def populate():
 
     locations = {
         'City of Aberdeen':{'author': 'greglikessnorkeling',
-                            'pictures': '','favourites': 9,
+                            'pictures': '',
+                            'favourites': 9,
                             'about': 'lots of info here',
-                            'reviewAmount':5,
-                            'reviewsAverage':4, 
+                            'reviewAmount':8,
+                            'reviewsAverage':4.2, 
                             'pub_date': '12/06/22',
                             },
-        'South Ayrshire':{'author': 'tashlikessnorkeling' 
+        'South Ayrshire':{'author': 'tashlikessnorkeling',
+                          'pictures':'',
+                          'favourites': 7,
+                          'about': 'infoooo',
+                          'reviewsAmount': 8,
+                          'reviewsAverage': 3.6,
+                          'pub_date': '02/06/21',
                          },
     }
 
     spots = [
-        {'name': 'stonehaven beach',
+        {'name': 'Stonehaven beach',
          'location':'City of Aberdeen',
          'author': 'greglikessnorkeling',
          'pictures': '',
@@ -45,7 +52,32 @@ def populate():
          'reviewsAmount': 5,
          'pub_date': '12/06/22',
          # reviews can each be liked individually
-         }
+         },
+         {'name': 'Portlethen',
+          'location':'City of Aberdeen',
+          'author':'greglikessnorkeling',
+          'pictures': '',
+          'postcode': 'AB12 4NR',
+          'reviewsAmount': 3,
+          'pub_date': '22/08/23',
+         },
+         {'name': 'Ayr beach',
+          'location':'South Ayrshire',
+          'author': 'tashlikessnorkeling',
+          'pictures': '',
+          'postcode': 'KA7 4AD',
+          'reviewsAmount': 6,
+          'pub_date': '01/07/23'
+         },
+         {'name': 'Prestwick beach',
+          'location':'South Ayrshire',
+          'author': 'tashlikessnorkeling',
+          'pictures': '',
+          'postcode': 'KA9 1QL',
+          'reviewsAmount': 2,
+          'pub_date': '02/06/21'
+         },
+
     ]
 
     reviews = [
