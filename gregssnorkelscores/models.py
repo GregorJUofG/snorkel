@@ -46,7 +46,7 @@ class Spot(models.Model):
         max_length=128, unique=True
     )  # want names here to be unique?
     url = models.URLField()
-    picture = models.ImageField(upload_to="spot_images", blank=True)
+    pictures = models.ImageField(upload_to="spot_images", blank=True)
     postcode = models.CharField(max_length=8)
     reviewsAmount = models.IntegerField()
     author = models.ForeignKey(
@@ -102,7 +102,7 @@ class UserProfile(models.Model):
 
     # The additional attributes we wish to include.
     website = models.URLField(blank=True)
-    picture = models.ImageField(upload_to="profile_images", blank=True)
+    pictures = models.ImageField(upload_to="profile_images", blank=True)
     # need to add experience level
     # need to add favourited places
     experience = models.CharField(max_length=12)
