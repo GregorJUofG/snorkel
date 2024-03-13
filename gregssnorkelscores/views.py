@@ -5,6 +5,9 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+from django.contrib.auth import authenticate, login as auth_login
+from .forms import UserForm, UserProfileForm
+from .models import UserProfile
 
 
 def home(request):
@@ -73,12 +76,38 @@ def favourites(request):
     return response
 
 def register(request):
-    
-    visitor_cookie_handler(request)
+    registered = False
 
-    response = render(request, 'gregssnorkelscores/register.html')
-    return response
+    if request.method == 'POST':
+        user_form = UserForm(request.POST)
+        profile_form = UserProfileForm(request.POST, request.FILES)
+        
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save()
+            user.set_password(user_form.cleaned_data['password'])
+            user.save()
+            
 
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            if 'picture' in request.FILES:
+                profile.picture = request.FILES['picture']
+            profile.save()
+
+            registered = True
+            auth_login(request, user)
+            return redirect('home')
+        else:
+            print(user_form.errors, profile_form.errors)
+    else:
+        user_form = UserForm()
+        profile_form = UserProfileForm()
+
+    return render(request, 'gregssnorkelscores/register.html', {
+        'user_form': user_form,
+        'profile_form': profile_form,
+        'registered': registered
+    })
     # HONGHUI's task
 
     # # A boolean value for telling the template
@@ -140,11 +169,24 @@ def register(request):
     #                          'registered': registered})
 
 def login(request):
-
     visitor_cookie_handler(request)
 
-    response = render(request, 'gregssnorkelscores/login.html')
-    return response
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        # Authenticate the user.
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                auth_login(request, user)
+                return redirect(reverse('home')) 
+            else:
+                return HttpResponse("Your account is disabled.")
+        else:
+            return HttpResponse("Invalid login details supplied.")
+    else:
+        return render(request, 'gregssnorkelscores/login.html')
     # HONGHUI's task
 
     # # If the request is a HTTP POST, try to pull out the relevant information.
@@ -189,6 +231,17 @@ def login(request):
 def user_logout(request):
     logout(request)
     return redirect(reverse('gregssnorkelscores:home'))
+
+def profile(request):
+    try:
+        user_profile = request.user.userprofile
+    except UserProfile.DoesNotExist:
+        user_profile = None
+
+    context = {
+        'user_profile': user_profile,
+    }
+    return render(request, 'gregssnorkelscores/profile.html', context)
 
 def get_server_side_cookie(request, cookie, default_val=None):
     val = request.session.get(cookie)
