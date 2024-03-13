@@ -5,6 +5,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
 import django
 django.setup()
 from gregssnorkelscores.models import UserProfile, Location, Spot, Review
+from datetime import datetime
 
 def populate():
 
@@ -31,7 +32,6 @@ def populate():
                             'about': 'lots of info here',
                             'reviewAmount':8,
                             'reviewsAverage':4.2, 
-                            'pub_date': '12/06/22',
                             },
         'South Ayrshire':{'author': 'tashlikessnorkeling',
                           'pictures':'',
@@ -39,7 +39,6 @@ def populate():
                           'about': 'infoooo',
                           'reviewsAmount': 8,
                           'reviewsAverage': 3.6,
-                          'pub_date': '02/06/21',
                          },
     }
 
@@ -50,7 +49,6 @@ def populate():
          'pictures': '',
          'postcode': 'AB39 2BD',
          'reviewsAmount': 5,
-         'pub_date': '12/06/22',
          # reviews can each be liked individually
          },
          {'name': 'Portlethen',
@@ -59,7 +57,6 @@ def populate():
           'pictures': '',
           'postcode': 'AB12 4NR',
           'reviewsAmount': 3,
-          'pub_date': '22/08/23',
          },
          {'name': 'Ayr beach',
           'location':'South Ayrshire',
@@ -67,7 +64,6 @@ def populate():
           'pictures': '',
           'postcode': 'KA7 4AD',
           'reviewsAmount': 6,
-          'pub_date': '01/07/23'
          },
          {'name': 'Prestwick beach',
           'location':'South Ayrshire',
@@ -75,7 +71,6 @@ def populate():
           'pictures': '',
           'postcode': 'KA9 1QL',
           'reviewsAmount': 2,
-          'pub_date': '02/06/21'
          },
 
     ]
@@ -84,7 +79,6 @@ def populate():
         {'title': 'Amazing beach!',
          'spot': 'stonehaven beach',
          'author': 'greglikessnorkeling',
-         'pub_date': '12/06/22',
          'comment': 'really nice place to snorkel :)',
          'rating': 5,
          'likes':7,
@@ -101,24 +95,25 @@ def populate():
 
 # some functions
     
-def add_location(name, author, picture, about):
+def add_location(name, author, pictures, about):
     l = Location.objects.get_or_create(name=name)[0]
     l.author = author
     l.about = about
-    l.pictures = picture
+    l.pictures = pictures
     # when first create location there are no reviews
     l.reviewsAmount = 0 
     l.reviewsAverage = 0
+    l.pub_date = datetime.now()
     return l
 
-def add_spot(name, author, picture, postcode, location):
+def add_spot(name, author, pictures, postcode, location):
     s = Spot.objects.get_or_create(name=name)[0]
     s.author = author
     s.location = location
-    s.picture = picture
+    s.pictures = pictures
     s.postcode = postcode
     s.reviewsAmount = 0
-    # pub date will set itself?
+    s.pub_date = datetime.now()
     return s
 
 def add_review(title, spot, author, comment, value):
@@ -130,6 +125,7 @@ def add_review(title, spot, author, comment, value):
     r.spot.reviewsAmount += 1
     r.spot.location.reviewsAmount += 1
     r.spot.location.reviewsAverage = ((r.spot.location.reviewsAverage*r.spot.location.reviewsAmount)+r.value)/r.spot.location.reviewsAmount
+    r.pub_date = datetime.now()
     return r
 
 if __name__ == '__main__':
