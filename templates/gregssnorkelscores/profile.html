@@ -8,18 +8,16 @@
 {% block body_block %}
     <p>Placeholder for the users profile page!</p>
     <a href="{% url 'gregssnorkelscores:favourites' %}">Users favourites</a>
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
     {% if user_profile %}
-        <p><strong>Username:</strong> {{ user_profile.user.username }}</p>
-        <p><strong>Email:</strong> {{ user_profile.user.email }}</p>
-        {% if user_profile.website %}
-            <p><strong>Website:</strong> <a href="{{ user_profile.website }}">{{ user_profile.website }}</a></p>
-        {% endif %}
-        {% if user_profile.picture %}
+        <p><strong>Website:</strong> <a href="{{ user_profile.website }}">{{ user_profile.website }}</a></p>
+        <p><strong>Experience:</strong> {{ user_profile.experience }}</p>
+        {% if user_profile.pictures %}
             <p><strong>Picture:</strong></p>
-            <img src="{{ user_profile.picture.url }}" alt="Profile picture" width="200"> <br/>
+            <img src="{{ user_profile.pictures.url }}" alt="User's Profile Picture" style="max-width: 500px; height: auto;">
         {% endif %}
-        <a href="{% url 'gregssnorkelscores:favourites' %}">User's Favourites</a>
     {% else %}
-        <p>User profile not found.</p>
+        <p>Profile details not available.</p>
     {% endif %}
 {% endblock %}
