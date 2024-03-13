@@ -5,12 +5,10 @@ from django.conf import settings
 from enum import Enum
 #from catalog.models import Spots  copied from website idk yet what our equivalent of catalog is
 
-
 ###############
 # REVIEWS
 # https://michaelstromer.nyc/books/intro-to-django/django-reviews
 #################
-
 
 class Location(models.Model):
     # we will want location names to be unique 
@@ -36,13 +34,11 @@ class Location(models.Model):
     def __str__(self):
         return self.name
 
-
 class Spot(models.Model):
     ## cpoied how rango category and page are connected
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     name = models.CharField(max_length=128, unique=True) # want names here to be unique?
-    url = models.URLField() # copied from django
-    # copied from user model
+    url = models.URLField()
     picture = models.ImageField(upload_to='spot_images', blank=True)
     postcode = models.CharField(max_length=8)
     reviewsAmount = models.IntegerField()
