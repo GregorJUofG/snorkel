@@ -2,6 +2,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from django.conf import settings
+from enum import Enum
 #from catalog.models import Spots  copied from website idk yet what our equivalent of catalog is
 
 
@@ -97,8 +98,16 @@ class UserProfile(models.Model):
     picture = models.ImageField(upload_to='profile_images', blank=True)
     # need to add experience level
     # need to add favourited places
+    experience = Experience.BEGINNER.value
 
     ## will not add places created here the place will hold it instead
     
     def __str__(self):
         return self.user.username
+    
+class Experience(Enum):
+    BEGINNER = 1
+    INTERMEDIATE = 2
+    EXPERT = 3
+
+Experience = Enum('Experience', ['BEGINNER', 'INTERMEDIATE', 'EXPERT'])

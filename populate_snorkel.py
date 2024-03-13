@@ -95,6 +95,8 @@ def add_review(title, spot, author, comment, value):
     r.comment = comment
     r.value = value
     r.spot.reviewsAmount += 1 #????? how???
+    r.spot.location.reviewsAmount += 1
+    r.spot.location.reviewsAverage = ((r.spot.location.reviewsAverage*r.spot.location.reviewsAmount)+r.value)/r.spot.location.reviewsAmount
     return r
 
 if __name__ == '__main__':
