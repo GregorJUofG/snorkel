@@ -1,16 +1,18 @@
 from django.db import models
 
 class Location(models.Model):
+    NAME_MAX_LENGTH = 128
     # we will want location names to be unique 
-    name = models.CharField(max_length=128, unique=True)
+    name = models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
     # copied from user model
-    picture = models.ImageField(upload_to='location_images', blank=True)
-    about = models.CharField(max_length=500)
+    creator = models.CharField(max_length = NAME_MAX_LENGTH)
+    pictures = models.ImageField(upload_to='location_images', blank=True)
+    about = models.CharField(max_length=1000)
     favourites = models.IntegerField()
     reviewsAmount = models.IntegerField()
     reviewsAverage = models.FloatField()
-    # snorkel spots = ???
-    # author = ??
+    #NOT SURE ABOUT THIS ONE?
+    snorkelSpots = models.CharField(max_length=1000)
 
     def __str__(self):
         return self.name
@@ -30,11 +32,11 @@ class Spots(models.Model):
     # reviews = ??
     # author = ??
 
-class UserProfile(models.Model):
-    # This line is required. Links UserProfile to a User model instance. 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # The additional attributes we wish to include.
-    website = models.URLField(blank=True)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
-    def __str__(self):
-        return self.user.username
+# class UserProfile(models.Model):
+#     # This line is required. Links UserProfile to a User model instance. 
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     # The additional attributes we wish to include.
+#     website = models.URLField(blank=True)
+#     picture = models.ImageField(upload_to='profile_images', blank=True)
+#     def __str__(self):
+#         return self.user.username
