@@ -1,0 +1,78 @@
+.map {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.area1,
+.area2,
+.area3,
+.area4,
+.area5,
+.area6,
+.area7,
+.area8,
+.area9,
+.area10,
+.area11,
+.area12,
+.area13,
+.area14,
+.area15,
+.area16,
+.area17,
+.area18,
+.area19,
+.area20,
+.area21,
+.area22,
+.area23,
+.area24,
+.area25,
+.area26,
+.area27,
+.area28,
+.area29,
+.area30,
+.area31,
+.area32 {
+    fill: #e67ec7;
+    stroke: #9a2dee;
+}
+
+.area1:hover,
+.area2:hover,
+.area3:hover,
+.area4:hover,
+.area5:hover,
+.area6:hover,
+.area7:hover,
+.area8:hover,
+.area9:hover,
+.area10:hover,
+.area11:hover,
+.area12:hover,
+.area13:hover,
+.area14:hover,
+.area15:hover,
+.area16:hover,
+.area17:hover,
+.area18:hover,
+.area19:hover,
+.area20:hover,
+.area21:hover,
+.area22:hover,
+.area23:hover,
+.area24:hover,
+.area25:hover,
+.area26:hover,
+.area27:hover,
+.area28:hover,
+.area29:hover,
+.area30:hover,
+.area31:hover,
+.area32:hover {
+    fill: #e420a9;
+}
