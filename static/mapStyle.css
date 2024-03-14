@@ -1,11 +1,38 @@
-.heading {
-    text-decoration-color: aqua;
-    text-align: center
+ul {
+    list-style-type: none;
+}
+
+.heading h1 {
+    color: #28582a;
+    text-align: center;
+    font-family: "Copperplate", Fantasy;
+    font-size: 40px;
+}
+
+.topnav {
+    padding: 12px;
+    background-color: #163717;
+    overflow: hidden;
+}
+
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    padding: 12px 16px;
+    text-decoration: none;
+    font-family: "Copperplate", Fantasy;
+    font-size: 20px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #28582a;
+    color: white;
 }
 
 .map {
     position: absolute;
-    top: 50%;
+    top: 65%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -26,7 +53,7 @@
 
 .area19 {
     fill: #3a8032;
-    stroke: #1a2f17;
+    stroke: #3a8032;
 
 }
 
@@ -65,20 +92,26 @@
 }
 
 .area17 {
-    fill: #66cd67;
-    stroke: #47ee2d;
+    fill: #154716;
+    stroke: #154716;
 }
 
-.area22,
+.area22 {
+    fill: #2f4f30;
+    stroke: #2f4f30;
+
+}
+
+
 .area28,
 .area30 {
     fill: #446b07;
-    stroke: #47ee2d;
+    stroke: #446b07;
 }
 
 .area32 {
-    fill: #a3f127;
-    stroke: #3cb32a;
+    fill: #89c726;
+    stroke: #89c726;
 }
 
 .area1:hover,
@@ -113,5 +146,5 @@
 .area30:hover,
 .area31:hover,
 .area32:hover {
-    fill: #e82626;
+    fill: #0c170b;
 }
