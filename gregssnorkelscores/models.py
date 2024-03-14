@@ -40,33 +40,39 @@ class Location(models.Model):
 
 
 class Spot(models.Model):
-    ## cpoied how rango category and page are connected
+    NAME_MAX_LENGTH = 128
+    URL_MAX_LENGTH = 200
+
+    name = models.CharField(max_length=128, unique=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
-    name = models.CharField(
-        max_length=128, unique=True
-    )  # want names here to be unique?
-    url = models.URLField()
+    # Still need to figure this out
+    # author = models.ForeignKey(
+    #     settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE
+    # )
+    author = models.CharField(max_length = NAME_MAX_LENGTH)
     pictures = models.ImageField(upload_to="spot_images", blank=True)
     postcode = models.CharField(max_length=8)
     reviewsAmount = models.IntegerField()
-    author = models.ForeignKey(
-        settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE
-    )
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name="Publication Date")
+    # url = models.URLField()
     # not going to hold reviews here just like how
     # location doesnt hold spot only other way round
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Spot, self).save(*args, **kwargs)
+
     class Meta:
         verbose_name_plural = "Spots"
-        ordering = ["-pub_date"]
 
     def __str__(self):
         return self.name
 
 
 class Review(models.Model):
+    NAME_MAX_LENGTH = 128
 
-    # 1-5 stars
+    # 1-5 stars enums
     RATING_CHOICES = (
         (5, "5"),
         (4, "4"),
@@ -75,16 +81,17 @@ class Review(models.Model):
         (1, "1"),
     )
 
-    # review has a title?
-    title = models.CharField(max_length=25)
+    title = models.CharField(max_length=NAME_MAX_LENGTH)
     spot = models.ForeignKey(Spot, on_delete=models.CASCADE)
-    author = models.ForeignKey(
-        settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE
-    )
-    pub_date = models.DateTimeField(auto_now_add=True, verbose_name="Publication Date")
-    comment = models.TextField(max_length=500)
-    value = models.IntegerField(choices=RATING_CHOICES, default=1)
+    # NEED TO FIGURE THIS OUT
+    # author = models.ForeignKey(
+    #     settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE
+    # )
+    author = models.CharField(max_length = NAME_MAX_LENGTH)
+    comment = models.TextField(max_length=1000)
+    rating = models.IntegerField(choices=RATING_CHOICES, default=1)
     likes = models.IntegerField(default=0)
+    pub_date = models.DateTimeField(auto_now_add=True, verbose_name="Publication Date")
 
     def __str__(self):
         return self.title
