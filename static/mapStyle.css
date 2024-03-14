@@ -49,34 +49,24 @@ ul {
 .area20,
 .area23,
 .area25,
-.area8 {
-    fill: #46ba5f;
-    stroke: #46ba5f;
-}
-
+.area8,
 .area10 {
-    fill: #46ba5f;
-    stroke: #46ba5f;
-
+    fill: #89c726;
+    stroke: #154716;
 }
 
 .area19 {
     fill: #3a8032;
-    stroke: #3a8032;
-
+    stroke: #154716;
 }
 
 .area9,
-.area6 {
-    fill: #6ddb60;
-    stroke: #6ddb60;
-
-}
-
+.area6,
 .area24,
 .area15 {
-    fill: #6ddb60;
-    stroke: #6ddb60;
+    fill: #23c826;
+    stroke: #154716;
+
 }
 
 .area1,
@@ -96,31 +86,30 @@ ul {
 .area29,
 .area26,
 .area31 {
-    fill: #467940;
-    stroke: #467940;
+    fill: #3a8032;
+    stroke: #154716;
 }
 
 .area17 {
-    fill: #154716;
+    fill: #23c826;
     stroke: #154716;
 }
 
 .area22 {
-    fill: #2f4f30;
-    stroke: #2f4f30;
+    fill: #89c726;
+    stroke: #154716;
 
 }
 
-
 .area28,
 .area30 {
-    fill: #446b07;
-    stroke: #446b07;
+    fill: #89c726;
+    stroke: #154716;
 }
 
 .area32 {
     fill: #89c726;
-    stroke: #89c726;
+    stroke: #154716;
 }
 
 .area1:hover,
@@ -155,5 +144,5 @@ ul {
 .area30:hover,
 .area31:hover,
 .area32:hover {
-    fill: #0c170b;
+    fill: #ece64a;
 }
