@@ -13,20 +13,20 @@ from enum import Enum
 
 
 class Location(models.Model):
-    # we will want location names to be unique
-    name = models.CharField(max_length=128, unique=True)
-    # copied from user model
+    NAME_MAX_LENGTH = 128
+
+    name = models.CharField(max_length=128, unique=True) # (We will want location names to be unique)
+    # Need to figure out what this does !!!
+    # creator = models.ForeignKey(
+    #     settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE
+    # )
+    creator = models.CharField(max_length = NAME_MAX_LENGTH)
     pictures = models.ImageField(upload_to="location_images", blank=True)
-    about = models.CharField(max_length=500)
-    favourites = models.IntegerField()
+    favourites = models.IntegerField(default=0)
+    about = models.CharField(max_length=1000)
     reviewsAmount = models.IntegerField()
     reviewsAverage = models.FloatField()
-    author = models.ForeignKey(
-        settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE
-    )
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name="Publication Date")
-    # doesnt hold snorkel spots here
-    # just like rango catagory doesnt hold page
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
