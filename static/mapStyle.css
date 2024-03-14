@@ -1,3 +1,8 @@
+.heading {
+    text-decoration-color: red;
+    text-align: center
+}
+
 .map {
     position: absolute;
     top: 50%;
@@ -38,7 +43,7 @@
 .area30,
 .area31,
 .area32 {
-    fill: #e67ec7;
+    fill: #78aa29;
     stroke: #9a2dee;
 }
 
@@ -74,5 +79,5 @@
 .area30:hover,
 .area31:hover,
 .area32:hover {
-    fill: #e420a9;
+    fill: #e826c1;
 }

@@ -12,12 +12,11 @@
         Gregs Snorkel Scores!
         {% endblock %}
     </title>
+    <link rel="stylesheet" href="{% static 'mapStyle.css' %}" type="text/css" />
 </head>
 
 <body>
     <div>
-        <link rel="stylesheet" href="mapStyle.css" type="text/css" />
-        <script src="mapStyle.js" defer></script>
         <a href="{% url 'gregssnorkelscores:home' %}">Home</a>
         <a href="{% url 'gregssnorkelscores:profile' %}">Profile</a>
         <a href="{% url 'gregssnorkelscores:register' %}">Sign Up!</a>

@@ -7,21 +7,17 @@ Homepage
 
 {% block body_block %}
 
+<div class="heading">
+    <h1>WELCOME TO GREGS SNORKEL SCORES!</h1>
+</div>
 
-<h1>WELCOME TO GREGS SNORKEL SCORES!</h1>
 <div>
     <a href="{% url 'gregssnorkelscores:location' %}">Location</a>
     <strong>{{ boldmessage }}</strong><br />
 </div>
 <div>
-    <link rel="stylesheet" href="{% static 'mapStyle.css' %}" type="text/css" />
-    <script src="{% static 'script.js' %}" defer></script>
 
     <body>
-
-        <p>
-            Map of Scotland
-        </p>
         <p class="map">
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="495px" height="647.9px"
