@@ -1,5 +1,5 @@
 .heading {
-    text-decoration-color: red;
+    text-decoration-color: aqua;
     text-align: center
 }
 
@@ -10,41 +10,75 @@
     transform: translate(-50%, -50%);
 }
 
+.area20,
+.area23,
+.area25,
+.area8 {
+    fill: #46ba5f;
+    stroke: #46ba5f;
+}
+
+.area10 {
+    fill: #46ba5f;
+    stroke: #46ba5f;
+
+}
+
+.area19 {
+    fill: #3a8032;
+    stroke: #1a2f17;
+
+}
+
+.area9,
+.area6 {
+    fill: #6ddb60;
+    stroke: #6ddb60;
+
+}
+
+.area24,
+.area15 {
+    fill: #6ddb60;
+    stroke: #6ddb60;
+}
 
 .area1,
+.area7,
 .area2,
 .area3,
 .area4,
 .area5,
-.area6,
-.area7,
-.area8,
-.area9,
-.area10,
-.area11,
-.area12,
+.area16,
 .area13,
 .area14,
-.area15,
-.area16,
-.area17,
 .area18,
-.area19,
-.area20,
 .area21,
-.area22,
-.area23,
-.area24,
-.area25,
-.area26,
+.area12,
+.area11,
 .area27,
-.area28,
 .area29,
-.area30,
-.area31,
+.area26,
+.area31 {
+    fill: #467940;
+    stroke: #467940;
+}
+
+.area17 {
+    fill: #66cd67;
+    stroke: #47ee2d;
+}
+
+.area22,
+.area28,
+.area30 {
+    fill: #446b07;
+    stroke: #47ee2d;
+}
+
 .area32 {
-    fill: #78aa29;
-    stroke: #9a2dee;
+    fill: #a3f127;
+    stroke: #3cb32a;
 }
 
 .area1:hover,
@@ -79,5 +113,5 @@
 .area30:hover,
 .area31:hover,
 .area32:hover {
-    fill: #e826c1;
+    fill: #e82626;
 }
