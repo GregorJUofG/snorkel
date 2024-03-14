@@ -2,7 +2,6 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from django.conf import settings
-from enum import Enum
 
 # from catalog.models import Spots  copied from website idk yet what our equivalent of catalog is
 
@@ -18,9 +17,10 @@ class Location(models.Model):
     # copied from user model
     pictures = models.ImageField(upload_to="location_images", blank=True)
     about = models.CharField(max_length=500)
-    favourites = models.IntegerField()
-    reviewsAmount = models.IntegerField()
-    reviewsAverage = models.FloatField()
+    favourites = models.IntegerField(default=0)
+    reviewsAmount = models.IntegerField(default=0)
+    reviewsAverage = models.FloatField(default=0)
+    slug = models.SlugField(unique=True)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE
     )
@@ -48,7 +48,8 @@ class Spot(models.Model):
     url = models.URLField()
     pictures = models.ImageField(upload_to="spot_images", blank=True)
     postcode = models.CharField(max_length=8)
-    reviewsAmount = models.IntegerField()
+    slug = models.SlugField(unique=True)
+    reviewsAmount = models.IntegerField(default=0)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE
     )
@@ -102,7 +103,7 @@ class UserProfile(models.Model):
 
     # The additional attributes we wish to include.
     website = models.URLField(blank=True)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
+    pictures = models.ImageField(upload_to='profile_images', blank=True)
     # need to add favourited places
     experience = models.CharField(max_length=12)
     
