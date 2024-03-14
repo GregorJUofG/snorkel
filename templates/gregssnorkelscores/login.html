@@ -8,20 +8,21 @@ Login
 
 {% block body_block %}
 
-<div class="container">
-    <div class="top-right">Gregs Snorkel Scores</div>
-</div>
+<body class="login">
+    <h1 class="headingLogin">Login</h1>
 
-<h1 class="headingLogin">Login</h1>
+    <p class="su">Have never dived in before? <a href="{% url 'gregssnorkelscores:about' %}">Sign Up</a></p>
 
-<form id="login_form" method="post" action="{% url 'gregssnorkelscores:login' %}">
-    {% csrf_token %}
-    Username: <input type="text" name="username" value="" size="50" />
-    <br />
-    Password: <input type="password" name="password" value="" size="50" />
-    <br />
-    <input type="submit" value="submit" />
-</form>
-
+    <div class="centered-form">
+        <form id="login_form" method="post" action="{% url 'gregssnorkelscores:login' %}">
+            {% csrf_token %}
+            Username: <input type="text" name="username" value="" size="50" />
+            <br />
+            Password: <input type="password" name="password" value="" size="50" />
+            <br />
+            <input type="submit" value="Login" />
+        </form>
+    </div>
+</body>
 
 {% endblock %}
