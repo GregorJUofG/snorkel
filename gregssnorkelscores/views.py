@@ -12,7 +12,7 @@ from .models import UserProfile
 
 def home(request):
     context_dict = {}
-    context_dict["boldmessage"] = "Crunchy, creamy, cookie, candy, cupcake!"
+    context_dict["boldmessage"] = " "
 
     visitor_cookie_handler(request)
 
