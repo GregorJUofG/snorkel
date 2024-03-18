@@ -152,31 +152,17 @@ ul {
     fill: #ece64a;
 }
 
-#test2 {
-    padding: 0px, 0px, 0px, 0px;
-}
-
-.test {
-    position: relative;
-}
-
 .tap {
     padding-top: 100px;
     margin-right: -100px;
 }
 
 .dive {
-    margin-left: -30px;
-    padding-bottom: 100px;
-
-}
-
-.snorkel {
-    padding-top: 150px;
+    margin-left: -10px;
 
 }
 
 .connect {
-    padding-top: 20px;
-    margin-left: -200px;
+    padding-right: 20px;
+    margin-left: -100px;
 }
