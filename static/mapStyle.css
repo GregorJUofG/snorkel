@@ -49,8 +49,6 @@ ul {
     display: flex;
     align-items: center;
     justify-content: center;
-
-
 }
 
 .area20,
@@ -152,4 +150,26 @@ ul {
 .area31:hover,
 .area32:hover {
     fill: #ece64a;
+}
+
+
+ul {
+    list-style-type: none;
+}
+
+#test2 {
+    padding-left: 100px;
+    padding-top: 10px;
+}
+
+.test {
+    position: relative;
+}
+
+.tap {
+    padding-top: 100px;
+}
+
+.dive {
+    padding-bottom: 100px;
 }
