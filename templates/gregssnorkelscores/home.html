@@ -16,14 +16,17 @@ Homepage
 
 
     <div class="map">
-        <section class="test">
-            <ul id="test2">
-                <li class="dive"><img src="{% static 'images/divein.png' %}" alt="Dive in" width="100" height="100" />
-                </li>
-                <li class="tap"><img src="{% static 'images/tap.png' %}" alt="Tap in" width="160" height="160" />
-                </li>
-            </ul>
-        </section>
+
+        <ul id="test2">
+            <li class="dive"><img src="{% static 'images/divein.png' %}" alt="Dive in" width="100" height="100" />
+            </li>
+            <li class="connect"><img src="{% static 'images/connect.png' %}" alt="Lets Connect" width="150"
+                    height="100" />
+            </li>
+            <li class="tap"><img src="{% static 'images/tap.png' %}" alt="Tap in" width="160" height="160" />
+            </li>
+        </ul>
+
         <a href="{% url 'gregssnorkelscores:location' %}">
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="495px" height="647.9px"
@@ -1054,11 +1057,12 @@ Homepage
         </a>
         <section class="test5">
             <ul id="test2">
-                <li class="dive"><img src="{% static 'images/come.png' %}" alt="Come on" width="150" height="100" />
+                <li class="come"><img src="{% static 'images/come.png' %}" alt="Come on" width="150" height="100" />
                 </li>
-                <li class="tap"><img src="{% static 'images/snorkel.png' %}" alt="Lets Snorkel" width="150"
+                <li class="snorkel"><img src="{% static 'images/snorkel.png' %}" alt="Lets Snorkel" width="150"
                         height="100" />
                 </li>
+
             </ul>
         </section>
     </div>
