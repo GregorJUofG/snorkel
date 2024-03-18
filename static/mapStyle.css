@@ -152,17 +152,6 @@ ul {
     fill: #ece64a;
 }
 
-.tap {
-    padding-top: 100px;
-    margin-right: -100px;
-}
-
 .dive {
-    margin-left: -10px;
-
-}
-
-.connect {
-    padding-right: 20px;
-    margin-left: -100px;
+    margin-left: 200px;
 }
