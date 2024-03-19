@@ -2,7 +2,6 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from django.conf import settings
-from enum import Enum
 
 # from catalog.models import Spots  copied from website idk yet what our equivalent of catalog is
 
@@ -22,10 +21,14 @@ class Location(models.Model):
     # )
     creator = models.CharField(max_length = NAME_MAX_LENGTH)
     pictures = models.ImageField(upload_to="location_images", blank=True)
+    about = models.CharField(max_length=500)
     favourites = models.IntegerField(default=0)
-    about = models.CharField(max_length=1000)
-    reviewsAmount = models.IntegerField()
-    reviewsAverage = models.FloatField()
+    reviewsAmount = models.IntegerField(default=0)
+    reviewsAverage = models.FloatField(default=0)
+    slug = models.SlugField(unique=True)
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE
+    )
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name="Publication Date")
 
     def save(self, *args, **kwargs):
@@ -52,7 +55,11 @@ class Spot(models.Model):
     author = models.CharField(max_length = NAME_MAX_LENGTH)
     pictures = models.ImageField(upload_to="spot_images", blank=True)
     postcode = models.CharField(max_length=8)
-    reviewsAmount = models.IntegerField()
+    slug = models.SlugField(unique=True)
+    reviewsAmount = models.IntegerField(default=0)
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE
+    )
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name="Publication Date")
     # url = models.URLField()
     # not going to hold reviews here just like how
@@ -109,12 +116,28 @@ class UserProfile(models.Model):
 
     # The additional attributes we wish to include.
     website = models.URLField(blank=True)
-    pictures = models.ImageField(upload_to="profile_images", blank=True)
-    # need to add experience level
+    pictures = models.ImageField(upload_to='profile_images', blank=True)
     # need to add favourited places
     experience = models.CharField(max_length=12)
-
-    ## will not add places created here the place will hold it instead
-
+    
     def __str__(self):
         return self.user.username
+
+
+# favourites class
+# class Favourite(models.Model):
+#     user = models.ForeignKey('User', related_name='favourites',)
+#     spot = models.ForeignKey('Spot', related_name='favourites',)
+
+    # to get users favourite spots
+    # user = User.objects.get(id='the_user_id')
+    # user.favourites.values('spots')
+    #
+    # to get num of users who have favourited a spot
+    # spot = Spot.objects.get(id='the_spot_id')
+    # spot.favourites.count()
+    #
+    # https://stackoverflow.com/questions/64720982/modeling-favorites-in-django-from-two-different-models
+
+    # other favourites option
+    # https://github.com/sinasamavati/django-favorite/tree/master/favorite
