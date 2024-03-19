@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Location, Spot, Review, UserProfile
 
 class SpotAdmin(admin.ModelAdmin):
-    list_display = ("name", "location", "url", "")
+    list_display = ("name", "location", "url")
 
 class LocationAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('name',)}
