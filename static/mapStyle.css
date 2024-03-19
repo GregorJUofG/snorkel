@@ -1,45 +1,120 @@
-.map {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.all {
+    background-color: rgb(147, 212, 222);
 }
 
 
+.top-right {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #f2f2f2;
+    font-family: "Copperplate", Fantasy;
+    font-size: 20px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.heading h1 {
+    color: #28582a;
+    text-align: center;
+    font-family: "Copperplate", Fantasy;
+    font-size: 40px;
+}
+
+.topnav {
+    padding: 12px;
+    background-color: #163717;
+    overflow: hidden;
+}
+
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    padding: 12px 16px;
+    text-decoration: none;
+    font-family: "Copperplate", Fantasy;
+    font-size: 20px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #28582a;
+    color: white;
+}
+
+/* map position always centered */
+.map {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.area20,
+.area23,
+.area25,
+.area8,
+.area10 {
+    fill: #89c726;
+    stroke: #154716;
+}
+
+.area19 {
+    fill: #3a8032;
+    stroke: #154716;
+}
+
+.area9,
+.area6,
+.area24,
+.area15 {
+    fill: #23c826;
+    stroke: #154716;
+
+}
+
 .area1,
+.area7,
 .area2,
 .area3,
 .area4,
 .area5,
-.area6,
-.area7,
-.area8,
-.area9,
-.area10,
-.area11,
-.area12,
+.area16,
 .area13,
 .area14,
-.area15,
-.area16,
-.area17,
 .area18,
-.area19,
-.area20,
 .area21,
-.area22,
-.area23,
-.area24,
-.area25,
-.area26,
+.area12,
+.area11,
 .area27,
-.area28,
 .area29,
-.area30,
-.area31,
+.area26,
+.area31 {
+    fill: #3a8032;
+    stroke: #154716;
+}
+
+.area17 {
+    fill: #23c826;
+    stroke: #154716;
+}
+
+.area22 {
+    fill: #89c726;
+    stroke: #154716;
+
+}
+
+.area28,
+.area30 {
+    fill: #89c726;
+    stroke: #154716;
+}
+
 .area32 {
-    fill: #e67ec7;
-    stroke: #9a2dee;
+    fill: #89c726;
+    stroke: #154716;
 }
 
 .area1:hover,
@@ -74,5 +149,9 @@
 .area30:hover,
 .area31:hover,
 .area32:hover {
-    fill: #e420a9;
+    fill: #ece64a;
+}
+
+.dive {
+    margin-left: 200px;
 }
