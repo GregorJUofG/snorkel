@@ -17,7 +17,7 @@ class Location(models.Model):
     # copied from user model
     pictures = models.ImageField(upload_to="location_images", blank=True)
     about = models.CharField(max_length=500)
-    favourites = models.IntegerField(default=0)
+    #favourites = models.IntegerField(default=0)
     reviewsAmount = models.IntegerField(default=0)
     reviewsAverage = models.FloatField(default=0)
     slug = models.SlugField(unique=True)
@@ -40,13 +40,15 @@ class Location(models.Model):
 
 
 class Spot(models.Model):
-    ## cpoied how rango category and page are connected
+
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     name = models.CharField(
         max_length=128, unique=True
     )  # want names here to be unique?
     url = models.URLField()
     pictures = models.ImageField(upload_to="spot_images", blank=True)
+    favourites = models.ManyToManyField(User, related_name='favourites',
+                                        default=None, blank=True)
     postcode = models.CharField(max_length=8)
     slug = models.SlugField(unique=True)
     reviewsAmount = models.IntegerField(default=0)
@@ -56,6 +58,7 @@ class Spot(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name="Publication Date")
     # not going to hold reviews here just like how
     # location doesnt hold spot only other way round
+    objects = models.Manager()  # default manager
 
     class Meta:
         verbose_name_plural = "Spots"
@@ -83,7 +86,7 @@ class Review(models.Model):
     )
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name="Publication Date")
     comment = models.TextField(max_length=500)
-    value = models.IntegerField(choices=RATING_CHOICES, default=1)
+    rating = models.IntegerField(choices=RATING_CHOICES, default=1)
     likes = models.IntegerField(default=0)
 
     def __str__(self):

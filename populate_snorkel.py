@@ -28,7 +28,6 @@ def populate():
     locations = {
         'City of Aberdeen':{'author': 'greglikessnorkeling',
                             'pictures': '',
-                            'favourites': 9,
                             'about': 'lots of info here',
                             'reviewAmount':8,
                             'reviewsAverage':4.2,
@@ -36,7 +35,6 @@ def populate():
                             },
         'South Ayrshire':{'author': 'tashlikessnorkeling',
                           'pictures':'',
-                          'favourites': 7,
                           'about': 'infoooo',
                           'reviewsAmount': 8,
                           'reviewsAverage': 3.6,
@@ -48,6 +46,7 @@ def populate():
                             'location':'City of Aberdeen',
                             'author': 'greglikessnorkeling',
                             'pictures': '',
+                            'favourites': 5,
                             'postcode': 'AB39 2BD',
                             'reviewsAmount': 2,     # reviews can each be liked individually
                             'reviews':{'Amazing beach!':{
@@ -69,6 +68,7 @@ def populate():
                             'location':'City of Aberdeen',
                             'author':'greglikessnorkeling',
                             'pictures': '',
+                            'favourites': 8,
                             'postcode': 'AB12 4NR',
                             'reviewsAmount': 1,
                             'reviews':{'Good beach!':{
@@ -87,6 +87,7 @@ def populate():
             'location':'South Ayrshire',
             'author':'greglikessnorkeling',
             'pictures': '',
+            'favourites': 4,
             'postcode': 'AB12 4NR',
             'reviewsAmount': 1,
             'reviews':{'Good beach!':{
@@ -104,14 +105,14 @@ def populate():
     for loc, loc_data in locations.items():
         l = add_location(loc,
                          loc_data['author'],loc_data['pictures'],
-                         loc_data['favourites'],loc_data['about'],
-                         loc_data['reviewsAmount'],loc_data['reviewsAverage']
+                         loc_data['about'],loc_data['reviewsAmount'],
+                         loc_data['reviewsAverage']
                          )
         
         for spot, spot_data in loc_data['spots'].items():
             s = add_spot(spot,l,
-                     spot_data['author'],
-                     spot_data['pictures'],spot_data['postcode'],
+                     spot_data['author'],spot_data['pictures'],
+                     spot_data['favourites'],spot_data['postcode'],
                      spot_data['reviewsAmount']
                      )
             
@@ -129,7 +130,6 @@ def add_location(name, author, pictures, favourites, about, reviewsAmount, revie
     l = Location.objects.get_or_create(name=name)[0]
     l.author = author
     l.pictures = pictures
-    l.favourites = favourites
     l.about = about
     l.reviewsAmount = reviewsAmount
     l.reviewsAverage = reviewsAverage
@@ -137,11 +137,12 @@ def add_location(name, author, pictures, favourites, about, reviewsAmount, revie
     l.save()
     return l
 
-def add_spot(name, location, author, pictures, postcode, reviewsAmount):
+def add_spot(name, location, author, pictures, favourites, postcode, reviewsAmount):
     s = Spot.objects.get_or_create(name=name)[0]
     s.location = location
     s.author = author
     s.pictures = pictures
+    s.favourites = favourites
     s.postcode = postcode
     s.reviewsAmount = reviewsAmount
     s.pub_date = datetime.now()
@@ -157,7 +158,7 @@ def add_review(title, spot, author, comment, rating, likes):
     r.likes = likes
     # r.spot.reviewsAmount += 1
     # r.spot.location.reviewsAmount += 1
-    # r.spot.location.reviewsAverage = ((r.spot.location.reviewsAverage*r.spot.location.reviewsAmount)+r.value)/r.spot.location.reviewsAmount
+    # r.spot.location.reviewsAverage = ((r.spot.location.reviewsAverage*r.spot.location.reviewsAmount)+r.rating)/r.spot.location.reviewsAmount
     r.pub_date = datetime.now()
     return r
 

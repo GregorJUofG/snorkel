@@ -8,7 +8,7 @@ class LocationAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('name',)}
 
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ("title", "spot", "comment", "value")
+    list_display = ("title", "spot", "comment", "rating")
 
 admin.site.register(Spot, SpotAdmin)
 admin.site.register(Location, LocationAdmin)
