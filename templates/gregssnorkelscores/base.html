@@ -12,30 +12,33 @@
         Gregs Snorkel Scores!
         {% endblock %}
     </title>
+    <link rel="stylesheet" href="{% static 'mapStyle.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'LoginRegister.css' %}" type="text/css" />
 </head>
 
 <body>
-    <div>
-        <link rel="stylesheet" href="mapStyle.css" type="text/css" />
-        <script src="mapStyle.js" defer></script>
-        <a href="{% url 'gregssnorkelscores:home' %}">Home</a>
-        <a href="{% url 'gregssnorkelscores:profile' %}">Profile</a>
-        <a href="{% url 'gregssnorkelscores:register' %}">Sign Up!</a>
-        <a href="{% url 'gregssnorkelscores:login' %}">Log in!</a>
+    <div class="top-right">Gregs Snorkel Scores</div>
+    <div class="topnav">
+
+        <ul>
+            <li><a href="{% url 'gregssnorkelscores:home' %}">Home</a></li>
+            <li><a href="{% url 'gregssnorkelscores:about' %}">About</a></li>
+            <li><a href="{% url 'gregssnorkelscores:register' %}">Sign Up</a></li>
+            <li><a href="{% url 'gregssnorkelscores:login' %}">Log in</a></li>
+            <li><a href="{% url 'gregssnorkelscores:profile' %}">Profile</a></li>
+            <li><a href="{% url 'gregssnorkelscores:add_location' %}">Add Location</a></li>
+        </ul>
+
     </div>
-    <hr />
+
     <div>
         {% block body_block %}
         This is body_blocks default content.
-        {% endblock %}
+
     </div>
-    <hr />
-    <div>
-        <ul>
-            <li><a href="{% url 'gregssnorkelscores:about' %}">About</a></li>
-            <li><a href="{% url 'gregssnorkelscores:add_location' %}">Add Location</a></li>
-        </ul>
-    </div>
+
+    {% endblock %}
+
 </body>
 
 </html>

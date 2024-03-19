@@ -12,7 +12,7 @@ from gregssnorkelscores.form import LocationForm, SpotForm, SearchForm, ReviewFo
 
 def home(request):
     context_dict = {}
-    context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
+    context_dict["boldmessage"] = " "
 
     form = SearchForm()
     if request.method == 'POST':
@@ -30,18 +30,21 @@ def home(request):
         context_dict['form'] = form
     visitor_cookie_handler(request)
 
-    response = render(request, 'gregssnorkelscores/home.html', context=context_dict)
+    response = render(request, "gregssnorkelscores/home.html", context=context_dict)
     return response
 
 
 def about(request):
-    context_dict = {'boldmessage': 'This tutorial has been put together by Gregor Johnston'}
-    
-    visitor_cookie_handler(request)
-    context_dict['visits'] = request.session['visits']
+    context_dict = {
+        "boldmessage": "This tutorial has been put together by Gregor Johnston"
+    }
 
-    response = render(request, 'gregssnorkelscores/about.html', context=context_dict)
+    visitor_cookie_handler(request)
+    context_dict["visits"] = request.session["visits"]
+
+    response = render(request, "gregssnorkelscores/about.html", context=context_dict)
     return response
+
 
 
 def SearchSpot(request):
@@ -66,8 +69,6 @@ def SearchSpot(request):
         context = {'form': form,}
     return render(request, '/gregssnorkelscores/', context)
 
-
-
 def location(request):
     spot_list = Spot.objects.order_by('-reviewsAmount')[:5]
 
@@ -77,7 +78,7 @@ def location(request):
 
     visitor_cookie_handler(request)
 
-    response = render(request, 'gregssnorkelscores/location.html', context=context_dict)
+    response = render(request, "gregssnorkelscores/location.html", context=context_dict)
     return response
 
 def show_location(request, location_name_slug):
@@ -154,12 +155,14 @@ def add_spot(request, location_name_slug):
             print(form.errors)
     context_dict = {'form': form, 'location': location}
     response = render(request, 'gregssnorkelscores/add_spot.html', context=context_dict)
+
     return response
+
 
 def spot(request):
     visitor_cookie_handler(request)
 
-    response = render(request, 'gregssnorkelscores/spot.html')
+    response = render(request, "gregssnorkelscores/spot.html")
     return response
 
 @login_required
@@ -178,19 +181,23 @@ def write_review(request):
     response = render(request, 'gregssnorkelscores/write_review.html', context)
     return response
 
+
 def profile(request):
     visitor_cookie_handler(request)
 
-    response = render(request, 'gregssnorkelscores/profile.html')
+    response = render(request, "gregssnorkelscores/profile.html")
     return response
+
 
 def favourites(request):
     visitor_cookie_handler(request)
 
-    response = render(request, 'gregssnorkelscores/favourites.html')
+    response = render(request, "gregssnorkelscores/favourites.html")
     return response
 
+
 def register(request):
+    visitor_cookie_handler(request)
     registered = False
 
     if request.method == 'POST':
@@ -224,9 +231,9 @@ def register(request):
         'registered': registered
     })
 
+
 def login(request):
     visitor_cookie_handler(request)
-
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -243,12 +250,13 @@ def login(request):
             return HttpResponse("Invalid login details supplied.")
     else:
         return render(request, 'gregssnorkelscores/login.html')
-    
+
 
 @login_required
 def user_logout(request):
     logout(request)
-    return redirect(reverse('gregssnorkelscores:home'))
+    return redirect(reverse("gregssnorkelscores:home"))
+
 
 def profile(request):
     try:
@@ -268,20 +276,22 @@ def get_server_side_cookie(request, cookie, default_val=None):
         val = default_val
     return val
 
+
 def visitor_cookie_handler(request):
-    visits = int(get_server_side_cookie(request, 'visits', '1'))
-    last_visit_cookie = get_server_side_cookie(request,'last_visit',str(datetime.now()))
-    last_visit_time = datetime.strptime(last_visit_cookie[:-7],
-    '%Y-%m-%d %H:%M:%S')
+    visits = int(get_server_side_cookie(request, "visits", "1"))
+    last_visit_cookie = get_server_side_cookie(
+        request, "last_visit", str(datetime.now())
+    )
+    last_visit_time = datetime.strptime(last_visit_cookie[:-7], "%Y-%m-%d %H:%M:%S")
 
     # If it's been more than a day since the last visit...
     if (datetime.now() - last_visit_time).seconds > 0:
         visits = visits + 1
         # Update the last visit cookie now that we have updated the count
-        request.session['last_visit'] = str(datetime.now())
+        request.session["last_visit"] = str(datetime.now())
     else:
         # Set the last visit cookie
-        request.session['last_visit'] = last_visit_cookie
+        request.session["last_visit"] = last_visit_cookie
 
     # Update/set the visits cookie
-    request.session['visits'] = visits
+    request.session["visits"] = visits
