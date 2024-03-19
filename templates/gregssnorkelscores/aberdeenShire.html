@@ -1,0 +1,16 @@
+{% extends 'gregssnorkelscores/base.html' %}
+{% load static %}
+
+{% block title_block %}
+Location page
+{% endblock %}
+
+{% block body_block %}
+<h1>ABERDEENSHIRE</h1>
+<a href="{% url 'gregssnorkelscores:add_spot' %}">Don't see your spot? add it here!</a>
+<ul>
+    <li><a href="{% url 'gregssnorkelscores:spot' %}">Stonehaven</li>
+    <li><a href="{% url 'gregssnorkelscores:spot' %}">Portlethen</li>
+    <li><a href="{% url 'gregssnorkelscores:spot' %}">NewtonHill</li>
+</ul>
+{% endblock %}

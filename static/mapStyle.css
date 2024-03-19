@@ -51,11 +51,15 @@ ul {
     justify-content: center;
 }
 
-.area20,
-.area23,
-.area25,
 .area8,
 .area10 {
+    fill: #3a8032;
+    stroke: #154716;
+}
+
+.area20,
+.area23,
+.area25 {
     fill: #89c726;
     stroke: #154716;
 }
@@ -65,32 +69,66 @@ ul {
     stroke: #154716;
 }
 
-.area9,
-.area6,
-.area24,
-.area15 {
+.area9 {
     fill: #23c826;
     stroke: #154716;
 
 }
 
-.area1,
+
+.area6 {
+    fill: #8ad58b;
+    stroke: #154716;
+
+}
+
+
+.area15 {
+    fill: #23c826;
+    stroke: #154716;
+}
+
+.area24 {
+    fill: #89c726;
+    stroke: #154716;
+}
+
 .area7,
+
 .area2,
 .area3,
-.area4,
-.area5,
+.area12,
 .area16,
+.area1 {
+    fill: #23c826;
+    stroke: #23c826;
+}
+
 .area13,
+.area29,
+.area31 {
+    fill: #23c826;
+    stroke: #154716;
+}
+
+
+.area4,
+.area11,
 .area14,
 .area18,
-.area21,
-.area12,
-.area11,
-.area27,
-.area29,
-.area26,
-.area31 {
+.area26 {
+    fill: #3a8032;
+    stroke: #3a8032;
+}
+
+.area21 {
+    fill: #89c726;
+    stroke: #154716;
+}
+
+
+.area5,
+.area27 {
     fill: #3a8032;
     stroke: #154716;
 }
