@@ -126,7 +126,7 @@ def populate():
 
 # some functions
     
-def add_location(name, author, pictures, favourites, about, reviewsAmount, reviewsAverage):
+def add_location(name, author, pictures, about, reviewsAmount, reviewsAverage):
     l = Location.objects.get_or_create(name=name)[0]
     l.author = author
     l.pictures = pictures
