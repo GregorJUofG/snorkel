@@ -7,22 +7,26 @@ Homepage
 
 {% block body_block %}
 
+<body class="all">
 
-<h1>WELCOME TO GREGS SNORKEL SCORES!</h1>
-<div>
-    <a href="{% url 'gregssnorkelscores:location' %}">Location</a>
-    <strong>{{ boldmessage }}</strong><br />
-</div>
-<div>
-    <link rel="stylesheet" href="{% static 'mapStyle.css' %}" type="text/css" />
-    <script src="{% static 'script.js' %}" defer></script>
+    <div class="heading">
+        <h1>WELCOME TO GREGS SNORKEL SCORES!</h1>
+    </div>
 
-    <body>
 
-        <p>
-            Map of Scotland
-        </p>
-        <p class="map">
+
+    <div class="map">
+
+        <ul id="test2">
+            <li class="dive"><img src="{% static 'images/divein.png' %}" alt="Dive in" width="200" height="250" />
+            </li>
+            <li class="connect"><img src="{% static 'images/connect.png' %}" alt="Lets Connect" width="400"
+                    height="400" />
+            </li>
+
+        </ul>
+
+        <a href="{% url 'gregssnorkelscores:location' %}">
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="495px" height="647.9px"
                 viewBox="0 0 495 647.9" style="enable-background:new 0 0 495 647.9;" xml:space="preserve">
@@ -1049,11 +1053,19 @@ Homepage
                  M71,147l0.7,0.2l0,0.8l-0.6,0.3l-0.3-0.5L71,147z M26.8,312.8l0.3,0.8l-0.9-0.3L26.8,312.8z M81.9,197.3l0.6,0.8l-0.7,0.2
                 L81.9,197.3z"></path>
             </svg>
-        </p>
-    </body>
+        </a>
+        <section class="test5">
+            <ul id="test2">
+                <li class="come"><img src="{% static 'images/come.png' %}" alt="Come on" width="250" height="200" />
+                </li>
+                <li class="snorkel"><img src="{% static 'images/snorkel.png' %}" alt="Lets Snorkel" width="400"
+                        height="400" />
+                </li>
+
+            </ul>
+        </section>
+    </div>
+</body>
 
 
-
-
-
-    {% endblock %}
+{% endblock %}
