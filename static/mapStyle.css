@@ -1,3 +1,8 @@
+.all {
+    background-color: rgb(147, 212, 222);
+}
+
+
 .top-right {
     position: absolute;
     top: 20px;
@@ -39,11 +44,11 @@ ul {
     color: white;
 }
 
+/* map position always centered */
 .map {
-    position: absolute;
-    top: 65%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .area20,
@@ -145,4 +150,8 @@ ul {
 .area31:hover,
 .area32:hover {
     fill: #ece64a;
+}
+
+.dive {
+    margin-left: 200px;
 }

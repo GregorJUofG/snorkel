@@ -13,7 +13,7 @@
         {% endblock %}
     </title>
     <link rel="stylesheet" href="{% static 'mapStyle.css' %}" type="text/css" />
-    <link rel="stylesheet" href="{% static 'login.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'LoginRegister.css' %}" type="text/css" />
 </head>
 
 <body>
@@ -22,9 +22,11 @@
 
         <ul>
             <li><a href="{% url 'gregssnorkelscores:home' %}">Home</a></li>
+            <li><a href="{% url 'gregssnorkelscores:about' %}">About</a></li>
             <li><a href="{% url 'gregssnorkelscores:register' %}">Sign Up</a></li>
-            <li><a href="{% url 'gregssnorkelscores:profile' %}">Profile</a></li>
             <li><a href="{% url 'gregssnorkelscores:login' %}">Log in</a></li>
+            <li><a href="{% url 'gregssnorkelscores:profile' %}">Profile</a></li>
+            <li><a href="{% url 'gregssnorkelscores:add_location' %}">Add Location</a></li>
         </ul>
 
     </div>
@@ -35,15 +37,8 @@
 
     </div>
 
-
-
     {% endblock %}
-    <div>
-        <ul>
-            <li><a href="{% url 'gregssnorkelscores:about' %}">About</a></li>
-            <li><a href="{% url 'gregssnorkelscores:add_location' %}">Add Location</a></li>
-        </ul>
-    </div>
+
 </body>
 
 </html>
