@@ -76,7 +76,6 @@ class Review(models.Model):
         (1, "1"),
     )
 
-    # review has a title?
     title = models.CharField(max_length=25)
     spot = models.ForeignKey(Spot, on_delete=models.CASCADE)
     author = models.ForeignKey(
@@ -109,3 +108,22 @@ class UserProfile(models.Model):
     
     def __str__(self):
         return self.user.username
+
+
+# favourites class
+# class Favourite(models.Model):
+#     user = models.ForeignKey('User', related_name='favourites',)
+#     spot = models.ForeignKey('Spot', related_name='favourites',)
+
+    # to get users favourite spots
+    # user = User.objects.get(id='the_user_id')
+    # user.favourites.values('spots')
+    #
+    # to get num of users who have favourited a spot
+    # spot = Spot.objects.get(id='the_spot_id')
+    # spot.favourites.count()
+    #
+    # https://stackoverflow.com/questions/64720982/modeling-favorites-in-django-from-two-different-models
+
+    # other favourites option
+    # https://github.com/sinasamavati/django-favorite/tree/master/favorite

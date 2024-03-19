@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from django.contrib.auth import authenticate, login as auth_login
 from gregssnorkelscores.models import Location, Spot, UserProfile, Review
-from gregssnorkelscores.form import LocationForm, SpotForm, SearchForm, ReviewForm
+from gregssnorkelscores.form import LocationForm, SpotForm, SearchForm, ReviewForm, UserForm, UserProfileForm
 
 
 def home(request):
@@ -53,7 +53,11 @@ def SearchSpot(request):
             spot_title = form.cleaned_data['spot_title']
 
             try:
+                # if it finds the spot it takes you to the spot
                 spot = Spot.objects.get(name = spot_title)
+                form = SearchForm()
+                context = {'form': form,}
+                return render(request, 'gregssnorkelscores/spot.html', context)
             except Spot.DoesNotExist:
                 print('This spot does not exist')
             return redirect('/gregssnorkelscores/')
@@ -121,11 +125,11 @@ def show_spot(request, spot_name_slug):
     return render(request, 'gregssnorkelscores/spot.html', context=context_dict)
 
 @login_required
-def add_spot(request):
+def add_spot(request, location_name_slug):
     visitor_cookie_handler(request)
 
     try:
-        location = Location.ojects.get(slug=location_name_slug)
+        location = Location.objects.get(slug=location_name_slug)
     except Location.DoesNotExist:
         location = None
 

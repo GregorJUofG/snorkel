@@ -1,5 +1,5 @@
 from django import forms
-from gregssnorkelscores.models import Location, Spot, Review
+from gregssnorkelscores.models import Location, Spot, Review, User, UserProfile
 
 
 class SearchForm(forms.Form):
@@ -36,3 +36,15 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ('title','comment',)
+
+
+class UserForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password',)
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('website', 'pictures',)
