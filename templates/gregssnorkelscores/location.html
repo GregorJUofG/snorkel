@@ -9,6 +9,11 @@
     <p>Placeholder for when a user clicks somewhere on zeta's map they git a list of spots here!</p>
     <a href="{% url 'gregssnorkelscores:add_spot' %}">Don't see your spot? add it here!</a>
     <ul>
+        {% for spot in spots %}
+        <li>
+            <a href="{% url 'gregssnorkelscores:spot' %}">Hello????</a>
+        </li>
+        {% endfor %}
         <li><a href="{% url 'gregssnorkelscores:spot' %}">Stonehaven</li>
         <li><a href="{% url 'gregssnorkelscores:spot' %}">Edinburgh</li>
         <li><a href="{% url 'gregssnorkelscores:spot' %}">Oban</li>

@@ -8,7 +8,7 @@ from datetime import datetime
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.models import User
 from gregssnorkelscores.models import Location, Spot, UserProfile, Review
-from gregssnorkelscores.form import LocationForm, SpotForm, SearchForm, ReviewForm, UserForm, UserProfileForm
+from gregssnorkelscores.forms import LocationForm, SpotForm, SearchForm, ReviewForm, UserForm, UserProfileForm
 
 
 def home(request):

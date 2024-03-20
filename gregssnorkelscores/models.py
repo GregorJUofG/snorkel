@@ -16,7 +16,7 @@ class Location(models.Model):
     name = models.CharField(max_length=128, unique=True)
     # copied from user model
     pictures = models.ImageField(upload_to="location_images", blank=True)
-    about = models.CharField(max_length=500)
+    about = models.CharField(max_length=1000)
     #favourites = models.IntegerField(default=0)
     reviewsAmount = models.IntegerField(default=0)
     reviewsAverage = models.FloatField(default=0)
