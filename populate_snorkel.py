@@ -25,23 +25,6 @@ def populate():
     #      }
     # ]
 
-    locations = {
-        'City of Aberdeen':{'author': 'greglikessnorkeling',
-                            'pictures': '',
-                            #'about': 'lots of info here',
-                            #'reviewAmount':8,
-                            #'reviewsAverage':4.2,
-                            'spots':aberdeen_spots
-                            },
-        'South Ayrshire':{'author': 'tashlikessnorkeling',
-                          'pictures':'',
-                          #'about': 'infoooo',
-                          #'reviewsAmount': 8,
-                          #'reviewsAverage': 3.6,
-                          'spots':ayr_spots
-                         },
-    }
-
     aberdeen_spots = {'Stonehaven beach':{
                             'location':'City of Aberdeen',
                             'author': 'greglikessnorkeling',
@@ -103,24 +86,51 @@ def populate():
                     }
                 }
             }
+    
+
+    locations = {
+        'City of Aberdeen':{'author': 'greglikessnorkeling',
+                            'pictures': '',
+                            #'about': 'lots of info here',
+                            #'reviewAmount':8,
+                            #'reviewsAverage':4.2,
+                            'spots':aberdeen_spots
+                            },
+        'South Ayrshire':{'author': 'tashlikessnorkeling',
+                          'pictures':'',
+                          #'about': 'infoooo',
+                          #'reviewsAmount': 8,
+                          #'reviewsAverage': 3.6,
+                          'spots':ayr_spots
+                         },
+    }
+
 
     # go through location and add each spot
     for loc, loc_data in locations.items():
         l = add_location(loc,loc_data['author'],loc_data['pictures'],)
         
         for spot, spot_data in loc_data['spots'].items():
-            s = add_spot(spot,l,
-                     spot_data['author'],spot_data['pictures'],
-                     spot_data['favourites'],spot_data['postcode'],
-                     spot_data['spotAbout'],spot_data['reviewsAmount']
-                     )
+            # variables
+            numOfReviews=0
+            reviewtotal=0 # used for average
             
+            #making reviews first so we can use the data in spot
             for review, rev_data in spot_data['reviews']:
+                # for each review update variables
+                numOfReviews += 1
+                reviewtotal+=rev_data['rating']
                 add_review(review, s,
                            rev_data['author'],rev_data['comment'],
                            rev_data['comment'],rev_data['rating'],
                            rev_data['likes']
                            )
+            # after gone through all reviews then adjust spot values
+            s = add_spot(spot,l,
+                     spot_data['author'],spot_data['pictures'],
+                     spot_data['favourites'],spot_data['postcode'],
+                     spot_data['spotAbout'],spot_data['reviewsAmount']
+                     )
 
 
 # some functions
@@ -134,8 +144,7 @@ def add_location(name, author, pictures):
     return l
 
 def add_spot(name, location, author, spotAbout, pictures, favourites, postcode, reviewsAmount):
-    s = Spot.objects.get_or_create(name=name)[0]
-    s.location = location
+    s = Spot.objects.get_or_create(name=name, location=location)[0]
     s.author = author
     s.spotAbout = spotAbout
     s.pictures = pictures

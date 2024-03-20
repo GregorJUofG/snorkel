@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sites",
     "gregssnorkelscores",
+    "star_ratings"
     # "favourites",
 ]
 

@@ -3,7 +3,7 @@ from .models import Location, Spot, Review, UserProfile
 
 class SpotAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('name',)}
-    list_display = ("name", "location", "url", "spotAbout")
+    list_display = ("name", "url", "spotAbout")
 
 class LocationAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('name',)}

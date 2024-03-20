@@ -72,7 +72,7 @@ def SearchSpot(request):
 
 def location(request):
     visitor_cookie_handler(request)
-    spots = Spot.objects.order_by('-reviewsAmount')#[:5]
+    spots = Spot.objects.all()
     context_dict = {}
     context_dict['boldmessage'] = 'All the locations will be displayed in a list here!'
     context_dict['spots'] = spots
@@ -82,14 +82,16 @@ def location(request):
 
 def show_location(request, location_name_slug):
     context_dict = {}
+    spots = Spot.objects.all()
+    context_dict['spots'] = spots
     try:
         location = Location.objects.get(slug=location_name_slug)
         spots = Spot.objects.filter(location=location)
-        context_dict['spots'] = spots
+        # context_dict['spots'] = spots
         context_dict['location'] = location
     except Location.DoesNotExist:
         context_dict['location'] = None
-        context_dict['spots'] = None 
+        # context_dict['spots'] = None 
     return render(request, 'gregssnorkelscores/location.html', context=context_dict)
 
 def show_spot(request, spot_name_slug):
@@ -130,8 +132,13 @@ def spot(request):
     return response
 
 @login_required
-def write_review(request):
+def write_review(request, spot_name_slug):
     visitor_cookie_handler(request)
+
+    try: 
+        spot = Spot.objects.get(slug=spot_name_slug)
+    except:
+        spot = None
 
     form = ReviewForm()
     if request.method == 'POST':

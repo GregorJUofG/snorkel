@@ -15,6 +15,7 @@
     <div class="topnav">
         <ul>
             <li><a href="{% url 'gregssnorkelscores:home' %}">Home</a></li>
+            <li><a href="{% url 'gregssnorkelscores:about' %}">About</a></li>
             {% if not user.is_authenticated %}
                 <!-- These will only show if the user is not logged in -->
                 <li><a href="{% url 'gregssnorkelscores:register' %}">Sign Up</a></li>

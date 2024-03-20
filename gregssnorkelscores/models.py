@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.contenttypes.fields import GenericRelation
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from django.conf import settings
@@ -39,7 +40,7 @@ class Location(models.Model):
 
 class Spot(models.Model):
 
-    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    #location = models.ForeignKey(Location, on_delete=models.CASCADE)
     name = models.CharField(max_length=128, unique=True)
     url = models.URLField()
     spotAbout = models.CharField(max_length=200, default=True)
@@ -56,6 +57,7 @@ class Spot(models.Model):
     # location doesnt hold spot only other way round
     objects = models.Manager()  # default manager
     slug = models.SlugField(unique=True)
+    
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -91,7 +93,7 @@ class Review(models.Model):
     likes = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.title
+        return f"{self.title}: {self.rating}"
 
     class Meta:
         verbose_name = "Spot Review"

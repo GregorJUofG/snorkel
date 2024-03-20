@@ -18,7 +18,7 @@ class LocationForm(forms.ModelForm):
     
     class Meta:
         model = Location
-        fields = ('name',)
+        fields = ('name','slug',)
     
 
 class SpotForm(forms.ModelForm):
@@ -28,13 +28,13 @@ class SpotForm(forms.ModelForm):
                             help_text="Please enter a bit about your spot")
     postcode = forms.CharField(max_length=8,
                                help_text="Enter postcode here")
-    pictures = forms.ImageField(help_text="Enter a picture here")
+    pictures = forms.ImageField(help_text="Enter a picture here", required=False)
     reviewsAmount = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = Spot
-        fields = ('name',)
+        fields = ('name','slug',)
 
 class ReviewForm(forms.ModelForm):
     title = forms.CharField(max_length=25,
@@ -42,7 +42,8 @@ class ReviewForm(forms.ModelForm):
     comment = forms.CharField(max_length=500,
                               help_text="Please enter the contents of your review")
     likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
-    rating = forms.IntegerField(max_value=5, min_value=1, required=True)
+    rating = forms.IntegerField(max_value=5, min_value=1, required=True,
+                                help_text="Please rate this spot here")
     class Meta:
         model = Review
         fields = ('title','comment',)

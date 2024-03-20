@@ -13,5 +13,6 @@
     <h2>Tashs Review</h2>
     <a href="{% url 'gregssnorkelscores:favourite_add' spot.id %}" class="btn btn-outline-primary">Add to Favourites</a>
     <p>ten out of ten, best place ever!!</p>
-    <a href="{% url 'gregssnorkelscores:write_review' %}">Write your own review!</a>
+    <a href="/gregssnorkelscores/spot/{{spot.slug}}/write_review/">Write your own review!</a>
+    {% endif %}
 {% endblock %}
