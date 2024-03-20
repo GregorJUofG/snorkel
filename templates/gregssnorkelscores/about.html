@@ -6,10 +6,13 @@
 {% endblock %}
 
 {% block body_block %}
-    <h1>THIS IS WHERE THE ABOUT PAGE WILL GO!!!</h1>
-    <strong>{{ boldmessage }}</strong><br />
-    <p>Visits: {{ visits }}</p>
-    
-    <img src="{% static 'images/whos_awesome.jpg' %}" alt="Who's awesome? You're awesome!" />
-
+<body class="login"> <!-- Use the same class for consistent background and font -->
+    <div class="login-container"> <!-- Assuming this contains the styling you want -->
+        <h1 class="headingLogin">About Gregs Snorkel Scores</h1>
+        <strong>{{ boldmessage }}</strong><br />
+        <p>Visits: {{ visits }}</p>
+        
+        <img src="{% static 'images/whos_awesome.jpg' %}" alt="Who's awesome? You're awesome!" />
+    </div>
+</body>
 {% endblock %}
