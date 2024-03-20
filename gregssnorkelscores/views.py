@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -6,8 +6,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth.models import User
 from gregssnorkelscores.models import Location, Spot, UserProfile, Review
-from gregssnorkelscores.form import LocationForm, SpotForm, SearchForm, ReviewForm, UserForm, UserProfileForm
+from gregssnorkelscores.forms import LocationForm, SpotForm, SearchForm, ReviewForm, UserForm, UserProfileForm
 
 
 def home(request):
@@ -188,12 +189,25 @@ def profile(request):
     response = render(request, "gregssnorkelscores/profile.html")
     return response
 
-
+@ login_required
 def favourites(request):
     visitor_cookie_handler(request)
-
-    response = render(request, "gregssnorkelscores/favourites.html")
+    new = Spot.objects.filter(favourites=request.user)
+    response = render(request, 'gregssnorkelscores/favourites.html', {'new':new})
     return response
+
+@ login_required
+def favourite_add(request, id):
+    visitor_cookie_handler(request)
+    spot = get_object_or_404(Spot, id=id)
+    if spot.favourites.filter(id=request.user.id).exists():
+        # removing from favourites if it's already there
+        spot.favourites.remove(request.user)
+    else:
+        spot.favourites.add(request.user)
+    response = render(request, 'gregssnorkelscores/favourites.html')
+    return response 
+
 
 
 def register(request):

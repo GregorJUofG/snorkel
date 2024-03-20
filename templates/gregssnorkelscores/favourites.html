@@ -6,5 +6,12 @@
 {% endblock %}
 
 {% block body_block %}
-    <p>Placeholder for users favourite locations!</p>
+    <p>Favourite locations!</p>
+    {% for spot in new %}
+        <a href="{{spot.url}}">
+            <img src="{{spot.pictures.url}}" alt="{{ spot.name }}">
+            <div id="favourite-section"><a href="{% url 'accounts:favourite_add' spot.id %}"
+                    class="btn btn-outline-primary">Remove</a></div>
+        </a>
+    {% endfor %}
 {% endblock %}

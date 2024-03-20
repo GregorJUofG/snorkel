@@ -66,7 +66,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=25)),
                 ('pub_date', models.DateTimeField(auto_now_add=True, verbose_name='Publication Date')),
                 ('comment', models.TextField(max_length=500)),
-                ('value', models.IntegerField(choices=[(5, '5'), (4, '4'), (3, '3'), (2, '2'), (1, '1')], default=1)),
+                ('rating', models.IntegerField(choices=[(5, '5'), (4, '4'), (3, '3'), (2, '2'), (1, '1')], default=1)),
                 ('likes', models.IntegerField(default=0)),
                 ('author', models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
                 ('spot', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gregssnorkelscores.Spot')),
