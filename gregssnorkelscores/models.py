@@ -42,15 +42,13 @@ class Location(models.Model):
 class Spot(models.Model):
 
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
-    name = models.CharField(
-        max_length=128, unique=True
-    )  # want names here to be unique?
+    name = models.CharField(max_length=128, unique=True)
     url = models.URLField()
+    about = models.CharField(max_length=200)
     pictures = models.ImageField(upload_to="spot_images", blank=True)
     favourites = models.ManyToManyField(User, related_name='favourites',
                                         default=None, blank=True)
     postcode = models.CharField(max_length=8)
-    slug = models.SlugField(unique=True)
     reviewsAmount = models.IntegerField(default=0)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE
@@ -59,6 +57,11 @@ class Spot(models.Model):
     # not going to hold reviews here just like how
     # location doesnt hold spot only other way round
     objects = models.Manager()  # default manager
+    slug = models.SlugField(unique=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Spot, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name_plural = "Spots"

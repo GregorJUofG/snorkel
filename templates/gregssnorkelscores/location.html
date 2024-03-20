@@ -11,12 +11,12 @@
     <ul>
         {% for spot in spots %}
         <li>
-            <a href="{% url 'gregssnorkelscores:spot' %}">Hello????</a>
+            <a href="/gregssnorkelscores/spot/{{ spot.slug }}/">{{ spot.name }}</a>
         </li>
         {% endfor %}
-        <li><a href="{% url 'gregssnorkelscores:spot' %}">Stonehaven</li>
+        <!-- <li><a href="{% url 'gregssnorkelscores:spot' %}">Stonehaven</li>
         <li><a href="{% url 'gregssnorkelscores:spot' %}">Edinburgh</li>
         <li><a href="{% url 'gregssnorkelscores:spot' %}">Oban</li>
-        <li><a href="{% url 'gregssnorkelscores:spot' %}">Aviemore</li>
+        <li><a href="{% url 'gregssnorkelscores:spot' %}">Aviemore</li> -->
     </ul>
 {% endblock %}

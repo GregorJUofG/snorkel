@@ -71,7 +71,7 @@ def SearchSpot(request):
     return render(request, '/gregssnorkelscores/', context)
 
 def location(request):
-    spot_list = Spot.objects.order_by('-reviewsAmount')[:5]
+    spot_list = Spot.objects.order_by('-reviewsAmount')#[:5]
 
     context_dict = {}
     context_dict['boldmessage'] = 'All the locations will be displayed in a list here!'
@@ -127,36 +127,19 @@ def show_spot(request, spot_name_slug):
     return render(request, 'gregssnorkelscores/spot.html', context=context_dict)
 
 @login_required
-def add_spot(request, location_name_slug):
+def add_spot(request):
     visitor_cookie_handler(request)
 
-    try:
-        location = Location.objects.get(slug=location_name_slug)
-    except Location.DoesNotExist:
-        location = None
-
-    if location is None:
-        return redirect('/gregssnorkelscores/')
-    
     form = SpotForm()
-
     if request.method == 'POST':
         form = SpotForm(request.POST)
-
         if form.is_valid():
-            if location:
-                spot = form.save(commit=False)
-                spot.location = location
-                # other variables for spot
-
-                return redirect(reverse('gregssnorkelscores:show_location', 
-                                        kwargs={'location_name_slug':
-                                                location_name_slug}))
+            spot = form.save(commit=True)
+            return redirect(reverse('/gregssnorkelscores/'))
         else:
             print(form.errors)
-    context_dict = {'form': form, 'location': location}
-    response = render(request, 'gregssnorkelscores/add_spot.html', context=context_dict)
 
+    response = render(request, 'gregssnorkelscores/add_spot.html', {'form':form})
     return response
 
 
