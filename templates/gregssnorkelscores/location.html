@@ -9,14 +9,16 @@
     <p>Placeholder for when a user clicks somewhere on zeta's map they git a list of spots here!</p>
     <a href="{% url 'gregssnorkelscores:add_spot' %}">Don't see your spot? add it here!</a>
     <ul>
-        {% for spot in spots %}
+        <!-- {% for spot in spots %}
         <li>
-            <a href="/gregssnorkelscores/spot/{{ spot.slug }}/">{{ spot.name }}</a>
+            <a href="{% url 'gregssnorkelscores:show_spot' spot.slug %}">
+                {{ spot.name }}
+            </a>
         </li>
-        {% endfor %}
-        <!-- <li><a href="{% url 'gregssnorkelscores:spot' %}">Stonehaven</li>
-        <li><a href="{% url 'gregssnorkelscores:spot' %}">Edinburgh</li>
-        <li><a href="{% url 'gregssnorkelscores:spot' %}">Oban</li>
-        <li><a href="{% url 'gregssnorkelscores:spot' %}">Aviemore</li> -->
+        {% endfor %} -->
+        <li><a href="{% url 'gregssnorkelscores:show_spot' %}">Stonehaven</li>
+        <li><a href="{% url 'gregssnorkelscores:show_spot' %}">Edinburgh</li>
+        <li><a href="{% url 'gregssnorkelscores:show_spot' %}">Oban</li>
+        <li><a href="{% url 'gregssnorkelscores:show_spot' %}">Aviemore</li>
     </ul>
 {% endblock %}
