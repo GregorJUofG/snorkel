@@ -5,19 +5,32 @@
 {% endblock %}
 
 {% block body_block %}
-    <h1>THIS IS WHERE THE FORM FOR ADD SNORKEL SPOT WILL GO!</h1>
-    <div> 
-        <form id="spot_form" method="post" action="/gregssnorkelscores/add_spot/">
-            {% csrf_token %}
-            {% for hidden in form.hidden_fields %}
-                {{ hidden }}
-            {% endfor %}
-            {% for field in form.visible_fields %}
-                {{ field.errors }}
-                {{ field.help_text }}
-                {{ field }}
-            {% endfor %}
-            <input type="submit" name="submit" value="Create Spot" />
-        </form>
+
+<body class="login">
+    <div class="login-container">
+        <h1 class="headingLogin">Add a Snorkel Spot</h1>
+        <div class="centered-form">
+            <form id="spot_form" method="post" action="/gregssnorkelscores/location_name/add_spot/">
+                {% csrf_token %}
+                {% for hidden in form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
+                {% for field in form.visible_fields %}
+                    <div class="form-group">
+                        {{ field.errors }}
+                        <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                        {{ field.help_text }}
+                        {{ field }}
+                    </div>
+                {% endfor %}
+                <div class="form-group">
+                    <div class="button">
+                        <input type="submit" name="submit" value="Create Spot" />
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
+</body>
+
 {% endblock %}

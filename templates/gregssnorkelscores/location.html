@@ -2,23 +2,34 @@
 {% load static %}
 
 {% block title_block %}
-    Location page
+    Location Page
 {% endblock %}
 
 {% block body_block %}
-    <p>Placeholder for when a user clicks somewhere on zeta's map they git a list of spots here!</p>
-    <a href="{% url 'gregssnorkelscores:add_spot' %}">Don't see your spot? add it here!</a>
-    <ul>
-        <!-- {% for spot in spots %}
-        <li>
-            <a href="{% url 'gregssnorkelscores:show_spot' spot.slug %}">
-                {{ spot.name }}
-            </a>
-        </li>
-        {% endfor %} -->
-        <li><a href="{% url 'gregssnorkelscores:show_spot' %}">Stonehaven</li>
-        <li><a href="{% url 'gregssnorkelscores:show_spot' %}">Edinburgh</li>
-        <li><a href="{% url 'gregssnorkelscores:show_spot' %}">Oban</li>
-        <li><a href="{% url 'gregssnorkelscores:show_spot' %}">Aviemore</li>
-    </ul>
+
+<body class="login">
+    <div class="login-container">
+        <h1 class="headingLogin">Location Page</h1>
+        <p class="su">Placeholder for when a user clicks somewhere on Zeta's map, they get a list of spots here!</p>
+        <p class="su"><a href="{% url 'gregssnorkelscores:add_spot' %}">Don't see your spot? Add it here!</a></p>
+        <div class="centered-form">
+            <ul class="spots-list">
+                <!-- Uncomment and use this for loop when dynamic content is needed
+                {% for spot in spots %}
+                <li class="spot-item">
+                    <a href="{% url 'gregssnorkelscores:show_spot' spot.slug %}">
+                        {{ spot.name }}
+                    </a>
+                </li>
+                {% endfor %}
+                -->
+                <li class="spot-item"><a href="{% url 'gregssnorkelscores:show_spot' 'stonehaven' %}">Stonehaven</a></li>
+                <li class="spot-item"><a href="{% url 'gregssnorkelscores:show_spot' 'edinburgh' %}">Edinburgh</a></li>
+                <li class="spot-item"><a href="{% url 'gregssnorkelscores:show_spot' 'oban' %}">Oban</a></li>
+                <li class="spot-item"><a href="{% url 'gregssnorkelscores:show_spot' 'aviemore' %}">Aviemore</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+
 {% endblock %}
