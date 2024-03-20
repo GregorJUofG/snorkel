@@ -1,14 +1,14 @@
 from django.contrib import admin
-from .models import Location, Spot, Review, UserProfile
+from gregssnorkelscores.models import Location, Spot, Review, UserProfile
 
 class SpotAdmin(admin.ModelAdmin):
-    list_display = ("name", "location", "url")
+    list_display = ("name", "location")
 
 class LocationAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('name',)}
 
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ("title", "spot", "comment", "value")
+    list_display = ("title", "spot", "comment", "rating")
 
 admin.site.register(Spot, SpotAdmin)
 admin.site.register(Location, LocationAdmin)

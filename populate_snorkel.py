@@ -9,43 +9,8 @@ from datetime import datetime
 
 def populate():
 
-    # users = [ 
-    #     {'name': 'Greg',
-    #      'username': 'greglikessnorkeling',
-    #      'password': 'foobarbaz',
-    #      'profile pic': '',
-    #      'experience': 'EXPERT',
-    #      'logged in?': False,
-    #      'link': 'blah.com',
-    #      'favourited spots': ['here']
-    #      },
-    #     {'name': 'Tash',
-    #      'username': 'tashlikessnorkeling',
-    #      'other info':'info'
-    #      }
-    # ]
-
-    locations = {
-        'City of Aberdeen':{'creator': 'greglikessnorkeling',
-                            'pictures': '',
-                            'favourites': 9,
-                            'about': 'The granite city, Aberdeen!',
-                            'reviewAmount':8,
-                            'reviewsAverage':4.2,
-                            'spots':aberdeen_spots
-                        },
-        'South Ayrshire':{'creator': 'tashlikessnorkeling',
-                          'pictures':'',
-                          'favourites': 7,
-                          'about': 'infoooo',
-                          'reviewsAmount': 8,
-                          'reviewsAverage': 3.6,
-                          'spots':ayr_spots
-                        },
-    }
-
-    aberdeen_spots = {'Stonehaven beach':{
-                            'author': 'greglikessnorkeling',
+    aberdeenshire_spots = {
+        'Stonehaven beach':{'author': 'greglikessnorkeling',
                             'pictures': '',
                             'postcode': 'AB39 2BD',
                             'reviewsAmount': 2,     # reviews can each be liked individually
@@ -82,7 +47,7 @@ def populate():
                                 }
                             }
                         }
-
+    
     ayr_spots = {
         'Ayr beach':{
             'location':'South Ayrshire',
@@ -101,11 +66,42 @@ def populate():
                 }
             }
 
+    locations = {
+        'aberdeenshire':{   'pictures': '',
+                            'about': 'The granite city, Aberdeen!',
+                            'reviewsAmount':8,
+                            'reviewsAverage':4.2,
+                            'spots':aberdeenshire_spots
+                        },
+        'south_ayrshire':{'pictures':'',
+                          'about': 'infoooo',
+                          'reviewsAmount': 8,
+                          'reviewsAverage': 3.6,
+                          'spots':ayr_spots
+                        },
+    }
+    
+    # Don't think it is necessary to populate users...
+    # users = [ 
+    #     {'name': 'Greg',
+    #      'username': 'greglikessnorkeling',
+    #      'password': 'foobarbaz',
+    #      'profile pic': '',
+    #      'experience': 'EXPERT',
+    #      'logged in?': False,
+    #      'link': 'blah.com',
+    #      'favourited spots': ['here']
+    #      },
+    #     {'name': 'Tash',
+    #      'username': 'tashlikessnorkeling',
+    #      'other info':'info'
+    #      }
+    # ]
+
     # go through location and add each spot
     for loc, loc_data in locations.items():
         l = add_location(loc,
-                         loc_data['creator'],loc_data['pictures'],
-                         loc_data['favourites'],loc_data['about'],
+                         loc_data['pictures'],loc_data['about'],
                          loc_data['reviewsAmount'],loc_data['reviewsAverage']
                          )
         
@@ -122,11 +118,9 @@ def populate():
                            rev_data['likes']
                            )
     
-def add_location(name, creator, pictures, favourites, about, reviewsAmount, reviewsAverage):
+def add_location(name, pictures, about, reviewsAmount, reviewsAverage):
     l = Location.objects.get_or_create(name=name)[0]
-    l.creator = creator
     l.pictures = pictures
-    l.favourites = favourites
     l.about = about
     l.reviewsAmount = reviewsAmount
     l.reviewsAverage = reviewsAverage

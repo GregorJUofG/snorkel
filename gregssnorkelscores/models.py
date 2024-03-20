@@ -15,20 +15,11 @@ class Location(models.Model):
     NAME_MAX_LENGTH = 128
 
     name = models.CharField(max_length=128, unique=True) # (We will want location names to be unique)
-    # Need to figure out what this does !!!
-    # creator = models.ForeignKey(
-    #     settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE
-    # )
-    creator = models.CharField(max_length = NAME_MAX_LENGTH)
     pictures = models.ImageField(upload_to="location_images", blank=True)
     about = models.CharField(max_length=500)
-    favourites = models.IntegerField(default=0)
     reviewsAmount = models.IntegerField(default=0)
     reviewsAverage = models.FloatField(default=0)
     slug = models.SlugField(unique=True)
-    author = models.ForeignKey(
-        settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE
-    )
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name="Publication Date")
 
     def save(self, *args, **kwargs):
@@ -57,9 +48,6 @@ class Spot(models.Model):
     postcode = models.CharField(max_length=8)
     slug = models.SlugField(unique=True)
     reviewsAmount = models.IntegerField(default=0)
-    author = models.ForeignKey(
-        settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE
-    )
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name="Publication Date")
     # url = models.URLField()
     # not going to hold reviews here just like how

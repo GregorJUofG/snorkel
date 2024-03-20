@@ -9,7 +9,6 @@ class SearchForm(forms.Form):
 class LocationForm(forms.ModelForm):
     name = forms.CharField(max_length=128,
                            help_text="Please enter the location name.")
-    favourites = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     reviewsAmount = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     reviewsAverage = forms.FloatField(widget=forms.HiddenInput(), initial=0)
     about = forms.CharField(widget=forms.HiddenInput(), required=False)
