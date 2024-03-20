@@ -182,7 +182,7 @@ def write_review(request):
     response = render(request, 'gregssnorkelscores/write_review.html', context)
     return response
 
-
+@login_required
 def profile(request):
     visitor_cookie_handler(request)
 
@@ -259,9 +259,9 @@ def login(request):
                 auth_login(request, user)
                 return redirect(reverse('home')) 
             else:
-                return HttpResponse("Your account is disabled.")
+                return render(request, 'gregssnorkelscores/login.html')
         else:
-            return HttpResponse("Invalid login details supplied.")
+            return render(request, 'gregssnorkelscores/login.html')
     else:
         return render(request, 'gregssnorkelscores/login.html')
 
@@ -271,7 +271,7 @@ def user_logout(request):
     logout(request)
     return redirect(reverse("gregssnorkelscores:home"))
 
-
+@login_required
 def profile(request):
     try:
         user_profile = UserProfile.objects.get(user=request.user)

@@ -6,18 +6,23 @@
 {% endblock %}
 
 {% block body_block %}
-    <p>Placeholder for the users profile page!</p>
-    <a href="{% url 'gregssnorkelscores:favourites' %}">Users favourites</a>
-    <p><strong>Username:</strong> {{ user.username }}</p>
-    <p><strong>Email:</strong> {{ user.email }}</p>
-    {% if user_profile %}
-        <p><strong>Website:</strong> <a href="{{ user_profile.website }}">{{ user_profile.website }}</a></p>
-        <p><strong>Experience:</strong> {{ user_profile.experience }}</p>
-        {% if user_profile.pictures %}
-            <p><strong>Picture:</strong></p>
-            <img src="{{ user_profile.pictures.url }}" alt="User's Profile Picture" style="max-width: 500px; height: auto;">
+<body class="login"> <!-- Apply consistent styling -->
+    <div class="login-container"> <!-- Ensure styling is consistent with login page -->
+        <h1 class="headingLogin">Profile Page</h1>
+        <p>Placeholder for the user's profile page!</p>
+        <a href="{% url 'gregssnorkelscores:favourites' %}">User's favourites</a>
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        {% if user_profile %}
+            <p><strong>Website:</strong> <a href="{{ user_profile.website }}">{{ user_profile.website }}</a></p>
+            <p><strong>Experience:</strong> {{ user_profile.experience }}</p>
+            {% if user_profile.pictures %}
+                <p><strong>Picture:</strong></p>
+                <img src="{{ user_profile.pictures.url }}" alt="User's Profile Picture" style="max-width: 500px; height: auto;">
+            {% endif %}
+        {% else %}
+            <p>Profile details not available.</p>
         {% endif %}
-    {% else %}
-        <p>Profile details not available.</p>
-    {% endif %}
+    </div>
+</body>
 {% endblock %}
