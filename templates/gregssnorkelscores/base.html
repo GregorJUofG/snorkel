@@ -15,7 +15,6 @@
     <div class="topnav">
         <ul>
             <li><a href="{% url 'gregssnorkelscores:home' %}">Home</a></li>
-            <li><a href="{% url 'gregssnorkelscores:about' %}">About</a></li>
             {% if not user.is_authenticated %}
                 <!-- These will only show if the user is not logged in -->
                 <li><a href="{% url 'gregssnorkelscores:register' %}">Sign Up</a></li>
@@ -23,7 +22,7 @@
             {% else %}
                 <!-- These will only show if the user is logged in -->
                 <li><a href="{% url 'gregssnorkelscores:profile' %}">Profile</a></li>
-                <li><a href="{% url 'gregssnorkelscores:add_location' %}">Add Location</a></li>
+                <li><a href="{% url 'gregssnorkelscores:add_spot' %}">Add Spot</a></li>
                 <li><a href="{% url 'gregssnorkelscores:logout' %}">Log out</a></li>
             {% endif %}
         </ul>
