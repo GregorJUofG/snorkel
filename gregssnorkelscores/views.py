@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from datetime import datetime
 from django.contrib.auth import authenticate, login as auth_login
 from gregssnorkelscores.models import Location, Spot, UserProfile, Review
@@ -234,6 +235,7 @@ def register(request):
 
 def login(request):
     visitor_cookie_handler(request)
+    context = {'error_message': None}
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -243,13 +245,14 @@ def login(request):
         if user is not None:
             if user.is_active:
                 auth_login(request, user)
-                return redirect(reverse('home')) 
-            else:
-                return render(request, 'gregssnorkelscores/login.html')
+                return redirect(reverse('home'))
         else:
-            return render(request, 'gregssnorkelscores/login.html')
-    else:
-        return render(request, 'gregssnorkelscores/login.html')
+            if User.objects.filter(username=username).exists():
+                context['error_message'] = 'Your password is incorrect.'
+            else:
+                context['error_message'] = 'Your username is incorrect.'
+    
+    return render(request, 'gregssnorkelscores/login.html',context)
 
 
 @login_required
