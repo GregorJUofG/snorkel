@@ -6,11 +6,17 @@ Location page
 {% endblock %}
 
 {% block body_block %}
-<h1>MORAY</h1>
-<a href="{% url 'gregssnorkelscores:add_spot' %}">Don't see your spot? add it here!</a>
-<ul>
-    <li>location</li>
-    <li>location</li>
-    <li>location</li>
-</ul>
+
+<body class=" login">
+    <div class="login-container">
+        <h1 class="headingLogin">MORAY</h1>
+        <a href="{% url 'gregssnorkelscores:add_spot' %}">Don't see your spot? add it here!</a>
+        <ul>
+            <li>location</li>
+            <li>location</li>
+            <li>location</li>
+        </ul>
+    </div>
+</body>
+
 {% endblock %}
