@@ -97,15 +97,19 @@ class Review(models.Model):
 
 # copied rango for user
 class UserProfile(models.Model):
-    # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    # The additional attributes we wish to include.
+    # Define choices for experience level
+    EXPERIENCE_LEVELS = (
+        ('Beginner', 'Beginner'),
+        ('Intermediate', 'Intermediate'),
+        ('Expert', 'Expert'),
+    )
+
     website = models.URLField(blank=True)
     pictures = models.ImageField(upload_to='profile_images', blank=True)
-    # need to add favourited places
-    experience = models.CharField(max_length=12)
-    
+    experience = models.CharField(max_length=12, choices=EXPERIENCE_LEVELS, default='Beginner')
+
     def __str__(self):
         return self.user.username
 

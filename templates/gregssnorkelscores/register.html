@@ -49,7 +49,34 @@ Register
                         {% endfor %}
                     {% endif %}
                 </div>
-                {{ profile_form.as_p }}
+                {% csrf_token %}
+                    <div class="form-group">
+                        {{ profile_form.website.label_tag }}
+                        {{ profile_form.website }}
+                        {% if profile_form.website.errors %}
+                            {% for error in profile_form.website.errors %}
+                                <div style="color: red;">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ profile_form.pictures.label_tag }}
+                        {{ profile_form.pictures }}
+                        {% if profile_form.pictures.errors %}
+                            {% for error in profile_form.pictures.errors %}
+                                <div style="color: red;">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ profile_form.experience.label_tag }}
+                        {{ profile_form.experience }}
+                        {% if profile_form.experience.errors %}
+                            {% for error in profile_form.experience.errors %}
+                                <div style="color: red;">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
 
                 <input type="submit" name="submit" value="Register" />
             </form>
