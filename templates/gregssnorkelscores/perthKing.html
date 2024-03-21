@@ -6,8 +6,14 @@ Location page
 {% endblock %}
 
 {% block body_block %}
-<h1>PERTH AND KINGROSS</h1>
-<a href="{% url 'gregssnorkelscores:add_spot' %}">Don't see your spot? add it here!</a>
+<h1>
+    {% if location %}
+        {{ location.name }}
+    {% else %}
+        Unknown Location
+    {% endif %}
+</h1>
+<a href="/gregssnorkelscores/{{ location.slug }}/add_spot/">Don't see your spot? add it here!</a>
 <ul>
     <li>location</li>
     <li>location</li>

@@ -5,7 +5,6 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
 import django
 django.setup()
 from gregssnorkelscores.models import UserProfile, Location, Spot, Review
-from datetime import datetime
 
 def populate():
 
@@ -16,7 +15,6 @@ def populate():
                             'spotAbout': 'words',
                             'pictures': '',
                             'reviewsAmount': 2,     # reviews can each be liked individually
-                            #'favourites': 5,
                             'reviews':{
                                 'Amazing beach!':{
                                         'author': 'greglikessnorkeling',
@@ -39,7 +37,6 @@ def populate():
                             'spotAbout':'stuff',
                             'pictures': '',
                             'reviewsAmount': 1,
-                            #'favourites': 8,
                             'reviews':{
                                 'Good beach!':{
                                     'author': 'greglikessnorkeling',
@@ -61,7 +58,6 @@ def populate():
             'spotAbout':'stuff',
             'pictures': '',
             'reviewsAmount': 1,
-            #'favourites': 4,
             'reviews':{'Good beach!':{
                         'author': 'greglikessnorkeling',
                         # comment = what the review is
@@ -170,23 +166,6 @@ def populate():
                             'spots':west_spots
                         },
     }
-    
-    # Don't think it is necessary to populate users...
-    # users = [ 
-    #     {'name': 'Greg',
-    #      'username': 'greglikessnorkeling',
-    #      'password': 'foobarbaz',
-    #      'profile pic': '',
-    #      'experience': 'EXPERT',
-    #      'logged in?': False,
-    #      'link': 'blah.com',
-    #      'favourited spots': ['here']
-    #      },
-    #     {'name': 'Tash',
-    #      'username': 'tashlikessnorkeling',
-    #      'other info':'info'
-    #      }
-    # ]
 
     # go through location and add each spot
     for loc, loc_data in locations.items():
@@ -210,7 +189,6 @@ def add_location(name, pictures, about, reviewsAmount, reviewsAverage):
     l.about = about
     l.reviewsAmount = reviewsAmount
     l.reviewsAverage = reviewsAverage
-    l.pub_date = datetime.now()
     l.save()
     return l
 
@@ -220,8 +198,6 @@ def add_spot(name, location, author, spotAbout, pictures, reviewsAmount):
     s.spotAbout = spotAbout
     s.pictures = pictures
     s.reviewsAmount = reviewsAmount
-    # s.favourites = favourites
-    s.pub_date = datetime.now()
     s.save()
     return s
 
@@ -232,7 +208,6 @@ def add_review(title, spot, author, comment, rating, likes):
     r.comment = comment
     r.rating = rating
     r.likes = likes
-    r.pub_date = datetime.now()
     r.save()
     return r
 

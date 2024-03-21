@@ -10,7 +10,7 @@
 
 {% block body_block %}
     <div>
-=        {% if spot %}
+        {% if spot %}
             <h1>{{ spot.name }}</h1>
     </div>
     <h2>Reviews:</h2>
@@ -23,6 +23,6 @@
             </a>
         {% endif %}
     {% endfor %}
-    <a href="/gregssnorkelscores/{{spot.slug}}/write_review/">Write your own review!</a>
+    <li><a href="/gregssnorkelscores/{{spot.slug}}/write_review/">Write your own review!</a></li>
     {% endif %}
 {% endblock %}

@@ -144,12 +144,19 @@ def fife(request):
     response = render(request, "gregssnorkelscores/fife.html", context=context_dict)
     return response
     
-def perthKing(request):
-    spot_list = Spot.objects.order_by('-reviewsAmount')[:5]
-
+def perthKing(request, location_name_slug):
+    
     context_dict = {}
-    context_dict['boldmessage'] = 'All the locations will be displayed in a list here!'
-    context_dict['spots'] = spot_list
+    spots = Spot.objects.all()
+    context_dict['spots'] = spots
+    try:
+        location = Location.objects.get(slug=location_name_slug)
+        spots = Spot.objects.filter(location=location)
+        # context_dict['spots'] = spots
+        context_dict['location'] = location
+    except Location.DoesNotExist:
+        context_dict['location'] = None
+        # context_dict['spots'] = None 
 
     visitor_cookie_handler(request)
 
@@ -290,10 +297,7 @@ def show_spot(request, location_name_slug, spot_name_slug):
 def add_spot(request, location_name_slug):
     visitor_cookie_handler(request)
 
-    try:
-        location = Location.objects.get(slug=location_name_slug)
-    except:
-        location = None
+    location = get_object_or_404(Location, slug=location_name_slug)
 
     if location is None:
         return redirect('/gregssnorkelscores/')
@@ -327,10 +331,8 @@ def spot(request):
 @login_required
 def write_review(request, spot_name_slug):
     visitor_cookie_handler(request)
-    try: 
-        spot = Spot.objects.get(slug=spot_name_slug)
-    except:
-        spot = None
+
+    spot = get_object_or_404(Spot, slug=spot_name_slug)
 
     form = ReviewForm()
     if request.method == 'POST':
@@ -340,7 +342,7 @@ def write_review(request, spot_name_slug):
             return HttpResponse('Your review has been taken')
     else:
         form = ReviewForm()
-        context = {'form': form,}
+        context = {'form': form, 'spot':spot}
     response = render(request, 'gregssnorkelscores/write_review.html', context)
     return response
 
@@ -350,26 +352,6 @@ def profile(request):
 
     response = render(request, "gregssnorkelscores/profile.html")
     return response
-
-# @ login_required
-# def favourites(request):
-#     visitor_cookie_handler(request)
-#     new = Spot.objects.filter(favourites=request.user) # username instead?
-#     response = render(request, 'gregssnorkelscores/favourites.html', {'new':new})
-#     return response
-
-# @ login_required
-# def favourite_add(request, user):
-#     visitor_cookie_handler(request)
-#     spot = get_object_or_404(Spot, id=id)
-#     if spot.favourites.filter(user=request.user).exists():
-#         # removing from favourites if it's already there
-#         spot.favourites.remove(request.user)
-#     else:
-#         spot.favourites.add(request.user)
-#     response = render(request, 'gregssnorkelscores/favourites.html')
-#     return response 
-
 
 
 def register(request):
