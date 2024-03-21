@@ -1,0 +1,35 @@
+.box {
+    position: absolute;
+    top: 50.5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(10, 32, 14);
+    background-color: rgba(25, 154, 42, 0.8);
+    padding: 20px;
+}
+
+
+.heading-container {
+    display: flex;
+    align-items: center;
+}
+
+.headingLogin {
+    margin-right: 20px;
+}
+
+.image {
+    padding-right: 20px;
+    padding-left: 20px;
+    width: 500px;
+    height: 300;
+}
+
+.info {
+    display: flex;
+    justify-content: center;
+    color: #28582a;
+    text-align: center;
+    font-family: "Copperplate", Fantasy;
+    margin-top: 3px;
+}
