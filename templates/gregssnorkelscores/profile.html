@@ -6,7 +6,7 @@ Profile Page
 {% endblock %}
 
 {% block body_block %}
-<h1 class="headingLogin">Hey {{ user.username }}</h1>
+<h1 class="headingLogin">Hey {{ user.username }}!</h1>
 
 
 
@@ -14,8 +14,8 @@ Profile Page
     <div class="login-container">
         <div class="text-overlay">
 
-            <p><span class="green">Username:</span> <span class="white">{{ user.username }}</span></p>
-            <p><span class="green">Email:</span><span class="white">{{ user.email }}</span></p>
+            <p><span class="green">Username: </span> <span class="white">{{ user.username }}</span></p>
+            <p><span class="green">Email: </span><span class="white">{{ user.email }}</span></p>
             {% if user_profile %}
             <p><span class="green">Your Socials:</span> <span class="white"> {{ user_profile.website }}</span></p>
             <p><span class="green">Experience:</span> <span class="white"> {{ user_profile.experience }}</span></p>
@@ -29,7 +29,7 @@ Profile Page
             {% else %}
             <p>Profile details not available.</p>
             {% endif %}
-            <p><span class="green">Or see something familiar:</span> <a
+            <p><span class="green">Or see something familiar: </span> <a
                     href="{% url 'gregssnorkelscores:favourites' %}">Your Favourites</a></p>
         </div>
     </div>
