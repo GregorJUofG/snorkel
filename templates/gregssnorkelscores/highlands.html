@@ -7,10 +7,17 @@ Location page
 
 {% block body_block %}
 <h1>HIGHLANDS</h1>
-<a href="{% url 'gregssnorkelscores:add_spot' %}">Don't see your spot? add it here!</a>
+<div>
+    {% if location %}
+        {{ location.name }}
+    {% else %}
+        Unknown Location
+    {% endif %}
+</div>
+<a href="/gregssnorkelscores/{{ location.slug }}/add_spot/">Don't see your spot? add it here!</a>
 <ul>
-    <li>location</li>
-    <li>location</li>
-    <li>location</li>
+    {% for spot in spots %}
+    <li><a href="/gregssnorkelscores/{{ location.slug }}/show_spot/{{ spot.slug }}/">{{ spot.name }}</a></li>
+    {% endfor %}
 </ul>
 {% endblock %}

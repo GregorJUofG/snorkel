@@ -25,8 +25,6 @@ class SpotForm(forms.ModelForm):
                            help_text="Please enter the spot name.")
     spotAbout = forms.CharField(max_length=200, 
                             help_text="Please enter a bit about your spot")
-    postcode = forms.CharField(max_length=8,
-                               help_text="Enter postcode here")
     pictures = forms.ImageField(help_text="Enter a picture here", required=False)
     reviewsAmount = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)

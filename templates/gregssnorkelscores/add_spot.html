@@ -7,7 +7,7 @@
 {% block body_block %}
     <h1>THIS IS WHERE THE FORM FOR ADD SNORKEL SPOT WILL GO!</h1>
     <div> 
-        <form id="spot_form" method="post" action="/gregssnorkelscores/add_spot/">
+        <form id="add_spot_form" method="post" action="/gregssnorkelscores/{{ location.slug }}/add_spot/">
             {% csrf_token %}
             {% for hidden in form.hidden_fields %}
                 {{ hidden }}

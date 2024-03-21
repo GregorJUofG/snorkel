@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.models import User
 from gregssnorkelscores.models import Location, Spot, UserProfile, Review
 from gregssnorkelscores.forms import LocationForm, SpotForm, SearchForm, ReviewForm, UserForm, UserProfileForm
+from django.views.generic.detail import DetailView
 
 
 def home(request):
@@ -107,6 +108,7 @@ def westIslands(request):
     return response
 
 def highlands(request):
+    
     spot_list = Spot.objects.order_by('-reviewsAmount')[:5]
 
     context_dict = {}
@@ -252,34 +254,67 @@ def show_location(request, location_name_slug):
         # context_dict['spots'] = None 
     return render(request, 'gregssnorkelscores/location.html', context=context_dict)
 
-def show_spot(request, spot_name_slug):
+@login_required
+def add_location(request):
+    visitor_cookie_handler(request)
+
+    form = LocationForm()
+    if request.method == 'POST':
+        form = LocationForm(request.POST)
+        if form.is_valid():
+            loc = form.save(commit=True)
+            print(loc, loc.slug)
+            return redirect('/gregssnorkelscores/')
+        else:
+            print(form.errors)
+
+    response = render(request, 'gregssnorkelscores/add_location.html', {'form': form})
+    return response
+
+def show_spot(request, location_name_slug, spot_name_slug):
     context_dict = {}
 
     try:
+        location = Location.objects.get(slug=location_name_slug)
         spot = Spot.objects.get(slug=spot_name_slug)
         reviews = Review.objects.filter(spot=spot)
         context_dict['spot'] = spot
         context_dict['reviews'] = reviews
 
-    except Spot.DoesNotExist:
+    except (Location.DoesNotExist, Spot.DoesNotExist):
         context_dict['spot'] = None
         context_dict['reviews'] = None
     return render(request, 'gregssnorkelscores/spot.html', context=context_dict)
 
 @login_required
-def add_spot(request):
+def add_spot(request, location_name_slug):
     visitor_cookie_handler(request)
 
+    try:
+        location = Location.objects.get(slug=location_name_slug)
+    except:
+        location = None
+
+    if location is None:
+        return redirect('/gregssnorkelscores/')
+
     form = SpotForm()
+
     if request.method == 'POST':
         form = SpotForm(request.POST)
+
         if form.is_valid():
-            spot = form.save(commit=True)
-            return redirect(reverse('/gregssnorkelscores/'))
+            if location:
+                spot = form.save(commit=False)
+                spot.location = location
+                spot.save()
+                return redirect(reverse('gregssnorkelscores:show_spot',
+                                        kwargs={'location_name_slug':
+                                                location_name_slug}))
         else:
             print(form.errors)
-
-    response = render(request, 'gregssnorkelscores/add_spot.html', {'form':form})
+    context_dict = {'form': form, 'location': location}
+    response = render(request, 'gregssnorkelscores/add_spot.html', context=context_dict)
     return response
 
 
@@ -292,7 +327,6 @@ def spot(request):
 @login_required
 def write_review(request, spot_name_slug):
     visitor_cookie_handler(request)
-
     try: 
         spot = Spot.objects.get(slug=spot_name_slug)
     except:
@@ -317,24 +351,24 @@ def profile(request):
     response = render(request, "gregssnorkelscores/profile.html")
     return response
 
-@ login_required
-def favourites(request):
-    visitor_cookie_handler(request)
-    new = Spot.objects.filter(favourites=request.user) # username instead?
-    response = render(request, 'gregssnorkelscores/favourites.html', {'new':new})
-    return response
+# @ login_required
+# def favourites(request):
+#     visitor_cookie_handler(request)
+#     new = Spot.objects.filter(favourites=request.user) # username instead?
+#     response = render(request, 'gregssnorkelscores/favourites.html', {'new':new})
+#     return response
 
-@ login_required
-def favourite_add(request, user):
-    visitor_cookie_handler(request)
-    spot = get_object_or_404(Spot, id=id)
-    if spot.favourites.filter(user=request.user).exists():
-        # removing from favourites if it's already there
-        spot.favourites.remove(request.user)
-    else:
-        spot.favourites.add(request.user)
-    response = render(request, 'gregssnorkelscores/favourites.html')
-    return response 
+# @ login_required
+# def favourite_add(request, user):
+#     visitor_cookie_handler(request)
+#     spot = get_object_or_404(Spot, id=id)
+#     if spot.favourites.filter(user=request.user).exists():
+#         # removing from favourites if it's already there
+#         spot.favourites.remove(request.user)
+#     else:
+#         spot.favourites.add(request.user)
+#     response = render(request, 'gregssnorkelscores/favourites.html')
+#     return response 
 
 
 
@@ -376,6 +410,7 @@ def register(request):
 
 def login(request):
     visitor_cookie_handler(request)
+    context = {'error_message': None}
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -385,13 +420,14 @@ def login(request):
         if user is not None:
             if user.is_active:
                 auth_login(request, user)
-                return redirect(reverse('home')) 
-            else:
-                return render(request, 'gregssnorkelscores/login.html')
+                return redirect(reverse('home'))
         else:
-            return render(request, 'gregssnorkelscores/login.html')
-    else:
-        return render(request, 'gregssnorkelscores/login.html')
+            if User.objects.filter(username=username).exists():
+                context['error_message'] = 'Your password is incorrect.'
+            else:
+                context['error_message'] = 'Your username is incorrect.'
+
+    return render(request, 'gregssnorkelscores/login.html',context)
 
 
 @login_required

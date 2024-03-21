@@ -2,26 +2,33 @@
 {% load static %}
 
 {% block title_block %}
-    Location page
+    {% if location %}
+        {{ location.name }}
+    {% else %}
+        Unknown Location
+    {% endif %}
 {% endblock %}
 
 {% block body_block %}
-    <p>Placeholder for when a user clicks somewhere on zeta's map they git a list of spots here!</p>
-    <a href="{% url 'gregssnorkelscores:add_spot' %}">Don't see your spot? add it here!</a>
+    <h1>
+        {% if location %}
+            {{ location.name }}
+        {% else %}
+            Unknown Location
+        {% endif %}
+    </h1>
+    <h3> 
+        About: 
+        {{ location.about }}
+    </h3>
+    <p>Here are all the current spots in {{ location.name }}!</p>
     <ul>
         {% for spot in spots %}
-        
-        <li>
-            <a href="/gregssnorkelscores/spot/{{ spot.slug }}/">{{ spot.name }}</a>
-            <!-- <a href="{% url 'gregssnorkelscores:show_spot' spot_name_slug=spot.slug %}">
-                {{ spot.name }}
-            </a> -->
-        </li>
+            {% if spot.location == location %}
+                <li><a href="/gregssnorkelscores/{{ location.slug }}/{{ spot.slug }}/">{{ spot.name }}</a></li>
+            {% endif %}
         {% endfor %}
-        <!-- <li><a href="{% url 'gregssnorkelscores:show_spot' %}">Stonehaven</li>
-        <li><a href="{% url 'gregssnorkelscores:show_spot' %}">Edinburgh</li>
-        <li><a href="{% url 'gregssnorkelscores:show_spot' %}">Oban</li>
-        <li><a href="{% url 'gregssnorkelscores:show_spot' %}">Aviemore</li> -->
     </ul>
+    <a href="/gregssnorkelscores/{{ location.slug }}/add_spot/">Don't see your spot? add it here!</a>
 {% endblock %}
 
