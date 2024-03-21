@@ -14,10 +14,10 @@ class Migration(migrations.Migration):
             model_name='location',
             name='about',
         ),
-        migrations.RemoveField(
-            model_name='location',
-            name='author',
-        ),
+        # migrations.RemoveField(
+        #     model_name='location',
+        #     name='author',
+        # ),
         migrations.RemoveField(
             model_name='location',
             name='reviewsAmount',

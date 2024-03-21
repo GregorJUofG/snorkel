@@ -162,15 +162,15 @@ def profile(request):
 @ login_required
 def favourites(request):
     visitor_cookie_handler(request)
-    new = Spot.objects.filter(favourites=request.user)
+    new = Spot.objects.filter(favourites=request.user) # username instead?
     response = render(request, 'gregssnorkelscores/favourites.html', {'new':new})
     return response
 
 @ login_required
-def favourite_add(request, id):
+def favourite_add(request, user):
     visitor_cookie_handler(request)
     spot = get_object_or_404(Spot, id=id)
-    if spot.favourites.filter(id=request.user.id).exists():
+    if spot.favourites.filter(user=request.user).exists():
         # removing from favourites if it's already there
         spot.favourites.remove(request.user)
     else:

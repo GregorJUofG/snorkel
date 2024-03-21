@@ -9,16 +9,15 @@ class SearchForm(forms.Form):
 class LocationForm(forms.ModelForm):
     name = forms.CharField(max_length=128,
                            help_text="Please enter the location name")
-    #favourites = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
-    #reviewsAmount = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
-    #reviewsAverage = forms.FloatField(widget=forms.HiddenInput(), initial=0)
-    #about = forms.CharField(max_length=1000, help_text="About location")
-    #views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+    reviewsAmount = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+    reviewsAverage = forms.FloatField(widget=forms.HiddenInput(), initial=0)
+    about = forms.CharField(max_length=1000, help_text="About location")
+    views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
     
     class Meta:
         model = Location
-        fields = ('name','slug',)
+        fields = ('name',)
     
 
 class SpotForm(forms.ModelForm):
@@ -34,7 +33,7 @@ class SpotForm(forms.ModelForm):
 
     class Meta:
         model = Spot
-        fields = ('name','slug',)
+        fields = ('name',)
 
 class ReviewForm(forms.ModelForm):
     title = forms.CharField(max_length=25,
