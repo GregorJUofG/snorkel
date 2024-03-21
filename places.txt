@@ -1,0 +1,8 @@
+ABERDEENSHIRE:
+- Stonehaven
+- Portklethen
+- Newtonhill
+
+SOUTH AYRSHIRE:
+- GIRVAN
+- TURNBERRY
