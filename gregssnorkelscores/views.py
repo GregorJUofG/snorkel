@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -7,8 +7,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from datetime import datetime
 from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth.models import User
 from gregssnorkelscores.models import Location, Spot, UserProfile, Review
-from gregssnorkelscores.form import LocationForm, SpotForm, SearchForm, ReviewForm, UserForm, UserProfileForm
+from gregssnorkelscores.forms import LocationForm, SpotForm, SearchForm, ReviewForm, UserForm, UserProfileForm
+from django.views.generic.detail import DetailView
 
 
 def home(request):
@@ -107,6 +109,7 @@ def westIslands(request):
     return response
 
 def highlands(request):
+
     spot_list = Spot.objects.order_by('-reviewsAmount')[:5]
 
     context_dict = {}
@@ -141,7 +144,7 @@ def fife(request):
 
     response = render(request, "gregssnorkelscores/fife.html", context=context_dict)
     return response
-    
+ 
 def perthKing(request):
     spot_list = Spot.objects.order_by('-reviewsAmount')[:5]
 
@@ -240,14 +243,16 @@ def ayr(request):
 
 def show_location(request, location_name_slug):
     context_dict = {}
+    spots = Spot.objects.all()
+    context_dict['spots'] = spots
     try:
         location = Location.objects.get(slug=location_name_slug)
         spots = Spot.objects.filter(location=location)
-        context_dict['spots'] = spots
+        # context_dict['spots'] = spots
         context_dict['location'] = location
     except Location.DoesNotExist:
         context_dict['location'] = None
-        context_dict['spots'] = None 
+        # context_dict['spots'] = None 
     return render(request, 'gregssnorkelscores/location.html', context=context_dict)
 
 @login_required
@@ -267,17 +272,17 @@ def add_location(request):
     response = render(request, 'gregssnorkelscores/add_location.html', {'form': form})
     return response
 
-
-def show_spot(request, spot_name_slug):
+def show_spot(request, location_name_slug, spot_name_slug):
     context_dict = {}
 
     try:
+        location = Location.objects.get(slug=location_name_slug)
         spot = Spot.objects.get(slug=spot_name_slug)
         reviews = Review.objects.filter(spot=spot)
         context_dict['spot'] = spot
         context_dict['reviews'] = reviews
 
-    except Spot.DoesNotExist:
+    except (Location.DoesNotExist, Spot.DoesNotExist):
         context_dict['spot'] = None
         context_dict['reviews'] = None
     return render(request, 'gregssnorkelscores/spot.html', context=context_dict)
@@ -286,14 +291,11 @@ def show_spot(request, spot_name_slug):
 def add_spot(request, location_name_slug):
     visitor_cookie_handler(request)
 
-    try:
-        location = Location.objects.get(slug=location_name_slug)
-    except Location.DoesNotExist:
-        location = None
+    location = get_object_or_404(Location, slug=location_name_slug)
 
     if location is None:
         return redirect('/gregssnorkelscores/')
-    
+
     form = SpotForm()
 
     if request.method == 'POST':
@@ -303,16 +305,14 @@ def add_spot(request, location_name_slug):
             if location:
                 spot = form.save(commit=False)
                 spot.location = location
-                # other variables for spot
-
-                return redirect(reverse('gregssnorkelscores:show_location', 
+                spot.save()
+                return redirect(reverse('gregssnorkelscores:show_spot',
                                         kwargs={'location_name_slug':
                                                 location_name_slug}))
         else:
             print(form.errors)
     context_dict = {'form': form, 'location': location}
     response = render(request, 'gregssnorkelscores/add_spot.html', context=context_dict)
-
     return response
 
 
@@ -323,8 +323,10 @@ def spot(request):
     return response
 
 @login_required
-def write_review(request):
+def write_review(request, spot_name_slug):
     visitor_cookie_handler(request)
+
+    spot = get_object_or_404(Spot, slug=spot_name_slug)
 
     form = ReviewForm()
     if request.method == 'POST':
@@ -334,7 +336,7 @@ def write_review(request):
             return HttpResponse('Your review has been taken')
     else:
         form = ReviewForm()
-        context = {'form': form,}
+        context = {'form': form, 'spot':spot}
     response = render(request, 'gregssnorkelscores/write_review.html', context)
     return response
 
@@ -343,13 +345,6 @@ def profile(request):
     visitor_cookie_handler(request)
 
     response = render(request, "gregssnorkelscores/profile.html")
-    return response
-
-
-def favourites(request):
-    visitor_cookie_handler(request)
-
-    response = render(request, "gregssnorkelscores/favourites.html")
     return response
 
 
@@ -407,7 +402,7 @@ def login(request):
                 context['error_message'] = 'Your password is incorrect.'
             else:
                 context['error_message'] = 'Your username is incorrect.'
-    
+
     return render(request, 'gregssnorkelscores/login.html',context)
 
 

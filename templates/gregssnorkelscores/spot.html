@@ -1,12 +1,28 @@
 {% extends 'gregssnorkelscores/base.html' %}
 
 {% block title_block %}
-    Spot name
+    {% if spot %}
+        {{ spot.name }}
+    {% else %}
+        Unknown spot
+    {% endif %}
 {% endblock %}
 
 {% block body_block %}
-    <h1>THIS IS WHERE A SNORKEL SPOT WILL GO!!!</h1>
-    <h2>Tashs Review</h2>
-    <p>ten out of ten, best place ever!!</p>
-    <a href="{% url 'gregssnorkelscores:write_review' %}">Write your own review!</a>
+    <div>
+        {% if spot %}
+            <h1>{{ spot.name }}</h1>
+    </div>
+    <h2>Reviews:</h2>
+    {% for review in reviews %}
+        {% if review.spot == spot %}
+            <a>
+                {{ review.title }}
+                {{ review.comment }}
+                {{ review.rating }}
+            </a>
+        {% endif %}
+    {% endfor %}
+    <li><a href="/gregssnorkelscores/{{spot.slug}}/write_review/">Write your own review!</a></li>
+    {% endif %}
 {% endblock %}

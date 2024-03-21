@@ -2,25 +2,33 @@
 {% load static %}
 
 {% block title_block %}
-Location Page
+    {% if location %}
+        {{ location.name }}
+    {% else %}
+        Unknown Location
+    {% endif %}
 {% endblock %}
 
 {% block body_block %}
-
-<body class="login">
-    <div class="login-container">
-        <h1 class="headingLogin">Location Page</h1>
-        <p class="su">Placeholder for when a user clicks somewhere on Zeta's map they get a list of spots here!</p>
-        <a class="add-spot-link" href="{% url 'gregssnorkelscores:add_spot' %}">Don't see your spot? Add it here!</a>
-        <div class="spot-list-container">
-            <ul class="spot-list">
-                <li><a href="{% url 'gregssnorkelscores:spot' %}">Stonehaven</a></li>
-                <li><a href="{% url 'gregssnorkelscores:spot' %}">Edinburgh</a></li>
-                <li><a href="{% url 'gregssnorkelscores:spot' %}">Oban</a></li>
-                <li><a href="{% url 'gregssnorkelscores:spot' %}">Aviemore</a></li>
-            </ul>
-        </div>
-    </div>
-</body>
-
+    <h1>
+        in hereee????
+        {% if location %}
+            {{ location.name }}
+        {% else %}
+            Unknown Location
+        {% endif %}
+    </h1>
+    <h3> 
+        About: 
+        {{ location.about }}
+    </h3>
+    <p>Here are all the current spots in {{ location.name }}!</p>
+    <ul>
+        {% for spot in spots %}
+            {% if spot.location == location %}
+                <li><a href="/gregssnorkelscores/{{ location.slug }}/{{ spot.slug }}/">{{ spot.name }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <a href="/gregssnorkelscores/{{ location.slug }}/add_spot/">Don't see your spot? add it here!</a>
 {% endblock %}

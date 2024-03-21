@@ -23,12 +23,15 @@ urlpatterns = [
     path('ayr',views.ayr,name = 'ayr'),
     path('argyll',views.argyll,name = 'argyll'),
     path('angus',views.angus,name = 'angus'),
-    path('location_name/add_spot/', views.add_spot, name='add_spot'),
-    path('location_name/spot_name/',views.spot,name = 'spot'),
-    path('location_name/spot_name/write_review/', views.write_review, name='write_review'),
-    path('profile/username/',views.profile,name = 'profile'),
-    path('profile/username/favourites/',views.favourites,name = 'favourites'),
     path('register/',views.register,name = 'register'),
     path('login/',views.login,name = 'login'),
     path('logout/', LogoutView.as_view(next_page='home'), name='logout'),
+    path('<slug:spot_name_slug>/write_review/', views.write_review, name='write_review'),
+    path('profile/username/',views.profile,name = 'profile'),
+    path('<slug:location_name_slug>/',views.show_location,name='show_location'),
+    path('<slug:location_name_slug>/add_spot/', views.add_spot, name='add_spot'),
+    path('<slug:location_name_slug>/<slug:spot_name_slug>/',views.show_spot,name = 'show_spot'),
 ]
+
+#     path('category/<slug:category_name_slug>/add_page/', views.add_page, name='add_page'),
+#  <a href="/rango/category/{{ category.slug }}/add_page/">Add Page</a> <br />
