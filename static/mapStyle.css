@@ -57,7 +57,13 @@ ul {
     stroke: #154716;
 }
 
-.area20,
+
+.area20 {
+    fill: #23c826;
+    stroke: #154716;
+}
+
+
 .area23,
 .area25 {
     fill: #89c726;

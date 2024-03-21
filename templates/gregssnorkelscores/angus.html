@@ -6,11 +6,26 @@ Location page
 {% endblock %}
 
 {% block body_block %}
-<h1>ANGUS</h1>
-<a href="{% url 'gregssnorkelscores:add_spot' %}">Don't see your spot? add it here!</a>
-<ul>
-    <li>location</li>
-    <li>location</li>
-    <li>location</li>
-</ul>
+
+<body class="login">
+    <div class="login-container">
+        <div class="box">
+            <div class="heading-container">
+                <h1 class="headingLogin">WELCOME TO THE BEAUTIFUL</h1>
+                <img src="{% static 'images/angus.png' %}" alt="Angus Image" class="image">
+
+                <h1 class="headingLogin">ANGUS</h1>
+
+            </div>
+            <p>Don't see your spot? add it <a href="{% url 'gregssnorkelscores:add_spot' %}">here!</a></p>
+            <p>Or browse these: </p>
+            <ul>
+                <li>loc</li>
+                <li>loc></li>
+                <li>loc</li>
+            </ul>
+        </div>
+    </div>
+</body>
+
 {% endblock %}

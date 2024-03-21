@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from datetime import datetime
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.models import User
@@ -108,7 +109,7 @@ def westIslands(request):
     return response
 
 def highlands(request):
-    
+
     spot_list = Spot.objects.order_by('-reviewsAmount')[:5]
 
     context_dict = {}
@@ -143,20 +144,13 @@ def fife(request):
 
     response = render(request, "gregssnorkelscores/fife.html", context=context_dict)
     return response
-    
-def perthKing(request, location_name_slug):
-    
+ 
+def perthKing(request):
+    spot_list = Spot.objects.order_by('-reviewsAmount')[:5]
+
     context_dict = {}
-    spots = Spot.objects.all()
-    context_dict['spots'] = spots
-    try:
-        location = Location.objects.get(slug=location_name_slug)
-        spots = Spot.objects.filter(location=location)
-        # context_dict['spots'] = spots
-        context_dict['location'] = location
-    except Location.DoesNotExist:
-        context_dict['location'] = None
-        # context_dict['spots'] = None 
+    context_dict['boldmessage'] = 'All the locations will be displayed in a list here!'
+    context_dict['spots'] = spot_list
 
     visitor_cookie_handler(request)
 
