@@ -6,11 +6,16 @@ Location page
 {% endblock %}
 
 {% block body_block %}
-<h1>ABERDEENSHIRE</h1>
-<a href="{% url 'gregssnorkelscores:add_spot' %}">Don't see your spot? add it here!</a>
-<ul>
-    <li><a href="{% url 'gregssnorkelscores:spot' %}">Stonehaven</li>
-    <li><a href="{% url 'gregssnorkelscores:spot' %}">Portlethen</li>
-    <li><a href="{% url 'gregssnorkelscores:spot' %}">NewtonHill</li>
-</ul>
+
+<body class=" login">
+    <div class="login-container">
+        <h1 class="headingLogin">ABERDEENSHIRE</h1>
+        <a href="{% url 'gregssnorkelscores:add_spot' %}">Don't see your spot? add it here!</a>
+        <ul>
+            <li><a href="{% url 'gregssnorkelscores:spot' %}">Stonehaven</li>
+            <li><a href="{% url 'gregssnorkelscores:spot' %}">Portlethen</li>
+            <li><a href="{% url 'gregssnorkelscores:spot' %}">NewtonHill</li>
+        </ul>
+    </div>
+</body>
 {% endblock %}
