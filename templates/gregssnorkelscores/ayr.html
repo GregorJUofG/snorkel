@@ -7,16 +7,26 @@ Location page
 
 {% block body_block %}
 
-<body class=" login">
+<body class="login">
     <div class="login-container">
-        <h1 class="headingLogin">AYR, BUTE AND ISLANDS</h1>
-        <a href="{% url 'gregssnorkelscores:add_spot' %}">Don't see your spot? add it here!</a>
-        <ul>
-            <li>location</li>
-            <li>location</li>
-            <li>location</li>
-        </ul>
+        <div class="box">
+            <div class="heading-container">
+                <h1 class="headingLogin">WELCOME TO THE BEAUTIFUL</h1>
+                <img src="{% static 'images/ayr.png' %}" alt="Ayr Image" class="image">
+
+                <h1 class="headingLogin">AYRSHIRE</h1>
+
+            </div>
+            <p>Don't see your spot? add it <a href="{% url 'gregssnorkelscores:add_spot' %}">here!</a></p>
+            <p>Or browse these: </p>
+            <ul>
+                <li>loc</li>
+                <li>loc></li>
+                <li>loc</li>
+            </ul>
+        </div>
     </div>
 </body>
+
 
 {% endblock %}
