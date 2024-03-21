@@ -13,19 +13,15 @@ from django.conf import settings
 
 
 class Location(models.Model):
-    # we will want location names to be unique
-    name = models.CharField(max_length=128, unique=True)
-    # copied from user model
+    NAME_MAX_LENGTH = 128
+
+    name = models.CharField(max_length=128, unique=True) # (We will want location names to be unique)
     pictures = models.ImageField(upload_to="location_images", blank=True)
-    #about = models.CharField(max_length=1000)
-    #favourites = models.IntegerField(default=0)
-    #reviewsAmount = models.IntegerField(default=0)
-    #reviewsAverage = models.FloatField(default=0)
+    about = models.CharField(max_length=500)
+    reviewsAmount = models.IntegerField(default=0)
+    reviewsAverage = models.FloatField(default=0)
     slug = models.SlugField(unique=True)
-    #author = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name="Publication Date")
-    # doesnt hold snorkel spots here
-    # just like rango catagory doesnt hold page
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -39,25 +35,27 @@ class Location(models.Model):
 
 
 class Spot(models.Model):
+    NAME_MAX_LENGTH = 128
+    URL_MAX_LENGTH = 200
 
-    location = models.ForeignKey(Location, default=None, on_delete=models.CASCADE)
     name = models.CharField(max_length=128, unique=True)
-    url = models.URLField()
-    spotAbout = models.CharField(max_length=200, default=True)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    # Still need to figure this out
+    # author = models.ForeignKey(
+    #     settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE
+    # )
+    author = models.CharField(max_length = NAME_MAX_LENGTH)
     pictures = models.ImageField(upload_to="spot_images", blank=True)
     favourites = models.ManyToManyField(User, related_name='favourites',
                                         default=None, blank=True)
     postcode = models.CharField(max_length=8)
     reviewsAmount = models.IntegerField(default=0)
-    author = models.ForeignKey(
-        settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE
-    )
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name="Publication Date")
+    # url = models.URLField()
     # not going to hold reviews here just like how
     # location doesnt hold spot only other way round
     objects = models.Manager()  # default manager
     slug = models.SlugField(unique=True)
-    
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -65,15 +63,15 @@ class Spot(models.Model):
 
     class Meta:
         verbose_name_plural = "Spots"
-        ordering = ["-pub_date"]
 
     def __str__(self):
         return self.name
 
 
 class Review(models.Model):
+    NAME_MAX_LENGTH = 128
 
-    # 1-5 stars
+    # 1-5 stars enums
     RATING_CHOICES = (
         (5, "5"),
         (4, "4"),
@@ -82,11 +80,16 @@ class Review(models.Model):
         (1, "1"),
     )
 
-    title = models.CharField(max_length=25)
+    title = models.CharField(max_length=NAME_MAX_LENGTH)
     spot = models.ForeignKey(Spot, on_delete=models.CASCADE)
-    author = models.ForeignKey(
-        settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE
-    )
+    # NEED TO FIGURE THIS OUT
+    # author = models.ForeignKey(
+    #     settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE
+    # )
+    author = models.CharField(max_length = NAME_MAX_LENGTH)
+    comment = models.TextField(max_length=1000)
+    rating = models.IntegerField(choices=RATING_CHOICES, default=1)
+    likes = models.IntegerField(default=0)
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name="Publication Date")
     comment = models.TextField(max_length=500)
     rating = models.IntegerField(choices=RATING_CHOICES, default=1)

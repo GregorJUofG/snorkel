@@ -9,44 +9,27 @@ from datetime import datetime
 
 def populate():
 
-    # users = [ 
-    #     {'name': 'Greg',
-    #      'username': 'greglikessnorkeling',
-    #      'password': 'foobarbaz',
-    #      'profile pic': '',
-    #      'experience': 'EXPERT',
-    #      'logged in?': False,
-    #      'link': 'blah.com',
-    #      'favourited spots': ['here']
-    #      },
-    #     {'name': 'Tash',
-    #      'username': 'tashlikessnorkeling',
-    #      'other info':'info'
-    #      }
-    # ]
-
-    aberdeen_spots = {'Stonehaven beach':{
-                            'location':'City of Aberdeen',
-                            'author': 'greglikessnorkeling',
-                            'spotAbout':'stuff',
+    aberdeenshire_spots = {
+        'Stonehaven beach':{'author': 'greglikessnorkeling',
                             'pictures': '',
                             'favourites': 5,
                             'postcode': 'AB39 2BD',
                             'reviewsAmount': 2,     # reviews can each be liked individually
-                            'reviews':{'Amazing beach!':{
-                                            'author': 'greglikessnorkeling',
-                                            # comment = what the review is
-                                            'comment': 'really nice place to snorkel :)',
-                                            'rating': 5, # (Stars)
-                                            'likes':7
+                            'reviews':{
+                                'Amazing beach!':{
+                                        'author': 'greglikessnorkeling',
+                                        # comment = what the review is
+                                        'comment': 'really nice place to snorkel :)',
+                                        'rating': 5, # (Stars)
+                                        'likes':7
                                         },
-                                        'Great Beach!':{
-                                            'author': 'tashlovessnorkelling',
-                                            'comment': 'Saw a seal!',
-                                            'rating': 4,
-                                            'likes':18
-                                        }
+                                    'Great Beach!':{
+                                        'author': 'tashlovessnorkelling',
+                                        'comment': 'Saw a seal!',
+                                        'rating': 4,
+                                        'likes':18
                                     }
+                                }
                             },
                         'Portlethen Beach':{
                             'location':'City of Aberdeen',
@@ -56,17 +39,18 @@ def populate():
                             'favourites': 8,
                             'postcode': 'AB12 4NR',
                             'reviewsAmount': 1,
-                            'reviews':{'Good beach!':{
-                                        'author': 'greglikessnorkeling',
-                                        # comment = what the review is
-                                        'comment': 'really nice place to snorkel :)',
-                                        'rating': 5, # (Stars)
-                                        'likes':7
-                                        }
+                            'reviews':{
+                                'Good beach!':{
+                                    'author': 'greglikessnorkeling',
+                                    # comment = what the review is
+                                    'comment': 'really nice place to snorkel :)',
+                                    'rating': 5, # (Stars)
+                                    'likes':7
                                     }
                                 }
                             }
-
+                        }
+    
     ayr_spots = {
         'Ayr beach':{
             'location':'South Ayrshire',
@@ -86,59 +70,65 @@ def populate():
                     }
                 }
             }
-    
 
     locations = {
-        'City of Aberdeen':{'author': 'greglikessnorkeling',
-                            'pictures': '',
-                            #'about': 'lots of info here',
-                            #'reviewAmount':8,
-                            #'reviewsAverage':4.2,
-                            'spots':aberdeen_spots
-                            },
-        'South Ayrshire':{'author': 'tashlikessnorkeling',
-                          'pictures':'',
-                          #'about': 'infoooo',
-                          #'reviewsAmount': 8,
-                          #'reviewsAverage': 3.6,
+        'aberdeenshire':{   'pictures': '',
+                            'about': 'The granite city, Aberdeen!',
+                            'reviewsAmount':8,
+                            'reviewsAverage':4.2,
+                            'spots':aberdeenshire_spots
+                        },
+        'south_ayrshire':{'pictures':'',
+                          'about': 'infoooo',
+                          'reviewsAmount': 8,
+                          'reviewsAverage': 3.6,
                           'spots':ayr_spots
-                         },
+                        },
     }
-
+    
+    # Don't think it is necessary to populate users...
+    # users = [ 
+    #     {'name': 'Greg',
+    #      'username': 'greglikessnorkeling',
+    #      'password': 'foobarbaz',
+    #      'profile pic': '',
+    #      'experience': 'EXPERT',
+    #      'logged in?': False,
+    #      'link': 'blah.com',
+    #      'favourited spots': ['here']
+    #      },
+    #     {'name': 'Tash',
+    #      'username': 'tashlikessnorkeling',
+    #      'other info':'info'
+    #      }
+    # ]
 
     # go through location and add each spot
     for loc, loc_data in locations.items():
-        l = add_location(loc,loc_data['author'],loc_data['pictures'],)
+        l = add_location(loc,
+                         loc_data['pictures'],loc_data['about'],
+                         loc_data['reviewsAmount'],loc_data['reviewsAverage']
+                         )
         
         for spot, spot_data in loc_data['spots'].items():
-            # variables
-            numOfReviews=0
-            reviewtotal=0 # used for average
+            s = add_spot(spot,l,
+                     spot_data['author'],spot_data['pictures'],
+                     spot_data['postcode'],spot_data['reviewsAmount']
+                     )
             
-            #making reviews first so we can use the data in spot
-            for review, rev_data in spot_data['reviews']:
-                # for each review update variables
-                numOfReviews += 1
-                reviewtotal+=rev_data['rating']
+            for review, rev_data in spot_data['reviews'].items():
                 add_review(review, s,
                            rev_data['author'],rev_data['comment'],
                            rev_data['comment'],rev_data['rating'],
                            rev_data['likes']
                            )
-            # after gone through all reviews then adjust spot values
-            s = add_spot(spot,l,
-                     spot_data['author'],spot_data['pictures'],
-                     spot_data['favourites'],spot_data['postcode'],
-                     spot_data['spotAbout'],spot_data['reviewsAmount']
-                     )
-
-
-# some functions
     
-def add_location(name, author, pictures):
+def add_location(name, pictures, about, reviewsAmount, reviewsAverage):
     l = Location.objects.get_or_create(name=name)[0]
-    l.author = author
     l.pictures = pictures
+    l.about = about
+    l.reviewsAmount = reviewsAmount
+    l.reviewsAverage = reviewsAverage
     l.pub_date = datetime.now()
     l.save()
     return l
@@ -162,10 +152,12 @@ def add_review(title, spot, author, comment, rating, likes):
     r.comment = comment
     r.rating = rating
     r.likes = likes
+    # Some fancy code I will add back later
     # r.spot.reviewsAmount += 1
     # r.spot.location.reviewsAmount += 1
     # r.spot.location.reviewsAverage = ((r.spot.location.reviewsAverage*r.spot.location.reviewsAmount)+r.rating)/r.spot.location.reviewsAmount
     r.pub_date = datetime.now()
+    r.save()
     return r
 
 if __name__ == '__main__':
