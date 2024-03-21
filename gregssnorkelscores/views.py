@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from datetime import datetime
 from django.contrib.auth import authenticate, login as auth_login
 from gregssnorkelscores.models import Location, Spot, UserProfile, Review
@@ -337,7 +338,7 @@ def write_review(request):
     response = render(request, 'gregssnorkelscores/write_review.html', context)
     return response
 
-
+@login_required
 def profile(request):
     visitor_cookie_handler(request)
 
@@ -390,6 +391,7 @@ def register(request):
 
 def login(request):
     visitor_cookie_handler(request)
+    context = {'error_message': None}
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -399,13 +401,14 @@ def login(request):
         if user is not None:
             if user.is_active:
                 auth_login(request, user)
-                return redirect(reverse('home')) 
-            else:
-                return HttpResponse("Your account is disabled.")
+                return redirect(reverse('home'))
         else:
-            return HttpResponse("Invalid login details supplied.")
-    else:
-        return render(request, 'gregssnorkelscores/login.html')
+            if User.objects.filter(username=username).exists():
+                context['error_message'] = 'Your password is incorrect.'
+            else:
+                context['error_message'] = 'Your username is incorrect.'
+    
+    return render(request, 'gregssnorkelscores/login.html',context)
 
 
 @login_required
@@ -413,7 +416,7 @@ def user_logout(request):
     logout(request)
     return redirect(reverse("gregssnorkelscores:home"))
 
-
+@login_required
 def profile(request):
     try:
         user_profile = UserProfile.objects.get(user=request.user)
