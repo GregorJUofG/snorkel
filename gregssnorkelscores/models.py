@@ -40,7 +40,7 @@ class Location(models.Model):
 
 class Spot(models.Model):
 
-    #location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    location = models.ForeignKey(Location, default=None, on_delete=models.CASCADE)
     name = models.CharField(max_length=128, unique=True)
     url = models.URLField()
     spotAbout = models.CharField(max_length=200, default=True)
