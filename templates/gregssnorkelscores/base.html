@@ -4,41 +4,37 @@
 <html>
 
 <head lang="en">
-
     <meta charset="UTF-8" />
-    <title>
-        GSS -
-        {% block title_block %}
-        Gregs Snorkel Scores!
-        {% endblock %}
-    </title>
+    <title>GSS - {% block title_block %}Gregs Snorkel Scores!{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'mapStyle.css' %}" type="text/css" />
-    <link rel="stylesheet" href="{% static 'LoginRegister.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'general.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'profile.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'mapPlaces.css' %}" type="text/css" />
 </head>
 
 <body>
     <div class="top-right">Gregs Snorkel Scores</div>
     <div class="topnav">
-
         <ul>
             <li><a href="{% url 'gregssnorkelscores:home' %}">Home</a></li>
             <li><a href="{% url 'gregssnorkelscores:about' %}">About</a></li>
+            {% if not user.is_authenticated %}
+            <!-- These will only show if the user is not logged in -->
             <li><a href="{% url 'gregssnorkelscores:register' %}">Sign Up</a></li>
             <li><a href="{% url 'gregssnorkelscores:login' %}">Log in</a></li>
+            {% else %}
+            <!-- These will only show if the user is logged in -->
             <li><a href="{% url 'gregssnorkelscores:profile' %}">Profile</a></li>
-            <li><a href="{% url 'gregssnorkelscores:add_location' %}">Add Location</a></li>
+            <li><a href="{% url 'gregssnorkelscores:logout' %}">Log out</a></li>
+            {% endif %}
         </ul>
-
     </div>
 
     <div>
         {% block body_block %}
         This is body_blocks default content.
-
+        {% endblock %}
     </div>
-
-    {% endblock %}
-
 </body>
 
 </html>

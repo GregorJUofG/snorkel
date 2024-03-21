@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from datetime import datetime
 from django.contrib.auth import authenticate, login as auth_login
 from gregssnorkelscores.models import Location, Spot, UserProfile, Review
@@ -69,7 +70,7 @@ def SearchSpot(request):
         context = {'form': form,}
     return render(request, '/gregssnorkelscores/', context)
 
-def location(request):
+def aberdeenShire(request):
     spot_list = Spot.objects.order_by('-reviewsAmount')[:5]
 
     context_dict = {}
@@ -78,7 +79,163 @@ def location(request):
 
     visitor_cookie_handler(request)
 
-    response = render(request, "gregssnorkelscores/location.html", context=context_dict)
+    response = render(request, "gregssnorkelscores/aberdeenShire.html", context=context_dict)
+    return response
+
+def moray(request):
+    spot_list = Spot.objects.order_by('-reviewsAmount')[:5]
+
+    context_dict = {}
+    context_dict['boldmessage'] = 'All the locations will be displayed in a list here!'
+    context_dict['spots'] = spot_list
+
+    visitor_cookie_handler(request)
+
+    response = render(request, "gregssnorkelscores/moray.html", context=context_dict)
+    return response
+
+def westIslands(request):
+    spot_list = Spot.objects.order_by('-reviewsAmount')[:5]
+
+    context_dict = {}
+    context_dict['boldmessage'] = 'All the locations will be displayed in a list here!'
+    context_dict['spots'] = spot_list
+
+    visitor_cookie_handler(request)
+
+    response = render(request, "gregssnorkelscores/westIslands.html", context=context_dict)
+    return response
+
+def highlands(request):
+    spot_list = Spot.objects.order_by('-reviewsAmount')[:5]
+
+    context_dict = {}
+    context_dict['boldmessage'] = 'All the locations will be displayed in a list here!'
+    context_dict['spots'] = spot_list
+
+    visitor_cookie_handler(request)
+
+    response = render(request, "gregssnorkelscores/highlands.html", context=context_dict)
+    return response
+
+def angus(request):
+    spot_list = Spot.objects.order_by('-reviewsAmount')[:5]
+
+    context_dict = {}
+    context_dict['boldmessage'] = 'All the locations will be displayed in a list here!'
+    context_dict['spots'] = spot_list
+
+    visitor_cookie_handler(request)
+
+    response = render(request, "gregssnorkelscores/angus.html", context=context_dict)
+    return response
+
+def fife(request):
+    spot_list = Spot.objects.order_by('-reviewsAmount')[:5]
+
+    context_dict = {}
+    context_dict['boldmessage'] = 'All the locations will be displayed in a list here!'
+    context_dict['spots'] = spot_list
+
+    visitor_cookie_handler(request)
+
+    response = render(request, "gregssnorkelscores/fife.html", context=context_dict)
+    return response
+    
+def perthKing(request):
+    spot_list = Spot.objects.order_by('-reviewsAmount')[:5]
+
+    context_dict = {}
+    context_dict['boldmessage'] = 'All the locations will be displayed in a list here!'
+    context_dict['spots'] = spot_list
+
+    visitor_cookie_handler(request)
+
+    response = render(request, "gregssnorkelscores/perthKing.html", context=context_dict)
+    return response
+
+def stirling(request):
+    spot_list = Spot.objects.order_by('-reviewsAmount')[:5]
+
+    context_dict = {}
+    context_dict['boldmessage'] = 'All the locations will be displayed in a list here!'
+    context_dict['spots'] = spot_list
+
+    visitor_cookie_handler(request)
+
+    response = render(request, "gregssnorkelscores/stirling.html", context=context_dict)
+    return response
+
+def argyll(request):
+    spot_list = Spot.objects.order_by('-reviewsAmount')[:5]
+
+    context_dict = {}
+    context_dict['boldmessage'] = 'All the locations will be displayed in a list here!'
+    context_dict['spots'] = spot_list
+
+    visitor_cookie_handler(request)
+
+    response = render(request, "gregssnorkelscores/argyll.html", context=context_dict)
+    return response
+
+def scotBorders(request):
+    spot_list = Spot.objects.order_by('-reviewsAmount')[:5]
+
+    context_dict = {}
+    context_dict['boldmessage'] = 'All the locations will be displayed in a list here!'
+    context_dict['spots'] = spot_list
+
+    visitor_cookie_handler(request)
+
+    response = render(request, "gregssnorkelscores/scotBorders.html", context=context_dict)
+    return response
+
+def orkney(request):
+    spot_list = Spot.objects.order_by('-reviewsAmount')[:5]
+
+    context_dict = {}
+    context_dict['boldmessage'] = 'All the locations will be displayed in a list here!'
+    context_dict['spots'] = spot_list
+
+    visitor_cookie_handler(request)
+
+    response = render(request, "gregssnorkelscores/orkney.html", context=context_dict)
+    return response
+
+def dumGal(request):
+    spot_list = Spot.objects.order_by('-reviewsAmount')[:5]
+
+    context_dict = {}
+    context_dict['boldmessage'] = 'All the locations will be displayed in a list here!'
+    context_dict['spots'] = spot_list
+
+    visitor_cookie_handler(request)
+
+    response = render(request, "gregssnorkelscores/dumGal.html", context=context_dict)
+    return response
+
+def east(request):
+    spot_list = Spot.objects.order_by('-reviewsAmount')[:5]
+
+    context_dict = {}
+    context_dict['boldmessage'] = 'All the locations will be displayed in a list here!'
+    context_dict['spots'] = spot_list
+
+    visitor_cookie_handler(request)
+
+    response = render(request, "gregssnorkelscores/east.html", context=context_dict)
+    return response
+
+def ayr(request):
+    spot_list = Spot.objects.order_by('-reviewsAmount')[:5]
+
+    context_dict = {}
+    context_dict['boldmessage'] = 'All the locations will be displayed in a list here!'
+    context_dict['spots'] = spot_list
+
+    visitor_cookie_handler(request)
+
+    response = render(request, "gregssnorkelscores/ayr.html", context=context_dict)
     return response
 
 def show_location(request, location_name_slug):
@@ -181,7 +338,7 @@ def write_review(request):
     response = render(request, 'gregssnorkelscores/write_review.html', context)
     return response
 
-
+@login_required
 def profile(request):
     visitor_cookie_handler(request)
 
@@ -234,6 +391,7 @@ def register(request):
 
 def login(request):
     visitor_cookie_handler(request)
+    context = {'error_message': None}
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -243,13 +401,14 @@ def login(request):
         if user is not None:
             if user.is_active:
                 auth_login(request, user)
-                return redirect(reverse('home')) 
-            else:
-                return HttpResponse("Your account is disabled.")
+                return redirect(reverse('home'))
         else:
-            return HttpResponse("Invalid login details supplied.")
-    else:
-        return render(request, 'gregssnorkelscores/login.html')
+            if User.objects.filter(username=username).exists():
+                context['error_message'] = 'Your password is incorrect.'
+            else:
+                context['error_message'] = 'Your username is incorrect.'
+    
+    return render(request, 'gregssnorkelscores/login.html',context)
 
 
 @login_required
@@ -257,7 +416,7 @@ def user_logout(request):
     logout(request)
     return redirect(reverse("gregssnorkelscores:home"))
 
-
+@login_required
 def profile(request):
     try:
         user_profile = UserProfile.objects.get(user=request.user)

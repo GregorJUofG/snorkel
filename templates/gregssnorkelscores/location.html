@@ -2,16 +2,25 @@
 {% load static %}
 
 {% block title_block %}
-    Location page
+Location Page
 {% endblock %}
 
 {% block body_block %}
-    <p>Placeholder for when a user clicks somewhere on zeta's map they git a list of spots here!</p>
-    <a href="{% url 'gregssnorkelscores:add_spot' %}">Don't see your spot? add it here!</a>
-    <ul>
-        <li><a href="{% url 'gregssnorkelscores:spot' %}">Stonehaven</li>
-        <li><a href="{% url 'gregssnorkelscores:spot' %}">Edinburgh</li>
-        <li><a href="{% url 'gregssnorkelscores:spot' %}">Oban</li>
-        <li><a href="{% url 'gregssnorkelscores:spot' %}">Aviemore</li>
-    </ul>
+
+<body class="login">
+    <div class="login-container">
+        <h1 class="headingLogin">Location Page</h1>
+        <p class="su">Placeholder for when a user clicks somewhere on Zeta's map they get a list of spots here!</p>
+        <a class="add-spot-link" href="{% url 'gregssnorkelscores:add_spot' %}">Don't see your spot? Add it here!</a>
+        <div class="spot-list-container">
+            <ul class="spot-list">
+                <li><a href="{% url 'gregssnorkelscores:spot' %}">Stonehaven</a></li>
+                <li><a href="{% url 'gregssnorkelscores:spot' %}">Edinburgh</a></li>
+                <li><a href="{% url 'gregssnorkelscores:spot' %}">Oban</a></li>
+                <li><a href="{% url 'gregssnorkelscores:spot' %}">Aviemore</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+
 {% endblock %}

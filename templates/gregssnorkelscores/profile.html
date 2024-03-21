@@ -2,22 +2,34 @@
 {% load static %}
 
 {% block title_block %}
-    Profile Page
+Profile Page
 {% endblock %}
 
 {% block body_block %}
-    <p>Placeholder for the users profile page!</p>
-    <a href="{% url 'gregssnorkelscores:favourites' %}">Users favourites</a>
-    <p><strong>Username:</strong> {{ user.username }}</p>
-    <p><strong>Email:</strong> {{ user.email }}</p>
-    {% if user_profile %}
-        <p><strong>Website:</strong> <a href="{{ user_profile.website }}">{{ user_profile.website }}</a></p>
-        <p><strong>Experience:</strong> {{ user_profile.experience }}</p>
-        {% if user_profile.pictures %}
-            <p><strong>Picture:</strong></p>
-            <img src="{{ user_profile.pictures.url }}" alt="User's Profile Picture" style="max-width: 500px; height: auto;">
-        {% endif %}
-    {% else %}
-        <p>Profile details not available.</p>
-    {% endif %}
+<h1 class="headingLogin">Hey {{ user.username }}</h1>
+
+<body class=" login">
+    <div class="login-container">
+        <div class="text-overlay">
+
+            <p><span class="green">Username:</span> <span class="white">{{ user.username }}</span></p>
+            <p><span class="green">Email:</span><span class="white">{{ user.email }}</span></p>
+            {% if user_profile %}
+            <p><span class="green">Your Socials:</span> <span class="white"> {{ user_profile.website }}</span></p>
+            <p><span class="green">Experience:</span> <span class="white"> {{ user_profile.experience }}</span></p>
+            {% if user_profile.pictures %}
+            <p><span class="green">Your Profile Picture:</span></p>
+            <div style="text-align: center;">
+                <img src="{{ user_profile.pictures.url }}" alt="User's Profile Picture"
+                    style="max-width: 300px; max-height: 300px;">
+            </div>
+            {% endif %}
+            {% else %}
+            <p>Profile details not available.</p>
+            {% endif %}
+            <p><span class="green">Or see something familiar:</span> <a
+                    href="{% url 'gregssnorkelscores:favourites' %}">Your Favourites</a></p>
+        </div>
+    </div>
+</body>
 {% endblock %}
