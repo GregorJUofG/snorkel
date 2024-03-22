@@ -61,10 +61,10 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=128)),
+                ('author', models.CharField(max_length=128)),
                 ('comment', models.TextField(max_length=500)),
                 ('rating', models.IntegerField(choices=[(5, '5'), (4, '4'), (3, '3'), (2, '2'), (1, '1')], default=1)),
                 ('likes', models.IntegerField(default=0)),
-                ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
                 ('spot', models.ForeignKey(default=gregssnorkelscores.models.Review.get_default_spot, on_delete=django.db.models.deletion.CASCADE, to='gregssnorkelscores.Spot')),
             ],
             options={
