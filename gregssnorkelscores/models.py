@@ -59,7 +59,6 @@ class Spot(models.Model):
     pictures = models.ImageField(upload_to="spot_images", blank=True)
     reviewsAmount = models.IntegerField(default=0)
     slug = models.SlugField(null=False, unique=True)
-    favourites = models.ManyToManyField(User, related_name='favourites', default=None, blank=True)
     objects = models.Manager()  # default manager
     newmanager = NewManager() # custom manager
 

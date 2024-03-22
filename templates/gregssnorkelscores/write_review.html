@@ -10,7 +10,7 @@ Write a Review
         <h1 class="headingLogin">Write a Review for {{ spot.name }}!</h1>
         <div class="centered-form">
             <div>
-                <form id="write_review_form" method="post" action="/gregssnorkelscores/{{ spot.slug }}/write_review/">
+                <form id="write_review_form" method="post" action="/gregssnorkelscores/{{ spot.slug }}/after_review/">
                     {% csrf_token %}
                     {% for hidden in form.hidden_fields %}
                     {{ hidden }}

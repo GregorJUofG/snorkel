@@ -31,6 +31,4 @@ urlpatterns = [
     path('<slug:location_name_slug>/',views.show_location,name='show_location'),
     path('<slug:location_name_slug>/add_spot/', views.add_spot, name='add_spot'),
     path('<slug:location_name_slug>/<slug:spot_name_slug>/',views.show_spot,name = 'show_spot'),
-    path('fav<int:id>/', views.favourites_add, name="favourites_add"),
-    path('profile/username/favourites_list/', views.favourite_list, name="favourite_list"),
 ]
