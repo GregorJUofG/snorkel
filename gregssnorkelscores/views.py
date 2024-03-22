@@ -402,12 +402,15 @@ def spot(request):
 
     response = render(request, "gregssnorkelscores/spot.html")
     return response
+    
 
 @login_required
 def write_review(request, spot_name_slug):
     visitor_cookie_handler(request)
+    context = {}
 
     spot = get_object_or_404(Spot, slug=spot_name_slug)
+    context['spot'] = spot
 
     form = ReviewForm()
     if request.method == 'POST':
@@ -417,12 +420,24 @@ def write_review(request, spot_name_slug):
                 review = form.save(commit=False)
                 review.spot = spot
                 review.save()
-                return HttpResponse('Your review has been taken')
+                return redirect(reverse('gregssnorkelscores:after_review',
+                                        kwargs={'spot_name_slug':
+                                                spot_name_slug}))
     else:
         print(form.errors)
-    context = {'form': form, 'spot':spot}
+    context['form'] = form
     response = render(request, 'gregssnorkelscores/write_review.html', context)
     return response
+
+@login_required
+def after_review(request, spot_name_slug):
+    visitor_cookie_handler(request)
+
+    spot = get_object_or_404(Spot, slug=spot_name_slug)
+
+    context = {'spot': spot}
+    response = render(request, 'gregssnorkelscores/after_review.html', context)
+    return response 
 
 @login_required
 def profile(request):

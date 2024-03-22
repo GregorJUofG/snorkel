@@ -7,6 +7,13 @@
 {% block body_block %}
         <h1>Write a Review for {{ spot.name }}!</h1>
         <div> 
+            <h3>
+                testing stuff:
+                {{ spot.name }}
+                {{ spot.location.name }}
+                {{ spot.location.slug }}
+            </h3>
+
             <form id="write_review_form" method="post" action="/gregssnorkelscores/{{spot.slug}}/write_review/">
                 {% csrf_token %}
                 {% for hidden in form.hidden_fields %}

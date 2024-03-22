@@ -25,7 +25,10 @@
             <p>Or browse these: </p>
             <ul>
                 {% for spot in spots %}
-                <li><a href="/gregssnorkelscores/{{ location.slug }}/{{ spot.slug }}/">{{ spot.name }}</a></li>
+                    {% if spot.name == "Default" %}
+                    {% else %}
+                        <li><a href="/gregssnorkelscores/{{ location.slug }}/{{ spot.slug }}/">{{ spot.name }}</a></li>
+                    {% endif %}
                 {% endfor %}
             </ul>
         </div>
