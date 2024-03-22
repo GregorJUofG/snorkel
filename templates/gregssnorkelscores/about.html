@@ -7,10 +7,21 @@ About Gregs Snorkel Scores
 
 {% block body_block %}
 
-<body class="login"> <!-- Use the same class for consistent background and font -->
-    <div class="login-container"> <!-- Assuming this contains the styling you want -->
+<body class="login"> 
+    <div class="login-container">
         <h1 class="headingLogin">About Us!</h1>
-
+        <div class="text-overlay">
+            <p><span class="green regular">Welcome to Greg's Snorkel Scores, the premier destination for snorkeling enthusiasts of all levels!</span></p>
+            <p><span class="green regular">Our mission is to empower snorkelers with comprehensive, up-to-date information on the best snorkeling spots around Scotland.</span></p>
+            <p><span class="green regular">Whether you're seeking the serenity of underwater realms, eager to observe the rich marine biodiversity, or simply looking for the perfect spot for your next adventure, you've come to the right place.</span></p>
+            <p><span class="green regular">Stay tuned as we continue to explore the depths of the oceans, lakes, and rivers to bring you the best snorkeling scores and insights. Remember, the world beneath the waves is a treasure trove of wonders waiting to be discovered!</span></p>
+            <img src="{% static 'images/GreatUnderWater.jpg' %}" class="image" alt="Underwater View" />
+            <h2>Meet the Contributors</h2>
+            
+        
+            <p><span class="green regular">We're proud to have a fantastic team of contributors and enthusiasts who share our passion for snorkeling. Their expertise and dedication make Greg's Snorkel Scores the go-to resource for snorkelers worldwide. Names and bios of our contributors will be shared here.</span></p>
+            <p><span class="green regular">Zeta Chazapi, Tash Graham, Gregor Johnston, Conor Wang, Honghui Yang</span></p>
+        </div>    
     </div>
 </body>
 {% endblock %}
