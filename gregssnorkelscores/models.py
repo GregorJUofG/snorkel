@@ -99,9 +99,10 @@ class Review(models.Model):
     comment = models.TextField(max_length=1000)
     rating = models.IntegerField(choices=RATING_CHOICES, default=1)
     likes = models.IntegerField(default=0)
-    comment = models.TextField(max_length=500)
-    rating = models.IntegerField(choices=RATING_CHOICES, default=1)
-    likes = models.IntegerField(default=0)
+
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return f"{self.title}: {self.rating}"
