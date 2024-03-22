@@ -16,6 +16,21 @@
     padding: 20px;
 }
 
+#spot {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-200%, 10%);
+    color: rgb(10, 32, 14);
+    background-color: rgba(25, 154, 42, 0.8);
+    padding: 20px 30px;
+    max-width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    z-index: 2;
+}
+
 .white {
     color: white;
 }
