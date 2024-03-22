@@ -7,23 +7,24 @@ Write a Review
 {% block body_block %}
 <div class="login">
     <div class="login-container">
-        <h1 class="headingLogin">TELL US WHAT YOU THINK!</h1>
+        <h1 class="headingLogin">Write a Review for {{ spot.name }}!</h1>
         <div class="centered-form">
-            <form id="write_review_form" method="post" action="/gregssnorkelscores/{{spot.slug}}/write_review/">
-                {% csrf_token %}
-                {% for hidden in form.hidden_fields %}
-                {{ hidden }}
-                {% endfor %}
-                {% for field in form.visible_fields %}
-                <div class="form-group">
-                    {{ field.errors }}
-                    {{ field.help_text }}
-                    {{ field }}
-                </div>
-                {% endfor %}
-                <input type="submit" name="submit" value="Publish Review" class="submitButton" />
-            </form>
+            <div>
+                <form id="write_review_form" method="post" action="/gregssnorkelscores/{{spot.slug}}/write_review/">
+                    {% csrf_token %}
+                    {% for hidden in form.hidden_fields %}
+                    {{ hidden }}
+                    {% endfor %}
+                    {% for field in form.visible_fields %}
+                    <div class="form-group">
+                        {{ field.errors }}
+                        {{ field.help_text }}
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+                    <input type="submit" name="submit" value="Publish Review" class="submitButton" />
+                </form>
+            </div>
         </div>
     </div>
-</div>
-{% endblock %}
+    {% endblock %}

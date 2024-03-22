@@ -30,6 +30,5 @@ urlpatterns = [
     path('profile/username/',views.profile,name = 'profile'),
     path('<slug:location_name_slug>/',views.show_location,name='show_location'),
     path('<slug:location_name_slug>/add_spot/', views.add_spot, name='add_spot'),
-    # path('orkney/add_spot/', views.add_spot, name='add_spot'),
     path('<slug:location_name_slug>/<slug:spot_name_slug>/',views.show_spot,name = 'show_spot'),
 ]
