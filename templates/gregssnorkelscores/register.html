@@ -22,8 +22,61 @@ Register
                 enctype="multipart/form-data" class="form-group">
 
                 {% csrf_token %}
-                {{ user_form.as_p }}
-                {{ profile_form.as_p }}
+                <div class="form-group">
+                    {{ user_form.username.label_tag }}
+                    {{ user_form.username }}
+                    {% if user_form.username.errors %}
+                        {% for error in user_form.username.errors %}
+                            <div style="color: red;">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ user_form.email.label_tag }}
+                    {{ user_form.email }}
+                    {% if user_form.email.errors %}
+                        {% for error in user_form.email.errors %}
+                            <div style="color: red;">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ user_form.password.label_tag }}
+                    {{ user_form.password }}
+                    {% if user_form.password.errors %}
+                        {% for error in user_form.password.errors %}
+                            <div style="color: red;">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                {% csrf_token %}
+                    <div class="form-group">
+                        {{ profile_form.website.label_tag }}
+                        {{ profile_form.website }}
+                        {% if profile_form.website.errors %}
+                            {% for error in profile_form.website.errors %}
+                                <div style="color: red;">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ profile_form.pictures.label_tag }}
+                        {{ profile_form.pictures }}
+                        {% if profile_form.pictures.errors %}
+                            {% for error in profile_form.pictures.errors %}
+                                <div style="color: red;">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ profile_form.experience.label_tag }}
+                        {{ profile_form.experience }}
+                        {% if profile_form.experience.errors %}
+                            {% for error in profile_form.experience.errors %}
+                                <div style="color: red;">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
 
                 <input type="submit" name="submit" value="Register" />
             </form>
