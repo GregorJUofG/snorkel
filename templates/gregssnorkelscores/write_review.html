@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body_block %}
-        <h1>THIS IS WHERE THE FORM FOR WRITING A REVIEW WILL GO!</h1>
+        <h1>Write a Review for {{ spot.name }}!</h1>
         <div> 
             <form id="write_review_form" method="post" action="/gregssnorkelscores/{{spot.slug}}/write_review/">
                 {% csrf_token %}

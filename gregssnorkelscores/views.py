@@ -413,11 +413,14 @@ def write_review(request, spot_name_slug):
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
-            form.save()
-            return HttpResponse('Your review has been taken')
+            if spot:
+                review = form.save(commit=False)
+                review.spot = spot
+                review.save()
+                return HttpResponse('Your review has been taken')
     else:
-        form = ReviewForm()
-        context = {'form': form, 'spot':spot}
+        print(form.errors)
+    context = {'form': form, 'spot':spot}
     response = render(request, 'gregssnorkelscores/write_review.html', context)
     return response
 

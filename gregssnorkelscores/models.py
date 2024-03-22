@@ -90,7 +90,7 @@ class Review(models.Model):
         return Spot.objects.get_or_create(name='Default')[0]
 
     title = models.CharField(max_length=NAME_MAX_LENGTH)
-    spot = models.ForeignKey(Spot, on_delete=models.CASCADE, default=get_default_spot, )
+    spot = models.ForeignKey(Spot, on_delete=models.CASCADE, )
     # NEED TO FIGURE THIS OUT
     # author = models.ForeignKey(
     #     settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE
