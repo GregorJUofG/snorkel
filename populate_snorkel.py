@@ -1,10 +1,13 @@
 import os
-os.environ.setdefault('DJANGO_SETTINGS_MODULE',
-                      'snorkel.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'snorkel.settings')
 
 import django
 django.setup()
+
+# Import the User model and other models
+from django.contrib.auth.models import User
 from gregssnorkelscores.models import UserProfile, Location, Spot, Review
+
 
 def populate():
 
@@ -201,14 +204,27 @@ def add_spot(name, location, author, spotAbout, pictures, reviewsAmount):
     s.save()
     return s
 
-def add_review(title, spot, author, comment, rating, likes):
-    r = Review.objects.get_or_create(title=title)[0]
-    r.spot = spot
-    r.author = author
-    r.comment = comment
-    r.rating = rating
-    r.likes = likes
-    r.save()
+def add_review(title, spot, author_username, comment, rating, likes):
+    # Fetch or create the User instance
+    author, created = User.objects.get_or_create(username=author_username)
+    
+    # Now when creating the Review, we provide the User instance for the author field
+    r, created = Review.objects.get_or_create(
+        title=title, 
+        defaults={
+            'spot': spot,
+            'author': author,  # Here, we use the User instance
+            'comment': comment,
+            'rating': rating,
+            'likes': likes
+        }
+    )
+    if not created:
+        r.comment = comment
+        r.rating = rating
+        r.likes = likes
+        r.save()
+
     return r
 
 if __name__ == '__main__':

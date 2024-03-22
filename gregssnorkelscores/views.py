@@ -416,13 +416,10 @@ def write_review(request, spot_name_slug):
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
-            if spot:
-                review = form.save(commit=False)
-                review.spot = spot
-                review.save()
-                return redirect(reverse('gregssnorkelscores:after_review',
-                                        kwargs={'spot_name_slug':
-                                                spot_name_slug}))
+            review = form.save(commit=False)
+            review.spot = spot
+            review.author = request.user  # Set the author to the current user
+            review.save()
     else:
         print(form.errors)
     context['form'] = form
