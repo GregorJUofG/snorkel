@@ -17,14 +17,16 @@ Unknown spot
                 {% if spot %}
                 <h1> Welcome to {{ spot.name }}!</h1>
             </div>
-            <p class="us"><strong>See what people think:</strong></p><br />
+            <p class="us"><strong>See what people think (scroll):</strong></p><br />
             {% for review in reviews %}
             {% if review.spot == spot %}
             <ul>
                 <li>
-                    <p><strong>Author:</strong> {{ review.author }}</p>
+                    <p><strong>Author:</strong> {{ review.author.username }}</p>
                     <p><strong>Review:</strong> {{ review.title }}</p>
-                    <p><strong>Comment: </strong>{{ review.comment }}</p>
+                    <div class="comment-container">
+                        <p><strong>Comment: </strong>{{ review.comment }}</p>
+                    </div>
                     <p><strong>Rating: </strong>{{ review.rating }}</p>
                     <br />
                 </li>

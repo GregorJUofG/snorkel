@@ -16,19 +16,23 @@
     padding: 20px;
 }
 
-#spot {
-    position: relative;
+.text-overlay {
+    position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-200%, 10%);
+    transform: translate(-50%, -50%);
     color: rgb(10, 32, 14);
     background-color: rgba(25, 154, 42, 0.8);
-    padding: 20px 30px;
-    max-width: 80%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    z-index: 2;
+    padding: 20px;
+    max-width: 50%;
+    max-height: 60%;
+    overflow: auto;
+}
+
+.comment-container {
+    margin-top: 10px;
+    white-space: normal;
+    word-wrap: break-word;
 }
 
 .white {

@@ -2,11 +2,11 @@
 {% load static %}
 
 {% block title_block %}
-    {% if location %}
-        {{ location.name }}
-    {% else %}
-        Unknown Location
-    {% endif %}
+{% if location %}
+{{ location.name }}
+{% else %}
+Unknown Location
+{% endif %}
 {% endblock %}
 
 {% block body_block %}
@@ -21,16 +21,18 @@
                 <h1 class="headingLogin">ANGUS</h1>
 
             </div>
-            <p>Don't see your spot? add it <a href="/gregssnorkelscores/{{ location.slug }}/add_spot/">here!</a></p>
-            <p>Or browse these: </p>
-            <ul>
-                {% for spot in spots %}
+            <div class="su">
+                <p>Don't see your spot? add it <a href="/gregssnorkelscores/{{ location.slug }}/add_spot/">here!</a></p>
+                <p>Or browse these: </p>
+                <ul>
+                    {% for spot in spots %}
                     {% if spot.name == "Default" %}
                     {% else %}
-                        <li><a href="/gregssnorkelscores/{{ location.slug }}/{{ spot.slug }}/">{{ spot.name }}</a></li>
+                    <li><a href="/gregssnorkelscores/{{ location.slug }}/{{ spot.slug }}/">{{ spot.name }}</a></li>
                     {% endif %}
-                {% endfor %}
-            </ul>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </div>
 </body>
