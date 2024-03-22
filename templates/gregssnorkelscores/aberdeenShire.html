@@ -2,35 +2,27 @@
 {% load static %}
 
 {% block title_block %}
-Location page
+    {% if location %}
+        {{ location.name }}
+    {% else %}
+        Unknown Location
+    {% endif %}
 {% endblock %}
 
 {% block body_block %}
-
-<body class="login">
-    <div class="login-container">
-        <div class="box">
-
-            <div class="heading-container">
-                <h1 class="headingLogin">WELCOME TO THE BEAUTIFUL</h1>
-                <img src="{% static 'images/aberdeenshire.png' %}" alt="Aberdishire Image" class="image">
-
-                <h1 class="headingLogin">ABERDEENSHIRE</h1>
-
-            </div>
-
-            <div class="info">
-                <p>Don't see your spot? add it <a href="{% url 'gregssnorkelscores:add_spot' %}">here!</a></p>
-                <p>Or browse these: </p>
-
-            </div>
-            <ul>
-                <li><a href="{% url 'gregssnorkelscores:spot' %}">Stonehaven</a></li>
-                <li><a href="{% url 'gregssnorkelscores:spot' %}">Portlethen</a></li>
-                <li><a href="{% url 'gregssnorkelscores:spot' %}">NewtonHill</a></li>
-            </ul>
-        </div>
-    </div>
-</body>
-
+<div>
+    <h1>
+        {% if location %}
+            {{ location.name }}
+        {% else %}
+            Unknown Location
+        {% endif %}
+    </h1>
+</div>
+<ul>
+    {% for spot in spots %}
+    <li><a href="/gregssnorkelscores/{{ location.slug }}/{{ spot.slug }}/">{{ spot.name }}</a></li>
+    {% endfor %}
+</ul>
+<a href="/gregssnorkelscores/{{ location.slug }}/add_spot/">Don't see your spot? add it here!</a>
 {% endblock %}
