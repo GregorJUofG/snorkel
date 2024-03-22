@@ -72,9 +72,9 @@ def SearchSpot(request):
         context = {'form': form,}
     return render(request, '/gregssnorkelscores/', context)
 
-def aberdeenShire(request):
+def aberdeenshire(request):
 
-    location_name = "aberdeenShire"
+    location_name = "aberdeenshire"
     location = Location.objects.get(name=location_name)
 
     spot_list = Spot.objects.filter(location=location).order_by('-reviewsAmount')[:5]
@@ -87,7 +87,7 @@ def aberdeenShire(request):
 
     visitor_cookie_handler(request)
 
-    response = render(request, "gregssnorkelscores/aberdeenShire.html", context=context_dict)
+    response = render(request, "gregssnorkelscores/aberdeenshire.html", context=context_dict)
     return response
 
 def moray(request):
@@ -106,9 +106,9 @@ def moray(request):
     response = render(request, "gregssnorkelscores/moray.html", context=context_dict)
     return response
 
-def westIslands(request):
+def westislands(request):
 
-    location_name = "westIslands"
+    location_name = "westislands"
     location = Location.objects.get(name=location_name)
 
     spot_list = Spot.objects.filter(location=location).order_by('-reviewsAmount')[:5]
@@ -121,7 +121,7 @@ def westIslands(request):
 
     visitor_cookie_handler(request)
 
-    response = render(request, "gregssnorkelscores/westIslands.html", context=context_dict)
+    response = render(request, "gregssnorkelscores/westislands.html", context=context_dict)
     return response
 
 def highlands(request):
@@ -178,9 +178,9 @@ def fife(request):
     response = render(request, "gregssnorkelscores/fife.html", context=context_dict)
     return response
     
-def perthKing(request):
+def perthking(request):
     
-    location_name = "perthKing"
+    location_name = "perthking"
     location = Location.objects.get(name=location_name)
 
     spot_list = Spot.objects.filter(location=location).order_by('-reviewsAmount')[:5]
@@ -193,7 +193,7 @@ def perthKing(request):
 
     visitor_cookie_handler(request)
 
-    response = render(request, "gregssnorkelscores/perthKing.html", context=context_dict)
+    response = render(request, "gregssnorkelscores/perthking.html", context=context_dict)
     return response
 
 def stirling(request):
@@ -232,9 +232,9 @@ def argyll(request):
     response = render(request, "gregssnorkelscores/argyll.html", context=context_dict)
     return response
 
-def scotBorders(request):
+def scotborders(request):
 
-    location_name = "scotBorders"
+    location_name = "scotborders"
     location = Location.objects.get(name=location_name)
 
     spot_list = Spot.objects.filter(location=location).order_by('-reviewsAmount')[:5]
@@ -247,7 +247,7 @@ def scotBorders(request):
 
     visitor_cookie_handler(request)
 
-    response = render(request, "gregssnorkelscores/scotBorders.html", context=context_dict)
+    response = render(request, "gregssnorkelscores/scotborders.html", context=context_dict)
     return response
 
 def orkney(request):
@@ -268,9 +268,9 @@ def orkney(request):
     response = render(request, "gregssnorkelscores/orkney.html", context=context_dict)
     return response
 
-def dumGal(request):
+def dumgal(request):
 
-    location_name = "dumGal"
+    location_name = "dumgal"
     location = Location.objects.get(name=location_name)
 
     spot_list = Spot.objects.filter(location=location).order_by('-reviewsAmount')[:5]
@@ -283,7 +283,7 @@ def dumGal(request):
 
     visitor_cookie_handler(request)
 
-    response = render(request, "gregssnorkelscores/dumGal.html", context=context_dict)
+    response = render(request, "gregssnorkelscores/dumgal.html", context=context_dict)
     return response
 
 def east(request):

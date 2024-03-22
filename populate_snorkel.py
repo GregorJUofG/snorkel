@@ -53,7 +53,7 @@ def populate():
     
     ayr_spots = {
         'Ayr beach':{
-            'location':'South Ayrshire',
+            'location':'South Ayrhsire',
             'author':'greglikessnorkeling',
             'spotAbout':'stuff',
             'pictures': '',
@@ -81,7 +81,7 @@ def populate():
     west_spots = {}
 
     locations = {
-        'aberdeenShire':{   'pictures': '',
+        'aberdeenshire':{   'pictures': '',
                             'about': 'The granite city, Aberdeen!',
                             'reviewsAmount':8,
                             'reviewsAverage':4.2,
@@ -105,7 +105,7 @@ def populate():
                           'reviewsAverage': 3.6,
                           'spots':ayr_spots
                         },
-        'dumGal':{   'pictures': '',
+        'dumgal':{   'pictures': '',
                             'about': 'snorkel',
                             'reviewsAmount':5,
                             'reviewsAverage':4.1,
@@ -141,13 +141,13 @@ def populate():
                             'reviewsAverage':2.9,
                             'spots':ork_spots
                         },
-        'perthKing':{   'pictures': '',
+        'perthking':{   'pictures': '',
                             'about': 'snorkel',
                             'reviewsAmount':10,
                             'reviewsAverage':4.3,
                             'spots':per_spots
                         },
-        'scotBorders':{   'pictures': '',
+        'scotborders':{   'pictures': '',
                             'about': 'snorkel',
                             'reviewsAmount':8,
                             'reviewsAverage':3.8,
@@ -159,7 +159,7 @@ def populate():
                             'reviewsAverage':2.5,
                             'spots':stir_spots
                         },
-        'westIslands':{   'pictures': '',
+        'westislands':{   'pictures': '',
                             'about': 'snorkel',
                             'reviewsAmount':7,
                             'reviewsAverage':3.2,
