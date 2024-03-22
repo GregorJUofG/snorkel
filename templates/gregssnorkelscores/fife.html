@@ -10,19 +10,26 @@
 {% endblock %}
 
 {% block body_block %}
-<div>
-    <h1>
-        {% if location %}
-            {{ location.name }}
-        {% else %}
-            Unknown Location
-        {% endif %}
-    </h1>
-</div>
-<ul>
-    {% for spot in spots %}
-    <li><a href="/gregssnorkelscores/{{ location.slug }}/{{ spot.slug }}/">{{ spot.name }}</a></li>
-    {% endfor %}
-</ul>
-<a href="/gregssnorkelscores/{{ location.slug }}/add_spot/">Don't see your spot? add it here!</a>
+
+<body class="login">
+    <div class="login-container">
+        <div class="box">
+            <div class="heading-container">
+                <h1 class="headingLogin">WELCOME TO THE BEAUTIFUL</h1>
+                <img src="{% static 'images/fife.png' %}" alt="Fife Image" class="image">
+
+                <h1 class="headingLogin">FIFE<h1>
+
+            </div>
+            <p>Don't see your spot? add it <a href="/gregssnorkelscores/{{ location.slug }}/add_spot/">here!</a></p>
+            <p>Or browse these: </p>
+            <ul>
+                {% for spot in spots %}
+                <li><a href="/gregssnorkelscores/{{ location.slug }}/{{ spot.slug }}/">{{ spot.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+
 {% endblock %}

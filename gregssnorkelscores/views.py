@@ -387,7 +387,7 @@ def add_spot(request, location_name_slug):
                 spot = form.save(commit=False)
                 spot.location = location
                 spot.save()
-                return redirect(reverse('gregssnorkelscores:show_spot',
+                return redirect(reverse('gregssnorkelscores:show_location',
                                         kwargs={'location_name_slug':
                                                 location_name_slug}))
         else:

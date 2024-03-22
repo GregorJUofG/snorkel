@@ -32,6 +32,3 @@ urlpatterns = [
     path('<slug:location_name_slug>/add_spot/', views.add_spot, name='add_spot'),
     path('<slug:location_name_slug>/<slug:spot_name_slug>/',views.show_spot,name = 'show_spot'),
 ]
-
-#     path('category/<slug:category_name_slug>/add_page/', views.add_page, name='add_page'),
-#  <a href="/rango/category/{{ category.slug }}/add_page/">Add Page</a> <br />
