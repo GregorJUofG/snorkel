@@ -95,10 +95,16 @@ class Review(models.Model):
 
     title = models.CharField(max_length=NAME_MAX_LENGTH)
     spot = models.ForeignKey(Spot, on_delete=models.CASCADE, default=get_default_spot, )
-    author = models.CharField(max_length = NAME_MAX_LENGTH)
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE
+    )
     comment = models.TextField(max_length=1000)
     rating = models.IntegerField(choices=RATING_CHOICES, default=1)
     likes = models.IntegerField(default=0)
+
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return f"{self.title}: {self.rating}"
@@ -110,14 +116,18 @@ class Review(models.Model):
 
 # copied rango for user
 class UserProfile(models.Model):
-    # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    # The additional attributes we wish to include.
+    # Define choices for experience level
+    EXPERIENCE_LEVELS = (
+        ('Beginner', 'Beginner'),
+        ('Intermediate', 'Intermediate'),
+        ('Expert', 'Expert'),
+    )
+
     website = models.URLField(blank=True)
     pictures = models.ImageField(upload_to='profile_images', blank=True)
-    # need to add favourited places
-    experience = models.CharField(max_length=12)
-    
+    experience = models.CharField(max_length=12, choices=EXPERIENCE_LEVELS, default='Beginner')
+
     def __str__(self):
         return self.user.username
