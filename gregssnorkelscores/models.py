@@ -3,14 +3,6 @@ from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from django.conf import settings
 
-# from catalog.models import Spots  copied from website idk yet what our equivalent of catalog is
-
-###############
-# REVIEWS
-# https://michaelstromer.nyc/books/intro-to-django/django-reviews
-#################
-
-
 class Location(models.Model):
     # we will want location names to be unique
     name = models.CharField(max_length=128, unique=True)

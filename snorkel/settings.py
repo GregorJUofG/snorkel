@@ -31,7 +31,7 @@ SECRET_KEY = "cvf50xb--qoonu@ha)hg=t$o0!ak7f*z@w4u3jd_1i8qv$zw(@"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['gregorjuofg.pythonanywhere.com']
 
 
 # Application definition
@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sites",
     "gregssnorkelscores",
-    # "favourites",
 ]
 
 MIDDLEWARE = [
