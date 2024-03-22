@@ -5,21 +5,25 @@ Add a Snorkel Spot
 {% endblock %}
 
 {% block body_block %}
-
-    <h1>THIS IS WHERE THE FORM FOR ADD SNORKEL SPOT WILL GO!</h1>
-    <div> 
-        <form id="add_spot_form" method="post" action="/gregssnorkelscores/{{ location.slug }}/add_spot/">
-            {% csrf_token %}
-            {% for hidden in form.hidden_fields %}
+<div class="login">
+    <div class="login-container">
+        <h1 class="headingLogin">ADD YOUR SPOT!</h1>
+        <div class="centered-form">
+            <form id="add_spot_form" method="post" action="/gregssnorkelscores/{{ location.slug }}/add_spot/">
+                {% csrf_token %}
+                {% for hidden in form.hidden_fields %}
                 {{ hidden }}
-            {% endfor %}
-            {% for field in form.visible_fields %}
-                {{ field.errors }}
-                {{ field.help_text }}
-                {{ field }}
-            {% endfor %}
-            <input type="submit" name="submit" value="Create Spot" />
-        </form>
+                {% endfor %}
+                {% for field in form.visible_fields %}
+                <div class="form-group">
+                    {{ field.errors }}
+                    {{ field.help_text }}
+                    {{ field }}
+                </div>
+                {% endfor %}
+                <input type="submit" name="submit" value="Create Spot" class="submitButton" />
+            </form>
+        </div>
     </div>
-
+</div>
 {% endblock %}
