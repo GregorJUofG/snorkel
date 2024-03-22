@@ -7,7 +7,7 @@
 {% block body_block %}
         <h1>THIS IS WHERE THE FORM FOR WRITING A REVIEW WILL GO!</h1>
         <div> 
-            <form id="write_review_form" method="post" action="/gregssnorkelscores/spot/{{spot.slug}}/write_review/">
+            <form id="write_review_form" method="post" action="/gregssnorkelscores/{{spot.slug}}/write_review/">
                 {% csrf_token %}
                 {% for hidden in form.hidden_fields %}
                     {{ hidden }}

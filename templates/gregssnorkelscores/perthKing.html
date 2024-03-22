@@ -2,21 +2,27 @@
 {% load static %}
 
 {% block title_block %}
-Location page
-{% endblock %}
-
-{% block body_block %}
-<h1>
     {% if location %}
         {{ location.name }}
     {% else %}
         Unknown Location
     {% endif %}
-</h1>
-<a href="/gregssnorkelscores/{{ location.slug }}/add_spot/">Don't see your spot? add it here!</a>
+{% endblock %}
+
+{% block body_block %}
+<div>
+    <h1>
+        {% if location %}
+            {{ location.name }}
+        {% else %}
+            Unknown Location
+        {% endif %}
+    </h1>
+</div>
 <ul>
-    <li>location</li>
-    <li>location</li>
-    <li>location</li>
+    {% for spot in spots %}
+    <li><a href="/gregssnorkelscores/{{ location.slug }}/{{ spot.slug }}/">{{ spot.name }}</a></li>
+    {% endfor %}
 </ul>
+<a href="/gregssnorkelscores/{{ location.slug }}/add_spot/">Don't see your spot? add it here!</a>
 {% endblock %}
