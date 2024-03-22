@@ -1,10 +1,13 @@
 import os
-os.environ.setdefault('DJANGO_SETTINGS_MODULE',
-                      'snorkel.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'snorkel.settings')
 
 import django
 django.setup()
+
+# Import the User model and other models
+from django.contrib.auth.models import User
 from gregssnorkelscores.models import UserProfile, Location, Spot, Review
+
 
 def populate():
 
@@ -53,7 +56,7 @@ def populate():
     
     ayr_spots = {
         'Ayr beach':{
-            'location':'South Ayrshire',
+            'location':'South Ayrhsire',
             'author':'greglikessnorkeling',
             'spotAbout':'stuff',
             'pictures': '',
@@ -81,7 +84,7 @@ def populate():
     west_spots = {}
 
     locations = {
-        'aberdeenShire':{   'pictures': '',
+        'aberdeenshire':{   'pictures': '',
                             'about': 'The granite city, Aberdeen!',
                             'reviewsAmount':8,
                             'reviewsAverage':4.2,
@@ -105,7 +108,7 @@ def populate():
                           'reviewsAverage': 3.6,
                           'spots':ayr_spots
                         },
-        'dumGal':{   'pictures': '',
+        'dumgal':{   'pictures': '',
                             'about': 'snorkel',
                             'reviewsAmount':5,
                             'reviewsAverage':4.1,
@@ -141,13 +144,13 @@ def populate():
                             'reviewsAverage':2.9,
                             'spots':ork_spots
                         },
-        'perthKing':{   'pictures': '',
+        'perthking':{   'pictures': '',
                             'about': 'snorkel',
                             'reviewsAmount':10,
                             'reviewsAverage':4.3,
                             'spots':per_spots
                         },
-        'scotBorders':{   'pictures': '',
+        'scotborders':{   'pictures': '',
                             'about': 'snorkel',
                             'reviewsAmount':8,
                             'reviewsAverage':3.8,
@@ -159,7 +162,7 @@ def populate():
                             'reviewsAverage':2.5,
                             'spots':stir_spots
                         },
-        'westIslands':{   'pictures': '',
+        'westislands':{   'pictures': '',
                             'about': 'snorkel',
                             'reviewsAmount':7,
                             'reviewsAverage':3.2,
@@ -201,14 +204,27 @@ def add_spot(name, location, author, spotAbout, pictures, reviewsAmount):
     s.save()
     return s
 
-def add_review(title, spot, author, comment, rating, likes):
-    r = Review.objects.get_or_create(title=title)[0]
-    r.spot = spot
-    r.author = author
-    r.comment = comment
-    r.rating = rating
-    r.likes = likes
-    r.save()
+def add_review(title, spot, author_username, comment, rating, likes):
+    # Fetch or create the User instance
+    author, created = User.objects.get_or_create(username=author_username)
+    
+    # Now when creating the Review, we provide the User instance for the author field
+    r, created = Review.objects.get_or_create(
+        title=title, 
+        defaults={
+            'spot': spot,
+            'author': author,  # Here, we use the User instance
+            'comment': comment,
+            'rating': rating,
+            'likes': likes
+        }
+    )
+    if not created:
+        r.comment = comment
+        r.rating = rating
+        r.likes = likes
+        r.save()
+
     return r
 
 if __name__ == '__main__':
