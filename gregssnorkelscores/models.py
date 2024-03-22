@@ -230,8 +230,17 @@ class UserProfile(models.Model):
         ('Expert', 'Expert'),
     )
 
+    # Define choices for experience level
+    EXPERIENCE_LEVELS = (
+        ('Beginner', 'Beginner'),
+        ('Intermediate', 'Intermediate'),
+        ('Expert', 'Expert'),
+    )
+
     website = models.URLField(blank=True)
     pictures = models.ImageField(upload_to='profile_images', blank=True)
+    experience = models.CharField(max_length=12, choices=EXPERIENCE_LEVELS, default='Beginner')
+
     experience = models.CharField(max_length=12, choices=EXPERIENCE_LEVELS, default='Beginner')
 
     def __str__(self):
