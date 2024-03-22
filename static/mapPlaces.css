@@ -1,13 +1,14 @@
 .box {
     position: absolute;
-    top: 50.5%;
+    top: 200px;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     color: rgb(10, 32, 14);
     background-color: rgba(25, 154, 42, 0.8);
     padding: 20px;
+    max-width: 90%;
+    overflow-y: auto;
 }
-
 
 .heading-container {
     display: flex;

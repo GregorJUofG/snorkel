@@ -6,7 +6,6 @@ Profile Page
 {% endblock %}
 
 {% block body_block %}
-<p><strong>Experience:</strong> {{ user_profile.experience }}</p>
 
 <h1 class="headingLogin">Hey {{ user.username }}</h1>
 
@@ -29,8 +28,7 @@ Profile Page
             {% else %}
             <p>Profile details not available.</p>
             {% endif %}
-            <p><span class="green">Or see something familiar:</span> <a
-                    href="{% url 'gregssnorkelscores:favourites' %}">Your Favourites</a></p>
+
         </div>
     </div>
 </body>

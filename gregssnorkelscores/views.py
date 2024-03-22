@@ -387,7 +387,7 @@ def add_spot(request, location_name_slug):
                 spot = form.save(commit=False)
                 spot.location = location
                 spot.save()
-                return redirect(reverse('gregssnorkelscores:show_spot',
+                return redirect(reverse('gregssnorkelscores:show_location',
                                         kwargs={'location_name_slug':
                                                 location_name_slug}))
         else:
@@ -402,24 +402,42 @@ def spot(request):
 
     response = render(request, "gregssnorkelscores/spot.html")
     return response
+    
 
 @login_required
 def write_review(request, spot_name_slug):
     visitor_cookie_handler(request)
+    context = {}
 
     spot = get_object_or_404(Spot, slug=spot_name_slug)
+    context['spot'] = spot
 
     form = ReviewForm()
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
-            form.save()
-            return HttpResponse('Your review has been taken')
+            if spot:
+                review = form.save(commit=False)
+                review.spot = spot
+                review.save()
+                return redirect(reverse('gregssnorkelscores:after_review',
+                                        kwargs={'spot_name_slug':
+                                                spot_name_slug}))
     else:
-        form = ReviewForm()
-        context = {'form': form, 'spot':spot}
+        print(form.errors)
+    context['form'] = form
     response = render(request, 'gregssnorkelscores/write_review.html', context)
     return response
+
+@login_required
+def after_review(request, spot_name_slug):
+    visitor_cookie_handler(request)
+
+    spot = get_object_or_404(Spot, slug=spot_name_slug)
+
+    context = {'spot': spot}
+    response = render(request, 'gregssnorkelscores/after_review.html', context)
+    return response 
 
 @login_required
 def profile(request):

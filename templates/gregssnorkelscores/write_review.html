@@ -1,23 +1,58 @@
 {% extends 'gregssnorkelscores/base.html' %}
 
 {% block title_block %}
-    Write a Review
+Write a Review
 {% endblock %}
 
 {% block body_block %}
-        <h1>THIS IS WHERE THE FORM FOR WRITING A REVIEW WILL GO!</h1>
-        <div> 
-            <form id="write_review_form" method="post" action="/gregssnorkelscores/{{spot.slug}}/write_review/">
-                {% csrf_token %}
-                {% for hidden in form.hidden_fields %}
+<div class="login">
+    <div class="login-container">
+        <h1 class="headingLogin">Write a Review for {{ spot.name }}!</h1>
+        <div class="centered-form">
+            <div>
+                <form id="write_review_form" method="post" action="/gregssnorkelscores/{{ spot.slug }}/write_review/">
+                    {% csrf_token %}
+                    {% for hidden in form.hidden_fields %}
                     {{ hidden }}
-                {% endfor %}
-                {% for field in form.visible_fields %}
-                    {{ field.errors }}
-                    {{ field.help_text }}
-                    {{ field }}
-                {% endfor %}
-                <input type="submit" name="submit" value="Publish Review" />
-            </form>
+                    {% endfor %}
+                    {% for field in form.visible_fields %}
+                    <div class="form-group">
+                        {% if field.help_text == "Please rate this spot here" %}
+                        <p class="us">Rate</p>
+                        <div class="rating">
+                            <input type="radio" id="star5" name="rating" value="5" /><label for="star5"></label>
+                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4"></label>
+                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3"></label>
+                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2"></label>
+                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1"></label>
+                        </div>
+                        <div id="ratingCount">0</div> <!-- Container to display the rating count -->
+                        {% else %}
+                        {{ field.errors }}
+                        {{ field.help_text }}
+                        {{ field }}
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+
+                    <input type="submit" name="submit" value="Publish Review" class="submitButton" />
+                </form>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const stars = document.querySelectorAll('.rating input');
+                        const ratingCount = document.getElementById('ratingCount');
+
+                        stars.forEach((star) => {
+                            star.addEventListener('click', function () {
+                                const ratingValue = parseInt(this.value);
+                                ratingCount.textContent = ratingValue;
+                            });
+                        });
+                    });
+                </script>
+            </div>
         </div>
+    </div>
+</div>
 {% endblock %}

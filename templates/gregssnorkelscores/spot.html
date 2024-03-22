@@ -1,28 +1,44 @@
 {% extends 'gregssnorkelscores/base.html' %}
 
 {% block title_block %}
-    {% if spot %}
-        {{ spot.name }}
-    {% else %}
-        Unknown spot
-    {% endif %}
+{% if spot %}
+{{ spot.name }}
+{% else %}
+Unknown spot
+{% endif %}
 {% endblock %}
 
 {% block body_block %}
-    <div>
-        {% if spot %}
-            <h1>{{ spot.name }}</h1>
+
+<body class=" login">
+    <div class="login-container">
+        <div class="text-overlay" id="spot">
+            <div>
+                {% if spot %}
+                <h1> Welcome to {{ spot.name }}!</h1>
+            </div>
+            <p class="us"><strong>See what people think (scroll):</strong></p><br />
+            {% for review in reviews %}
+            {% if review.spot == spot %}
+            <ul>
+                <li>
+                    <p><strong>Author:</strong> {{ review.author.username }}</p>
+                    <p><strong>Review:</strong> {{ review.title }}</p>
+                    <div class="comment-container">
+                        <p><strong>Comment: </strong>{{ review.comment }}</p>
+                    </div>
+                    <p><strong>Rating: </strong>{{ review.rating }}</p>
+                    <br />
+                </li>
+            </ul>
+            {% endif %}
+            {% endfor %}
+            <p class="us">Or tell us what you think about this spot <a
+                    href="/gregssnorkelscores/{{spot.slug}}/write_review/">here!</a>
+            </p>
+            {% endif %}
+        </div>
     </div>
-    <h2>Reviews:</h2>
-    {% for review in reviews %}
-        {% if review.spot == spot %}
-            <a>
-                {{ review.title }}
-                {{ review.comment }}
-                {{ review.rating }}
-            </a>
-        {% endif %}
-    {% endfor %}
-    <li><a href="/gregssnorkelscores/{{spot.slug}}/write_review/">Write your own review!</a></li>
-    {% endif %}
+</body>
+
 {% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'gregssnorkelscores/base.html' %}
+
+{% block title_block %}
+Review
+{% endblock %}
+
+{% block body_block %}
+
+<body class=" login">
+    <div class="login-container">
+        <div class="text-overlay">
+            <h1>Review for {{ spot.name }} published!</h1>
+            <div class="su">
+
+                <p>Return to <a href="/gregssnorkelscores/{{ spot.location.slug }}/{{ spot.slug }}/">{{ spot.name }}</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+    {% endblock %}
