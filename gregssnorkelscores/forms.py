@@ -43,7 +43,10 @@ class ReviewForm(forms.ModelForm):
                                 help_text="Please rate this spot here")
     class Meta:
         model = Review
-        fields = ('title','comment',)
+        fields = ('title','comment','rating')
+        widgets = {
+            'rating': forms.RadioSelect()  # Ensures the rating field uses radio buttons
+        }
 
 
 class UserForm(forms.ModelForm):
