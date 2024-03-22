@@ -25,9 +25,9 @@
     <ul>
         {% for spot in spots %}
             {% if spot.location == location %}
-                <li><a href="/gregssnorkelscores/{{ location.slug }}/{{ spot.slug }}/">{{ spot.name }}</a></li>
+                <li><a href="{% url 'gregssnorkelscores:show_spot' location.slug spot.slug %}">{{ spot.name }}</a></li>
             {% endif %}
         {% endfor %}
     </ul>
-    <a href="/gregssnorkelscores/{{ location.slug }}/add_spot/">Don't see your spot? add it here!</a>
+    <a href="{% url 'gregssnorkelscores:add_spot' location.slug %}">Don't see your spot? add it here!</a>
 {% endblock %}

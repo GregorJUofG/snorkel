@@ -33,9 +33,10 @@ Unknown spot
             </ul>
             {% endif %}
             {% endfor %}
-            <p class="us">Or tell us what you think about this spot <a
-                    href="/gregssnorkelscores/{{spot.slug}}/write_review/">here!</a>
+            <p class="us">Or tell us what you think about this spot 
+                <a href="{% url 'gregssnorkelscores:write_review' spot.slug %}">here!</a>
             </p>
+
             {% endif %}
         </div>
     </div>

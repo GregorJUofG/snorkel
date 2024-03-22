@@ -440,6 +440,30 @@ def after_review(request, spot_name_slug):
     return response 
 
 @login_required
+def favourites_add(request, id):
+    spot = get_object_or_404(Spot, id=id)
+    if spot.favourites.filter(id=request.user.id).exists():
+        spot.favourites.remove(request.user)
+    else:
+        spot.favourites.add(request.user)
+    response = render(request, "gregssnorkelscores/home.html")
+    return response
+
+@login_required
+def favourite_list(request):
+    new = Spot.newmanager.filter(favourites=request.user)
+    return render(request, 'gregssnorkelscores/favourites.html', 
+                  {'new': new})
+
+@login_required
+def profile(request):
+    visitor_cookie_handler(request)
+
+    response = render(request, "gregssnorkelscores/profile.html")
+    return response
+
+
+@login_required
 def profile(request):
     visitor_cookie_handler(request)
 

@@ -22,11 +22,11 @@ Unknown Location
 
             </div>
             <div class="su">
-                <p>Don't see your spot? add it <a href="/gregssnorkelscores/{{ location.slug }}/add_spot/">here!</a></p>
+                <p>Don't see your spot? add it <a href="{% url 'gregssnorkelscores:add_spot' location.slug %}">here!</a></p>
                 <p>Or browse these: </p>
                 <ul>
                     {% for spot in spots %}
-                    <li><a href="/gregssnorkelscores/{{ location.slug }}/{{ spot.slug }}/">{{ spot.name }}</a></li>
+                    <li><a href="{% url 'gregssnorkelscores:show_spot' location.slug spot.slug %}">{{ spot.name }}</a></li>
                     {% endfor %}
                 </ul>
             </div>

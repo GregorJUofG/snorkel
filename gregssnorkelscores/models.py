@@ -38,6 +38,11 @@ class Location(models.Model):
 
 
 class Spot(models.Model):
+
+    class NewManager(models.Manager):
+        def get_queryset(self) -> models.QuerySet:
+            return super().get_queryset()
+
     NAME_MAX_LENGTH = 128
     URL_MAX_LENGTH = 200
 
@@ -53,11 +58,10 @@ class Spot(models.Model):
     author = models.CharField(max_length = NAME_MAX_LENGTH)
     pictures = models.ImageField(upload_to="spot_images", blank=True)
     reviewsAmount = models.IntegerField(default=0)
-    # url = models.URLField()
-    # not going to hold reviews here just like how
-    # location doesnt hold spot only other way round
-    objects = models.Manager()  # default manager
     slug = models.SlugField(null=False, unique=True)
+    favourites = models.ManyToManyField(User, related_name='favourites', default=None, blank=True)
+    objects = models.Manager()  # default manager
+    newmanager = NewManager() # custom manager
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
